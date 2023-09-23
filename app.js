@@ -36,9 +36,13 @@ app.get('/', (req, res)=>{
     res.render('index',{msg:'ESTO ES UN MENSAJE DESDE NODE'});
 })
 
-app.get('/login', (req, res)=>{
+app.get('/login', (req, res)=>{  // ruta para iniciar sesion
     res.render('login');
     })
+
+    app.get('/registro', (req, res)=>{  // ruta registrarse
+        res.render('registro');
+        })
 
 app.listen(3000, (req, res)=>{
     console.log('server running in http://localhost:3000/');

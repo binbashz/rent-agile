@@ -1,0 +1,56 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="resources/css/style.css">
+    <title>Registro</title>
+</head>
+<body>
+
+    <div class="registro-form">
+        <h1> Formulario de Registro</h1>
+        <form action="registrer" method="POST">
+            <label form="user">Nombre de usuario</label>
+            <input type="text" name="user" required>
+
+            <label for="pass" >Contraseña</label>
+            <input type="password" name="pass" required>
+
+            <div style="display: inline;">
+             <a href="/" class="btn-cancel">Cancelar</a><input type="submit" class= value="Save">
+            </div>
+
+
+
+        </form>
+    </div>
+    
+</body>
+</html>
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <link rel="stylesheet" href="resources/css/style.css"> 
+</head>
+<body>
+    <div class="login-form">
+        <h2>Registro</h2>
+        <form action="registro" method="POST">
+            <input type="text" name="nombre" id="nombre" placeholder="Nombre" required>
+            <input type="text" name="apellido" id="apellido" placeholder="Apellido" required>
+            <input type="email" name="email" id="email" placeholder="Correo Electrónico" required>
+            <input type="password" name="password" id="password" placeholder="Contraseña" required>
+            <input type="submit" class="btn-login" value="Registrar">
+        </form>
+        <a href="login" class="btn-register">Iniciar Sesión</a>
+    </div>
+</body>
+</html>
