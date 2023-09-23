@@ -31,8 +31,9 @@ app.use(session({
 // 8 invocamos al modulo de conexion db
 const connection = require('./database/db');
 
+// estableciendo las rutas 
 app.get('/', (req, res)=>{
-    res.send('Hola mundo');
+    res.render('index');
 })
 
 app.listen(3000, (req, res)=>{
