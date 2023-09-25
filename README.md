@@ -45,15 +45,16 @@ La aplicación estará disponible en http://localhost:3000/.
 
 ### Características
 
-- Registro de Usuarios: Los usuarios pueden registrarse proporcionando un nombre de usuario, nombre completo, correo electrónico y contraseña.
+-**Registro de Usuarios:** Los usuarios pueden registrarse proporcionando un nombre de usuario, nombre completo, correo electrónico y contraseña.
 
-- Inicio de Sesión: Los usuarios registrados pueden iniciar sesión con su nombre de usuario y contraseña.
+-**Inicio de Sesión:** Los usuarios registrados pueden iniciar sesión con su nombre de usuario y contraseña.
 
-- Sesión de Usuario: La aplicación utiliza sesiones de usuario para mantener a los usuarios autenticados.
+-**Sesión de Usuario:** La aplicación utiliza sesiones de usuario para mantener a los usuarios autenticados.
 
-- Perfil de Usuario: Los usuarios autenticados pueden ver su perfil, que muestra su nombre y correo electrónico.
+-**Perfil de Usuario:** Los usuarios autenticados pueden ver su perfil, que muestra su nombre y correo electrónico.
 
-- Autenticación Segura: Las contraseñas se almacenan de manera segura utilizando el algoritmo de hash bcrypt.
+-**Autenticación Segura:** Las contraseñas se almacenan de manera segura utilizando el algoritmo de hash bcrypt.
+
 
 ## Tecnologías Utilizadas
 Node.js
@@ -63,10 +64,15 @@ EJS (Motor de Plantillas)
 Bcrypt.js (Para Hashing de Contraseñas)
 dotenv (Para la Gestión de Variables de Entorno)
 SweetAlert2 (Para las Alertas en el Frontend)
-
-
 Autor
 Este proyecto fue desarrollado por Mauricio Ferreira.
 
 aun en construccion
 
+
+### Autor
+Este proyecto fue desarrollado por Mauricio Ferreira, bajo el nombre de Rent Agile.
+
+(aun en construccion 😛)
+
+  ![model](https://github.com/binbashz/NEW-API-CAR-USER/assets/124454895/24696462-9c03-4490-b0ff-a63b3448eb05)
