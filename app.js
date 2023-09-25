@@ -31,7 +31,7 @@ app.use(session({
 // 8 invocamos al modulo de conexion db
 const connection = require('./database/db');
 
-// estableciendo las rutas 
+// 9 estableciendo las rutas 
 app.get('/', (req, res)=>{
     res.render('index',{msg:'ESTO ES UN MENSAJE DESDE NODE'});
 })
@@ -43,6 +43,23 @@ app.get('/login', (req, res)=>{  // ruta para iniciar sesion
     app.get('/registro', (req, res)=>{  // ruta registrarse
         res.render('registro');
         })
+
+// registracion
+app.post('/registro', async (req, res)=>{
+    const user = req.body.user;
+    const name = req.body.name;
+    const email = req.body.email;
+    const password = req.body.password;
+    let passwordHaash = await bcryptjs.hash(password, 8);
+    connection.query('INSERT INTO users SET ?', {user:user, name:name, email:email, password:passwordHaash}, async(error, results)=>{
+        if(error){
+            console.log(error);
+        }else{
+            res.send('Usuario registrado con exito')
+        }
+    })
+})
+
 
 app.listen(3000, (req, res)=>{
     console.log('server running in http://localhost:3000/');
