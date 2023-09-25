@@ -73,7 +73,7 @@ app.post('/registro', async (req, res)=>{
 app.post('/auth', async (req, res) => {
     const user = req.body.user;
     const password = req.body.password;
-    let passwordHash = await bcryptjs.hash(password, 8);
+    let passwordHaash = await bcryptjs.hash(password, 8);
     if (user && password) {
         connection.query('SELECT * FROM users WHERE user = ?', [user], async (error, results) => {
             if (results.length === 0 || !(await bcryptjs.compare(password, results[0].password))) {
