@@ -1,10 +1,13 @@
 // 1 invocamos a experss
 const express = require('express');
 const app = express();
+const path = require('path');
 
 // 2 seteamos urlencode para capturar los datos del formulario
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+// Establece la carpeta 'public' para servir archivos estáticos (como imágenes)
+app.use('/public', express.static(path.join(__dirname, 'public')));
 
 // 3 invocamos a dotenv
 const dotenv = require('dotenv');

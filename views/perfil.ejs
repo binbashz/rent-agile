@@ -24,6 +24,25 @@
             background-color: #cf1909;
             color: white; 
         }
+
+        /* Estilo para la imagen de fondo */
+        .background-image {
+            background-image: url('/public/images/perfil-fondo.jpg');
+            background-size: contain; /* Ajusta la imagen para que quepa en el contenedor */
+            background-repeat: no-repeat;
+            background-attachment: fixed; /* Fija la imagen en su lugar mientras se desplaza la página */
+            height: 300px; /* Establece la altura deseada */
+            display: flex;
+            justify-content: center; /* Alinea el contenido al centro horizontalmente */
+            align-items: center; /* Centra verticalmente el contenido */
+            color: white; /* Cambia el color del texto para que sea legible en el fondo */
+        }
+
+        /* Estilo para el contenido */
+        .content {
+            background-color: rgba(255, 255, 255, 0.8); /* Fondo semitransparente para el contenido */
+            padding: 20px;
+        }
     </style>
 </head>
 <body>
@@ -49,7 +68,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 offset-md-2">
-                <header class="text-center">
+                <header class="text-center background-image">
                     <!-- Muestra el nombre del usuario autenticado -->
                     <h1>Bienvenido, <%= user %></h1>
                 </header>
@@ -72,7 +91,7 @@
                 </nav>
                 <main>
                     <!-- Contenido del perfil del usuario aca -->
-                    <div class="card mt-4">
+                    <div class="content card mt-4">
                         <div class="card-body">
                             <h2 class="card-title">Mi Perfil</h2>
                             <!-- Muestra el nombre del usuario autenticado -->
