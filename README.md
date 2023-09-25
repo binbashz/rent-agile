@@ -63,6 +63,8 @@ EJS (Motor de Plantillas)
 Bcrypt.js (Para Hashing de Contraseñas)
 dotenv (Para la Gestión de Variables de Entorno)
 SweetAlert2 (Para las Alertas en el Frontend)
+
+
 Autor
 Este proyecto fue desarrollado por Mauricio Ferreira.
 
