@@ -9,6 +9,12 @@
 </head>
 <body>
     <h1> pagina de incio </h1>
-    <h2>El usario conectado es: <%= msg %></h2>
+    <% if (login) {%>
+    <h2>Bienvenido: <%= name %></h2>
+    <a href="logout" class="a-logout">Cerrar sesion</a>
+    <% } else { %>
+        <h2><%= name %></h2>
+        <a href="login" class="a-login">inicar sesion</a>
+        <% } %>
 </body>
 </html>

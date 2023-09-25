@@ -32,9 +32,6 @@ app.use(session({
 const connection = require('./database/db');
 
 // 9 estableciendo las rutas
-app.get('/', (req, res) => {
-    res.render('index', { msg: 'ESTO ES UN MENSAJE DESDE NODE' });
-});
 
 app.get('/login', (req, res) => {  // ruta para iniciar sesion
     res.render('login');
@@ -72,9 +69,25 @@ app.post('/registro', async (req, res) => {
 app.post('/auth', async (req, res) => {
     const user = req.body.user;
     const password = req.body.password;
+    if (!user || !password) {
+        res.render('login', {
+            alert: true,
+            alertTitle: "Advertencia",
+            alertMessage: "Ingrese un usuario y/o contraseña",
+            alertIcon: "warning",
+            showConfirmButton: true,
+            timer: 1500,
+            ruta: 'login'
+        });
+        return; // Salir de la función si no se proporcionaron datos
+    }
+
     let passwordHash = await bcryptjs.hash(password, 8);
-    if (user && password) {
-        connection.query('SELECT * FROM users WHERE user = ?', [user], async (error, results) => {
+
+    connection.query('SELECT * FROM users WHERE user = ?', [user], async (error, results) => {
+        if (error) {
+            console.log(error);
+        } else {
             if (results.length === 0 || !(await bcryptjs.compare(password, results[0].password))) {
                 res.render('login', {
                     alert: true,
@@ -86,7 +99,8 @@ app.post('/auth', async (req, res) => {
                     ruta: 'login'
                 });
             } else {
-                req.session.name = results[0].name
+                req.session.loggedin = true;
+                req.session.name = results[0].name;
                 res.render('login', {
                     alert: true,
                     alertTitle: "Conexion exitosa",
@@ -97,19 +111,32 @@ app.post('/auth', async (req, res) => {
                     ruta: ''
                 });
             }
+        }
+    });
+});
+// 12 auth pages
+app.get('/', (req, res)=>{
+    if(req.session.loggedin){
+        res.render('index',{
+            login: true,
+            name: req.session.name
         });
     }else{
-        res.render('login', {
-            alert: true,
-            alertTitle: "Advertencia",
-            alertMessage: "Ingrese un usuario y/o contraseña",
-            alertIcon: "warning",
-            showConfirmButton: true,
-            timer: 1500,
-            ruta: 'login'
-        });
+        res.render('index',{
+            login: false,
+            name:'Debe inicar sesion'
+        })
     }
-});
+})
+
+// 13 logout
+app.get('/logout', (req, res)=>{
+    req.session.destroy(()=>{
+        res.redirect('/')
+    })
+})
+
+
 
 app.listen(3000, (req, res) => {
     console.log('server running in http://localhost:3000/');
