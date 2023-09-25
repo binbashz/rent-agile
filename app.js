@@ -44,7 +44,7 @@ app.get('/login', (req, res)=>{  // ruta para iniciar sesion
         res.render('registro');
         })
 
-// registracion
+// 10 registracion
 app.post('/registro', async (req, res)=>{
     const user = req.body.user;
     const name = req.body.name;
@@ -67,6 +67,23 @@ app.post('/registro', async (req, res)=>{
         }
     })
 })
+
+
+// 11 Autenticación
+app.post('/auth', async (req, res) => {
+    const user = req.body.user;
+    const password = req.body.password;
+    let passwordHash = await bcryptjs.hash(password, 8);
+    if (user && password) {
+        connection.query('SELECT * FROM users WHERE user = ?', [user], async (error, results) => {
+            if (results.length === 0 || !(await bcryptjs.compare(password, results[0].password))) {
+                res.send('El nombre de usuario o contraseña son incorrectos');
+            } else {
+                res.send('Inicio de sesión correcto');
+            }
+        });
+    }
+});
 
 
 app.listen(3000, (req, res)=>{
