@@ -71,3 +71,4 @@ Este proyecto fue desarrollado por Mauricio Ferreira, bajo el nombre de Rent Agi
 
 (aun en construccion 😛)
 
+  ![model](https://github.com/binbashz/NEW-API-CAR-USER/assets/124454895/24696462-9c03-4490-b0ff-a63b3448eb05)
