@@ -41,6 +41,17 @@ app.get('/registro', (req, res) => {  // ruta registrarse
     res.render('registro');
 });
 
+// Ruta para el perfil
+app.get('/perfil', (req, res) => {
+    if (req.session.loggedin) {
+        res.render('perfil', {
+            user: req.session.name // Pasa el nombre del usuario autenticado
+        });
+    } else {
+        
+        res.redirect('/login'); 
+    }
+});
 // 10 registracion
 app.post('/registro', async (req, res) => {
     const user = req.body.user;

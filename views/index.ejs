@@ -1,20 +1,155 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Rent Agile</title>
+    <!-- Enlaza a los archivos CSS de Bootstrap desde un CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Enlaza a tu archivo CSS personalizado -->
     <link rel ='stylesheet' href="resources/css/style.css">
 </head>
 <body>
-    <h1> pagina de incio </h1>
+<!-- Muestra el mensaje de bienvenida y el enlace de cierre de sesión si el usuario ha iniciado sesión -->
     <% if (login) {%>
-    <h2>Bienvenido: <%= name %></h2>
-    <a href="logout" class="a-logout">Cerrar sesion</a>
-    <% } else { %>
-        <h2><%= name %></h2>
-        <a href="login" class="a-login">inicar sesion</a>
-        <% } %>
+        <h4>Bienvenido: <%= name %></h4>
+        <a href="logout" class="a-logout">Cerrar sesión</a>
+    <% } %>
+
+    <!-- Navbar de Bootstrap -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar">
+    <div class="container">
+        <a class="navbar-brand" href="#"><strong>Rent Agile</strong></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/registro">Registro</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Iniciar Sesión</a>
+                </li>
+                <!-- Agrega un enlace que lleve a la sección de perfil -->
+                <% if (login) { %>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/perfil">Mi Perfil</a>
+                    </li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+    
+    
+                 <!-- barra roja  -->
+    <header class="header.bg-primary.text-white.text-center.py-5">
+        <!-- Eslogan -->
+        <p class="lead">Tu Auto, Tu Aventura</p>
+    </header>
+    <br>
+    <!-- **************** seccion seleciona un auto -  (lupita) ********************** -->
+             <label for="auto">Busca tu auto:</label>
+             <select id="autoSelect" name="auto" required>
+               <option value="">🔍︎          </option>
+             </select> <!--  JavaScript para cargar las opciones busca tu auto (lupita)  -->
+             <script>
+                 document.addEventListener('DOMContentLoaded', function () {
+                   const autoSelect = document.getElementById('autoSelect');
+               
+                   // Función para cargar la lista de automóviles desde el servidor 
+                   function cargarAutomoviles() {
+                     fetch('/autos/disponibles') // Reemplaza con la ruta correcta para obtener la lista de autos 
+                       .then((response) => response.json())
+                       .then((data) => {
+                         // Limpia las opciones existentes
+                         autoSelect.innerHTML = '<option value="">Selecciona un automóvil</option>';
+               
+                         // Agrega las opciones de automóvil desde los datos obtenidos
+                         data.forEach((auto) => {
+                           const option = document.createElement('option');
+                           option.value = auto.id; // Asigna un valor único para cada automóvil
+                           option.textContent = `${auto.marca} ${auto.modelo} - ${auto.matricula}`;
+                           autoSelect.appendChild(option);
+                         });
+                       })
+                       .catch((error) => {
+                         console.error('Error al cargar la lista de automóviles:', error);
+                       });
+                   }
+               
+                   // Llama a la función para cargar la lista de automóviles cuando la página se carga
+                   cargarAutomoviles();
+                 });
+               </script>
+               
+               <!-- tarjetas con autos  -->
+    <section id="autos-disponibles" class="container my-5">
+        <h2 class="text-center">Nuestros Autos Disponibles</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <img src="img/auto.jpg" class="card-img-top" alt="Auto 1">
+                    <div class="card-body">
+                        <h5 class="card-title">Toyota Camry</h5>
+                        <p class="card-text">Matrícula: ABC123</p>
+                        <p class="card-text">Precio por Día: $550</p>
+                        <a href="#" class="btn btn-primary">Alquilar</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <img src="img/golf.jpg" class="card-img-top" alt="Auto 2">
+                    <div class="card-body">
+                        <h5 class="card-title">Auto Salsa-Golf</h5>
+                        <p class="card-text">Matrícula: XYZ456</p>
+                        <p class="card-text">Precio por Día: $26.328</p>
+                        <p class="card-text">Auto electrico, a veces puede volar</p>
+                        <a href="#" class="btn btn-primary">Alquilar</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <img src="img/yaris.jpg" class="card-img-top" alt="Auto 3">
+                    <div class="card-body">
+                        <h5 class="card-title">Auto Yaris </h5>
+                        <p class="card-text">Matrícula: DEF789</p>
+                        <p class="card-text">Precio por Día: $700</p>
+                        <a href="#" class="btn btn-primary">Alquilar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="text-center my-3">
+        <div class="message-box">
+            <p>Tu Aventura Comienza Aquí, <hr>Ya sea que estés planeando un emocionante viaje por carretera,
+                 una escapada de fin de semana o simplemente necesites un auto confiable para el día a día,
+                  Rent Agile tiene la solución perfecta para ti. No dejes que las oportunidades de viajar y 
+                  explorar pasen de largo. ¡Reserva tu auto de alquiler hoy mismo y comienza tu próxima aventura 
+                  con Rent Agile!</p>
+        </div>
+    </div>
+
+        <!-- Footer de Bootstrap -->
+    <footer class="bg-dark text-white text-center py-3">
+        <p>&copy; 2023 Rent Agile</p>
+    </footer>
+
+    <!-- Enlaza a los archivos JavaScript de Bootstrap (requiere jQuery y Popper.js) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"></script>
 </body>
+</html>
+
+
+
+
 </html>

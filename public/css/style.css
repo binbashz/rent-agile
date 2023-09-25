@@ -1,9 +1,9 @@
-body {
+/* body {
     background-color: #f5f5f5;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     margin: auto;
     text-align: center;
-}
+} */
 
 /* Estilo del contenedor principal */
 .login-form, .contenedor {
@@ -56,4 +56,138 @@ body {
 
 .btn-login:focus, .btn-register:focus {
     box-shadow: 0 0 0 3px rgba(122, 7, 7, 0.25);
+}
+
+
+/* Estilos generales */
+body {
+    font-family: 'MuseoModerno', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Estilos para la barra de navegación */
+#navbar {
+    background-color: #cf1909; /* Cambiar el color de fondo a rojo */
+    /* border-bottom: 3px solid #000;  Borde inferior de color negro */
+    border-radius: 0; /* Quitar las esquinas redondeadas */
+}
+
+.navbar-brand {
+    color: #fff; /* Cambiar el color del texto a blanco */
+    font-size: 33px; /* Rent Agile */
+}
+
+.nav-link {
+    color: #fff; /* Cambiar el color del texto a blanco */
+    font-size: 18px; /* Aumentar el tamaño del texto */
+}
+
+/* Estilos para el encabezado */
+header {
+    background: linear-gradient(to right, #cf1909, #f54141); /* Degradado de colores */
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2); /* Sombra */
+    border-radius: 0; /* Quitar las esquinas redondeadas */
+    text-align: center;
+    padding: 0.5rem 0;
+}
+
+.lead {
+    font-size: 20px; /* Tu auto Tu aventura */
+    color: rgb(255, 255, 255);
+    text-shadow: 1px 1px 3px rgba(141, 4, 4, 0.8);
+}
+
+/* Estilos para los autos disponibles */
+#autos-disponibles {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+h2 {
+    text-align: center;
+}
+
+#autos-disponibles h2 {
+    font-size: 20px; 
+}
+
+.auto {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.auto img {
+    max-width: 100%;
+    height: auto;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.card-text {
+    color: #555;
+}
+
+/* Estilos para los botones */
+button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #555;
+}
+
+.btn-primary {
+    background-color: #cf1909; /* Cambiar el color de fondo a rojo */
+    border-color: #661710; /* Cambiar el color del borde a rojo */
+    color: #fff; /* Cambiar el color del texto a blanco */
+    font-size: 18px; /* Aumentar el tamaño del texto */
+}
+
+.btn-primary:hover {
+    background-color: #ff231c; /* Cambiar el color de fondo al pasar el mouse */
+    border-color: #f81e17; /* Cambiar el color del borde al pasar el mouse */
+}
+
+/* Anular los estilos de Bootstrap para el botón después de hacer clic */
+.btn-primary:active,
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: #000; /* Cambiar el color de fondo a negro */
+    border-color: #000; /* Cambiar el color del borde a negro */
+    color: #fff; /* Cambiar el color del texto a blanco */
+}
+
+
+/* Barra de pagina perfil  */
+
+/*  clase personalizada para la barra de navegación */
+.bg-red {
+    background-color: red; 
+}
+
+/* Asegura que este estilo sea más específico que el estilo original de Bootstrap */
+.navbar.bg-red {
+    background-color: red; 
 }
