@@ -4,39 +4,38 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro</title>
+    <title>Regístrese</title>
+    <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="resources/css/style.css"> 
 </head>
 <body>
     <div class="login-form">
-        <h2>Registro</h2>
+        <h2><a href="/" class="logo"><strong>Rent Agile</strong></a></h2>
         <form action="/registro" method="POST">
             <input type="text" name="user" id="user" placeholder="Usuario" required>
             <input type="text" name="name" id="name" placeholder="Nombre completo" required>
             <input type="email" name="email" id="email" placeholder="Correo Electrónico" required>
             <input type="password" name="password" id="password" placeholder="Contraseña" required>
-            
-            <input type="submit" class="btn-login" value="Registrar">
+            <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirmar Contraseña" required>
+            <input type="submit" class="btn-login" value="Registrarse">
         </form>
         <a href="login" class="btn-register">Iniciar Sesión</a>
     </div>
     <!-- sweet alert -->
-            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-            <% if (typeof alert !== "undefined") { %>
-                <script>
-                    Swal.fire({
-                        title: '<%= alertTitle %>',
-                        text: '<%= alertMessage %>',
-                        icon: '<%= alertIcon %>',
-                        showConfirmButton: <%= showConfirmButton %>,
-                        timer: <%= timer %>
-                    }).then(() => {
-                        window.location.href = '/<%= ruta %>'; 
-                    });
-                </script>
-            <% } %>
-            
+    <% if (typeof alert !== "undefined") { %>
+        <script>
+            Swal.fire({
+                title: '<%= alertTitle %>',
+                text: '<%= alertMessage %>',
+                icon: '<%= alertIcon %>',
+                showConfirmButton: <%= showConfirmButton %>,
+                timer: <%= timer %>
+            }).then(() => {
+                window.location.href = '/<%= ruta %>'; 
+            });
+        </script>
+    <% } %>
 </body>
 </html>
-

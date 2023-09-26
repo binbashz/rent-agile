@@ -5,17 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicie Sesión</title>
+    <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="resources/css/style.css">
 </head>
 <body>
     <div class="login-form">
-        <h2>Log-in</h2>
+        <h2><a href="/" class="logo"><strong>Rent Agile</strong></a></h2>
         <form action="/auth" method="POST">
-            <input type="text" name="user" id="user" placeholder="User" required>
-            <input type="password" name="password" id="password" placeholder="Password" required>
-            <input type="submit" class="btn-login" value="Login">
+            <input type="text" name="user" id="user" placeholder="Usuario" required>
+            <input type="password" name="password" id="password" placeholder="Contrasena" required>
+            <input type="submit" class="btn-login" value="Iniciar sesion">
         </form>
-        <a href="registro" class="btn-register">Registrar</a>
+        <a href="registro" class="btn-register">Registrarse</a>
     </div>
  <!-- sweet alert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -33,7 +34,5 @@
                     });
                 </script>
             <% } %>
-
 </body>
 </html>
-

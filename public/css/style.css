@@ -191,3 +191,11 @@ button:hover {
 .navbar.bg-red {
     background-color: red; 
 }
+
+/* Estilo para el texto "Rent Agile" en el formulario de inicio de sesión */
+.login-form h2 a.logo {
+    font-family: 'MuseoModerno', sans-serif;
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    font-size: 26px;
+}
