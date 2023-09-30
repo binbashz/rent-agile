@@ -57,10 +57,12 @@ app.get('/perfil', (req, res) => {
 });
 // 10 registracion
 app.post('/registro', async (req, res) => {
+    // obtener los datos del formularios, envia a servidor
     const user = req.body.user;
     const name = req.body.name;
     const email = req.body.email;
     const password = req.body.password;
+    const confirm_password = req.body.confirm_password;
     const birthdate = req.body.birthdate;
     const department = req.body.department;
 
@@ -68,6 +70,19 @@ app.post('/registro', async (req, res) => {
     const userBirthdate = new Date(birthdate);
     const age = currentDate.getFullYear() - userBirthdate.getFullYear();
 
+     // Validar que las contraseñas coincidan
+     if (password !== confirm_password) {
+        res.render('registro', {
+            alert: true,
+            alertTitle: "Registro",
+            alertMessage: "Las contraseñas no coinciden",
+            alertIcon: 'error',
+            showConfirmButton: true,
+            timer: false,
+            ruta: ''
+        });
+        return;
+    }
     if (age < 18) {
         res.render('registro', {
             alert: true,
