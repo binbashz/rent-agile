@@ -17,6 +17,31 @@
             <input type="email" name="email" id="email" placeholder="Correo Electrónico" required>
             <input type="password" name="password" id="password" placeholder="Contraseña" required>
             <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirmar Contraseña" required>
+            <% const today = new Date(); %>
+            <% const maxDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate()); %>
+            <input type="date" name="birthdate" id="birthdate" placeholder="Fecha de Nacimiento" max="<%= maxDate.toISOString().split('T')[0] %>" required>
+            <select name="department" id="department" required>
+                <option value="" disabled selected>Seleccione su Departamento</option>
+                <option value="Artigas">Artigas</option>
+                <option value="Canelones">Canelones</option>
+                <option value="Cerro Largo">Cerro Largo</option>
+                <option value="Colonia">Colonia</option>
+                <option value="Durazno">Durazno</option>
+                <option value="Flores">Flores</option>
+                <option value="Florida">Florida</option>
+                <option value="Lavalleja">Lavalleja</option>
+                <option value="Maldonado">Maldonado</option>
+                <option value="Montevideo">Montevideo</option>
+                <option value="Paysandu">Paysandu</option>
+                <option value="Río Negro">Río Negro</option>
+                <option value="Rivera">Rivera</option>
+                <option value="Rocha">Rocha</option>
+                <option value="Salto">Salto</option>
+                <option value="San José">San José</option>
+                <option value="Soriano">Soriano</option>
+                <option value="Tacuarembo">Tacuarembó</option>
+                <option value="Treinta y Tres">Treinta y Tres</option>
+            </select>
             <input type="submit" class="btn-login" value="Registrarse">
         </form>
         <a href="login" class="btn-register">Iniciar Sesión</a>

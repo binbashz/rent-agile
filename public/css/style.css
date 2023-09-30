@@ -29,6 +29,23 @@
     box-sizing: border-box;
 }
 
+/* Estilo para la caja de fecha */
+.login-form input[type="date"] {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ced4da;
+    box-sizing: border-box;
+}
+
+/* Estilo para la caja de selección de departamento */
+.login-form select[name="department"] {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ced4da;
+    box-sizing: border-box;
+}
+
+
 /* Estilo del botón de login */
 .btn-login, .btn-register {
     width: 100%;

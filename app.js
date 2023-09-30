@@ -1,4 +1,4 @@
-// 1 invocamos a experss
+// 1 invocamos a experss       //ORIGINAL
 const express = require('express');
 const app = express();
 const path = require('path');
@@ -61,8 +61,41 @@ app.post('/registro', async (req, res) => {
     const name = req.body.name;
     const email = req.body.email;
     const password = req.body.password;
+    const birthdate = req.body.birthdate;
+    const department = req.body.department;
+
+    const currentDate = new Date();
+    const userBirthdate = new Date(birthdate);
+    const age = currentDate.getFullYear() - userBirthdate.getFullYear();
+
+    if (age < 18) {
+        res.render('registro', {
+            alert: true,
+            alertTitle: "Registro",
+            alertMessage: "Debes ser mayor de 18 años para registrarte.",
+            alertIcon: 'error',
+            showConfirmButton: true,
+            timer: false,
+            ruta: ''
+        });
+        return;
+    }
+
+    if (!department) {
+        res.render('registro', {
+            alert: true,
+            alertTitle: "Registro",
+            alertMessage: "Debes seleccionar un departamento.",
+            alertIcon: 'error',
+            showConfirmButton: true,
+            timer: false,
+            ruta: ''
+        });
+        return;
+    }
+
     let passwordHash = await bcryptjs.hash(password, 8);
-    connection.query('INSERT INTO users SET ?', { user: user, name: name, email: email, password: passwordHash }, async (error, results) => {
+    connection.query('INSERT INTO users SET ?', { user: user, name: name, email: email, password: passwordHash, birthdate: birthdate, department: department }, async (error, results) => {
         if (error) {
             console.log(error);
         } else {
@@ -149,8 +182,6 @@ app.get('/logout', (req, res)=>{
         res.redirect('/')
     })
 })
-
-
 
 app.listen(3000, (req, res) => {
     console.log('server running in http://localhost:3000/');
