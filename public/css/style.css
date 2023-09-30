@@ -11,12 +11,20 @@ body {
 .login-form {
 border-radius: 20px;
 box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4);
+background-color: rgba(255, 255, 255, 0.8); /* Fondo opaco */
 }
 
 /* Estilo del contenedor principal (login y contenedor) */
 .login-form, .contenedor {
   width: 300px;
   margin: 0 auto;
+}
+
+/* Imagen fondo de seccion registro y login */
+.login-page-regis {
+  background-image: url('/public/images/fondo-ruta.jpg');
+  background-size: cover;
+ 
 }
 
 /* Estilo del título en el formulario de registro */
@@ -202,6 +210,16 @@ button:hover {
 /* Asegura que este estilo sea más específico que el estilo original de Bootstrap para la barra de navegación */
 .navbar.bg-red {
   background-color: red; 
+}
+
+.top-header{
+  text-align: center;
+  margin: 30px 0;
+}
+.top-header h3{
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 8px
 }
 
 /* Estilo para el texto "Rent Agile" en el formulario de inicio de sesión */
