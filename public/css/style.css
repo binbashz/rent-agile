@@ -10,14 +10,20 @@ body {
 
 .login-form {
 border-radius: 20px;
-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4);
+box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
 background-color: rgba(255, 255, 255, 0.8); /* Fondo opaco */
+padding: 16px;
+background: linear-gradient(90deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.5) 100%); /* Degradado lineal */
 }
 
 /* Estilo del contenedor principal (login y contenedor) */
 .login-form, .contenedor {
   width: 300px;
   margin: 0 auto;
+  max-width: 400px; 
+  margin: 0 auto;
+  max-height: 590px;
+  
 }
 
 /* Imagen fondo de seccion registro y login */
