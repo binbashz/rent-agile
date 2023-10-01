@@ -1,0 +1,126 @@
+/* Estilos generales  .styles linea s-   hoja publicar auto */
+body {
+    font-family: 'MuseoModerno', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: url('/public/images/fondo-pubicar-auto.jpeg') center/cover no-repeat;
+}
+
+.center-text {
+    text-align: center;
+}
+
+/* Texto superior imagen fondo */
+.shiny-text {
+    font-size: 16px;
+    color: #fff; /* Color del texto */
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.7); /* Efecto de brillo */
+}
+
+/* Estilo del contenedor principal */
+.modal-content {
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 16px;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.5) 100%);
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    margin-top: 20px;
+    animation: slideIn 1s ease-in-out; /* Animación de entrada */
+}
+
+/* Estilo del título del formulario */
+.modal-content h1 {
+    text-align: center;
+    color: red;
+    font-size: 26px;
+    padding: 2px 0 10px 0; /* Reducido más el margen superior entre rent agile y techo del div */
+}
+
+/* Estilo de las cajas de entrada en el formulario */
+.modal-content input[type="text"],
+.modal-content input[type="file"],
+.modal-content select,
+.modal-content textarea,
+.modal-content input[type="tel"] {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ced4da;
+    border-radius: 15px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+/* Estilo del botón de envío */
+.modal-content input[type="submit"] {
+    width: 100%;
+    padding: 15px;
+    background-color: rgb(196, 16, 16);
+    border: 0;
+    border-radius: 15px;
+    box-sizing: border-box;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: large;
+    color: #ffffff;
+    margin-top: 20px;
+    text-decoration: none;
+}
+
+/* Cambio de color al pasar el mouse sobre el botón de envío */
+.modal-content input[type="submit"]:hover {
+    background-color: black;
+    color: #ffffff; /* Cambio de color del texto al blanco */
+}
+
+/* Mensaje de resultado */
+.alquiler-msj {
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* Estilo del botón de cierre */
+.close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 20px;
+    color: red;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: darkred;
+}
+
+/* Estilos para hacer el formulario responsive */
+@media (max-width: 768px) {
+    /* Reducir el tamaño del título */
+    .modal-content h1 {
+        font-size: 24px;
+        padding: 40px 0 10px 0;
+    }
+
+    /* Reducir el padding de los campos de entrada */
+    .modal-content input[type="text"],
+    .modal-content input[type="file"],
+    .modal-content select,
+    .modal-content textarea,
+    .modal-content input[type="tel"] {
+        padding: 10px;
+    }
+}
+
+/* Definir una animación llamada 'slideIn' */
+@keyframes slideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

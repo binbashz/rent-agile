@@ -191,7 +191,12 @@ app.get('/', (req, res)=>{
     }
 })
 
-// 13 logout
+// publicar auto 
+app.get('/publicar-auto', (req, res) => {
+    res.render('publicar-auto'); 
+});
+
+// end logout
 app.get('/logout', (req, res)=>{
     req.session.destroy(()=>{
         res.redirect('/')

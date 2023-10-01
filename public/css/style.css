@@ -101,6 +101,17 @@ background: linear-gradient(90deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 2
   box-shadow: 0 0 0 3px rgba(122, 7, 7, 0.25);
 }
 
+
+
+
+.btn-navbar {
+  background-color: #cf1909;
+  color: white;
+  border-radius: 0;
+  font-weight: bold;
+}
+
+ 
 /* Estilos para la barra de navegación */
 #navbar {
   background-color: #cf1909; /* Cambiar el color de fondo a rojo */
@@ -115,7 +126,7 @@ background: linear-gradient(90deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 2
 .nav-link {
   color: #fff; /* Cambiar el color del texto a blanco */
   font-size: 18px; /* Aumentar el tamaño del texto */
-}
+} 
 
 /* Estilos para el encabezado */
 header {
@@ -129,8 +140,11 @@ header {
 .lead {
   font-size: 20px; /* Tu auto Tu aventura */
   color: rgb(255, 255, 255);
-  text-shadow: 1px 1px 3px rgba(141, 4, 4, 0.8);
+  text-shadow: 1px 1px 3px rgba(88, 2, 2, 0.8);
 }
+
+
+
 
 /* Estilos para los autos disponibles */
 #autos-disponibles {
