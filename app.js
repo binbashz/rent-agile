@@ -127,7 +127,7 @@ app.post('/registro', async (req, res) => {
     });
 });
 
-// 11 Autenticación
+// 11 Autenticación inicar sesion
 app.post('/auth', async (req, res) => {
     const user = req.body.user;
     const password = req.body.password;
@@ -163,6 +163,7 @@ app.post('/auth', async (req, res) => {
             } else {
                 req.session.loggedin = true;
                 req.session.name = results[0].name;
+                req.session.userId = results[0].id; // Establecer el ID del usuario en la sesión
                 res.render('login', {
                     alert: true,
                     alertTitle: "Conexion exitosa",
@@ -176,7 +177,7 @@ app.post('/auth', async (req, res) => {
         }
     });
 });
-// 12 auth pages
+// 12 auth pages - ruta de inico
 app.get('/', (req, res)=>{
     if(req.session.loggedin){
         res.render('index',{
@@ -195,6 +196,51 @@ app.get('/', (req, res)=>{
 app.get('/publicar-auto', (req, res) => {
     res.render('publicar-auto'); 
 });
+// Ruta para procesar el formulario de publicación de auto
+app.post('/publicar-auto', async (req, res) => {
+    const marca = req.body.Marca;
+    const modelo = req.body.Modelo;
+    const matricula = req.body.Matricula;
+    const usuario = req.body.Usuario;
+    const telefono = req.body.Telefono;
+    const accion = req.body.Accion;
+    const seguro = req.body.Seguro;
+    const descripcion = req.body.Descripcion;
+    const foto = req.body.Foto;
+    
+    // Insertar los datos del formulario en la tabla 'autos' de la base de datos 'baserent'
+    connection.query('INSERT INTO autos (marca, modelo, matricula, usuario, telefono, accion, seguro, descripcion, foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+    [marca, modelo, matricula, usuario, telefono, accion, seguro, descripcion, foto],
+    (error, results) => {
+            if (error) {
+                console.log(error);
+                res.render('publicar-auto', {
+                    alert: true,
+                    alertTitle: "Error en la Publicación",
+                    alertMessage: "Ha ocurrido un error al publicar el auto. Por favor, inténtalo de nuevo más tarde.",
+                    alertIcon: 'error',
+                    showConfirmButton: true,
+                    timer: false,
+                    ruta: ''
+                });
+            } else {
+                res.render('publicar-auto', {
+                    alert: true,
+                    alertTitle: "Publicación Exitosa",
+                    alertMessage: "El auto se ha publicado correctamente",
+                    alertIcon: 'success',
+                    showConfirmButton: false,
+                    timer: 1500,
+                    ruta: ''
+                });
+            }
+        });
+});
+
+
+
+
+
 
 // end logout
 app.get('/logout', (req, res)=>{

@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="\public\css\styles.css">
+    <link rel="stylesheet" href="/public/css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@400;700&display=swap" rel="stylesheet">
     <title>Publicar mi Auto</title>
 </head>
 <body>
-      <!-- Texto en la imagen de fondo -->
-      <div class="background-text">
+    <!-- Texto en la imagen de fondo -->
+    <div class="background-text">
         <p class="shiny-text"><strong>Tu auto podría ser la llave para ingresos adicionales.</strong></p>
     </div>
     <!-- Contenedor principal con el formulario -->
@@ -24,10 +24,10 @@
                     <h1>Rent <strong>Agile</strong></h1>
                     <div class="center-text">
                         <h4>Publicar mi auto</h4>
-                      </div>
+                    </div>
                     <!-- Formulario -->
                     <div class="alquiler-form">
-                        <form id="auto-alquiler-form" action="">
+                        <form id="auto-alquiler-form" action="/publicar-auto" method="POST">
                             <!-- Campos para el alquiler de autos -->
                             <label for="marca">Marca del Auto</label>
                             <input type="text" id="marca" name="Marca" placeholder="Ingrese la marca del auto" required>
@@ -43,8 +43,6 @@
 
                             <label for="telefono">Telefono</label>
                             <input type="tel" id="telefono" name="Telefono" placeholder="Ingrese su número de teléfono" required>
-
-                           
 
                             <!-- Opción para alquilar o publicar -->
                             <label for="accion">Acción</label>
