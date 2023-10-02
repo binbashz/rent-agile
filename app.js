@@ -53,17 +53,18 @@ app.get('/registro', (req, res) => {
     res.render('registro');
 });
 
-// Ruta para el perfil
+// Ruta para el perfil del usuario
 app.get('/perfil', (req, res) => {
     if (req.session.loggedin) {
         res.render('perfil', {
-            user: req.session.name
+            user: req.session.name, // muestra datos del usuario en su perfil
+            name: req.session.name, // muestra datos del usuario en su perfil
+            email: req.session.email // muestra datos del usuario en su perfil
         });
     } else {
         res.redirect('/login');
     }
 });
-
 //Ruta para el registro ****************
 
 app.post('/registro', async (req, res) => {
@@ -135,6 +136,8 @@ app.post('/registro', async (req, res) => {
         }
     });
 });
+
+
 
 // auth ****
 
