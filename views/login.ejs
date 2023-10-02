@@ -16,27 +16,28 @@
                 <h4>Hola, Nuevamente</h4>
                 <small>Estamos felices de que estes aqui</small>
             </div>
-            <input type="text" name="user" id="user" placeholder="Usuario" required>
-            <input type="password" name="password" id="password" placeholder="Contrasena" required>
-            <input type="submit" class="btn-login" value="Iniciar sesion">
+            <!-- Campo de Usuario con prellenado si formData está disponible -->
+            <input type="text" name="user" id="user" placeholder="Usuario" value="<%= typeof formData !== 'undefined' ? formData.user : '' %>" required>
+            <!-- Campo de Contraseña -->
+            <input type="password" name="password" id="password" placeholder="Contraseña" required>
+            <input type="submit" class="btn-login" value="Iniciar sesión">
         </form>
         <a href="registro" class="btn-register">Registrarse</a>
     </div>
- <!-- sweet alert -->
+    <!-- sweet alert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-            <% if (typeof alert !== "undefined") { %>
-                <script>
-                    Swal.fire({
-                        title: '<%= alertTitle %>',
-                        text: '<%= alertMessage %>',
-                        icon: '<%= alertIcon %>',
-                        showConfirmButton: <%= showConfirmButton %>,
-                        timer: <%= timer %>
-                    }).then(() => {
-                        window.location.href = '/<%= ruta %>'; 
-                    });
-                </script>
-            <% } %>
+    <% if (typeof alert !== "undefined") { %>
+    <script>
+        Swal.fire({
+            title: '<%= alertTitle %>',
+            text: '<%= alertMessage %>',
+            icon: '<%= alertIcon %>',
+            showConfirmButton: <%= showConfirmButton %>,
+            timer: <%= timer %>
+        }).then(() => {
+            window.location.href = '/<%= ruta %>';
+        });
+    </script>
+    <% } %>
 </body>
 </html>

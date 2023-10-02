@@ -137,6 +137,7 @@ app.post('/registro', async (req, res) => {
 app.post('/auth', async (req, res) => {
     const user = req.body.user;
     const password = req.body.password;
+
     if (!user || !password) {
         res.render('login', {
             alert: true,
@@ -174,17 +175,29 @@ app.post('/auth', async (req, res) => {
                 req.session.loggedin = true;
                 req.session.name = results[0].name;
                 req.session.userId = results[0].id;
-                res.render('login', {
-                    alert: true,
-                    alertTitle: "Conexion exitosa",
-                    alertMessage: "Inicio de sesión correcto",
-                    alertIcon: "success",
-                    showConfirmButton: false,
-                    showLoginButton: false,
-                    showRegisterButton: false,
-                    timer: 1500,
-                    ruta: '/'
-                });
+
+                // Verificar si hay datos del formulario guardados en la sesión
+                if (req.session.formData) {
+                    // Si hay datos del formulario en la sesión, redirige de vuelta al formulario
+                    res.render('publicar-auto', {
+                        formData: req.session.formData, // Pasa los datos del formulario para prellenarlos
+                        alert: true,
+                        alertTitle: "Conexion exitosa",
+                        alertMessage: "Inicio de sesión correcto",
+                        alertIcon: "success",
+                        showConfirmButton: false,
+                        showLoginButton: false,
+                        showRegisterButton: false,
+                        timer: 1500,
+                        ruta: '/'
+                    });
+
+                    // Luego, elimina los datos del formulario de la sesión
+                    delete req.session.formData;
+                } else {
+                    // Si no hay datos del formulario en la sesión, simplemente redirige a la página principal u otra página según tu lógica
+                    res.redirect('/');
+                }
             }
         }
     });
@@ -204,65 +217,29 @@ app.get('/', (req, res) => {
     }
 });
 
-app.post('/publicar-auto', upload.single('Foto'), async (req, res) => {
+// Ruta para el formulario de publicación de automóviles
+app.get('/publicar-auto', (req, res) => {
+    // Verificar si el usuario ha iniciado sesión
     if (!req.session.loggedin) {
-        res.render('publicar-auto', {
-            alert: true,
-            alertTitle: "Inicie Sesión",
-            alertMessage: "Debes iniciar sesión para publicar un auto.",
-            alertIcon: 'info',
-            showConfirmButton: false,
-            showLoginButton: true,
-            showRegisterButton: true,
-            timer: false,
-            ruta: 'login'
-        });
+        // Guardar los datos del formulario en la sesión para recuperar después del inicio de sesión
+        req.session.formData = req.session; //  guardar en req.session (los datos del form )para que estén disponibles incluso después de la autenticación
+        // Redirigir al usuario a la página de inicio de sesión
+        res.redirect('/login');
         return;
     }
 
-    // Obtener datos del formulario
-    const marca = req.body.Marca;
-    const modelo = req.body.Modelo;
-    const matricula = req.body.Matricula;
-    const usuario = req.body.Usuario;
-    const telefono = req.body.Telefono;
-    const accion = req.body.Accion;
-    const seguro = req.body.Seguro;
-    const descripcion = req.body.Descripcion;
-    
-    // Utiliza req.file.filename para obtener el nombre único de la imagen subida
-    const foto = req.file.filename;
+    // Comprobar si hay datos del formulario guardados en la sesión
+    const formData = req.session.formData;
 
-    connection.query('INSERT INTO autos (marca, modelo, matricula, usuario, telefono, accion, seguro, descripcion, foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
-        [marca, modelo, matricula, usuario, telefono, accion, seguro, descripcion, foto],
-        (error, results) => {
-            if (error) {
-                console.log(error);
-                res.render('publicar-auto', {
-                    alert: true,
-                    alertTitle: "Error en la Publicación",
-                    alertMessage: "Ha ocurrido un error al publicar el auto. Por favor, inténtalo de nuevo más tarde.",
-                    alertIcon: 'error',
-                    showConfirmButton: true,
-                    timer: false,
-                    ruta: ''
-                });
-            } else {
-                res.render('publicar-auto', {
-                    alert: true,
-                    alertTitle: "Publicación Exitosa",
-                    alertMessage: "El auto se ha publicado correctamente",
-                    alertIcon: 'success',
-                    showConfirmButton: false,
-                    timer: 1500,
-                    ruta: ''
-                });
-            }
-        });
-});
+    // Renderizar el formulario de publicación de automóviles con los datos del formulario
+    res.render('publicar-auto', {
+        formData: formData,
+        user: req.session.name, // Mostrar el nombre de usuario
+        login: true
+    });
 
-app.get('/publicar-auto', (req, res) => {
-    res.render('publicar-auto'); 
+    // Luego, elimina los datos del formulario de la sesión
+    delete req.session.formData;
 });
 
 app.get('/logout', (req, res) => {
