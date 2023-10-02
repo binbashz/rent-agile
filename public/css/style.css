@@ -382,13 +382,10 @@ button:hover {
   display: flex;
   align-items: center;
 }
-
-
 /* Estilo para el campo de búsqueda */
 .form-control {
   border-radius: 2px;
 }
-
 /* Estilo para el ícono de búsqueda */
 .fas.fa-search {
   font-size: 18px;
@@ -399,8 +396,49 @@ button:hover {
 .btn-outline-success {
   border-color: transparent;
 }
-
 /* Estilos para mover la barra de búsqueda a la derecha */
 .navbar-nav.ml-auto .nav-item.ml-auto {
   margin-left: auto;
+}
+/* Cambiar el color del ícono de búsqueda al pasar el mouse */
+.btn.btn-outline-success:hover .fas.fa-search {
+  color: #cf1909
+}
+/* Cambiar el color del ícono de búsqueda al hacer clic */
+.btn.btn-outline-success:active .fas.fa-search {
+  color: #000;
+}
+
+.btn.btn-outline-success:hover {
+  background-color: #222
+}
+/* Cambiar el color de fondo de la caja de búsqueda al hacer clic */
+.btn.btn-outline-success:active {
+  background-color: #ff0000
+}
+
+/* caja con mensaje de texto */
+.message-box {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(45deg, #2c2c2c, #615f5f);
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 850px; 
+  margin: 0 auto; 
+  font-size: 15px; 
+}
+
+
+
+/* Estilo para el footer */
+footer {
+  background: linear-gradient(to bottom, #888 50%, #000000 50%);
+  padding: 20px;
+}
+
+/* curva suave en los bordes superiores */
+footer {
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
 }
