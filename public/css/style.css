@@ -128,6 +128,19 @@ background: linear-gradient(90deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 2
   font-size: 18px; /* Aumentar el tamaño del texto */
 } 
 
+/* Estilo para el enlace "Publicar mi Auto" en la barra de navegación */
+.nav-item-publish-auto a {
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold; 
+  margin-right: 20px;
+  text-decoration: none; 
+}
+
+/* Estilo para el enlace "Publicar mi Auto" al pasar el mouse sobre él */
+.nav-item-publish-auto a:hover {
+  text-decoration: underline; /* Subrayar el enlace al pasar el mouse */
+}
 /* Estilos para el encabezado */
 header {
   background: linear-gradient(to right, #cf1909, #f54141); /* Degradado de colores */

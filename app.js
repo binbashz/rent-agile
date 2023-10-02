@@ -64,6 +64,8 @@ app.get('/perfil', (req, res) => {
     }
 });
 
+//Ruta para el registro ****************
+
 app.post('/registro', async (req, res) => {
     // Obtener los datos del formulario enviado al servidor
     const user = req.body.user;
@@ -134,6 +136,8 @@ app.post('/registro', async (req, res) => {
     });
 });
 
+// auth ****
+
 app.post('/auth', async (req, res) => {
     const user = req.body.user;
     const password = req.body.password;
@@ -203,6 +207,57 @@ app.post('/auth', async (req, res) => {
     });
 });
 
+
+
+app.post('/publicar-auto', upload.single('Foto'), async (req, res) => {
+    // Verificar si el usuario ha iniciado sesión
+    if (!req.session.loggedin) {
+        // Guardar los datos del formulario en la sesión para recuperar después del inicio de sesión
+        req.session.formData = {
+            Marca: req.body.Marca,
+            Modelo: req.body.Modelo,
+            // Otros campos del formulario
+        };
+        // Redirigir al usuario a la página de inicio de sesión
+        res.redirect('/login');
+        return;
+    }
+
+    // Obtener los datos del formulario del cuerpo de la solicitud
+    const marca = req.body.Marca;
+    const modelo = req.body.Modelo;
+    // Otros campos del formulario...
+
+    // Insertar los datos en la base de datos
+    connection.query('INSERT INTO autos (marca, modelo, ...) VALUES (?, ?, ...)',
+        [marca, modelo, /* Otros valores... */],
+        (error, results) => {
+            if (error) {
+                console.log(error);
+                res.render('publicar-auto', {
+                    alert: true,
+                    alertTitle: "Error en la Publicación",
+                    alertMessage: "Ha ocurrido un error al publicar el auto. Por favor, inténtalo de nuevo más tarde.",
+                    alertIcon: 'error',
+                    showConfirmButton: true,
+                    timer: false,
+                    ruta: ''
+                });
+            } else {
+                // Redirigir al usuario a alguna página de confirmación o a donde desees
+                res.render('publicar-auto', {
+                    alert: true,
+                    alertTitle: "Publicación Exitosa",
+                    alertMessage: "El auto se ha publicado correctamente",
+                    alertIcon: 'success',
+                    showConfirmButton: false,
+                    timer: 1500,
+                    ruta: ''
+                });
+            }
+        });
+});
+
 app.get('/', (req, res) => {
     if (req.session.loggedin) {
         res.render('index', {
@@ -217,12 +272,12 @@ app.get('/', (req, res) => {
     }
 });
 
-// Ruta para el formulario de publicación de automóviles
+// Ruta para el formulario de publicación de automóviles************
 app.get('/publicar-auto', (req, res) => {
     // Verificar si el usuario ha iniciado sesión
     if (!req.session.loggedin) {
         // Guardar los datos del formulario en la sesión para recuperar después del inicio de sesión
-        req.session.formData = req.session; //  guardar en req.session (los datos del form )para que estén disponibles incluso después de la autenticación
+        req.session.formData = req.body; // guarda datos de sesion del form
         // Redirigir al usuario a la página de inicio de sesión
         res.redirect('/login');
         return;
@@ -242,11 +297,15 @@ app.get('/publicar-auto', (req, res) => {
     delete req.session.formData;
 });
 
+
+
+// ruta  cerrar sesion
 app.get('/logout', (req, res) => {
     req.session.destroy(() => {
         res.redirect('/')
     })
 })
+
 
 app.listen(3000, (req, res) => {
     console.log('server running in http://localhost:3000/');
