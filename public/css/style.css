@@ -290,3 +290,39 @@ button:hover {
   font-weight: 470;
   color: blue;
 }
+
+
+/* Estilo para el contenedor del slider */
+.slider-container {
+  width: 300px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Estilo para las diapositivas */
+.slider {
+  display: flex;
+  transition: transform 1s ease-in-out;
+}
+
+/* Estilo para cada diapositiva */
+.slide {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+
+/* Estilo para los botones de navegación */
+.slider-nav {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.slider-nav button {
+  background: #333;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  margin: 0 5px;
+  cursor: pointer;
+}

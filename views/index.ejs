@@ -55,66 +55,34 @@
         <!-- Eslogan -->
         <p class="lead">Tu Auto, Tu Aventura</p>
     </header>
- 
-
-
-    
     <br>
     <!-- **************** seccion seleciona un auto -  (lupita) ********************** -->
              <label for="auto">Busca tu auto:</label>
              <select id="autoSelect" name="auto" required>
                <option value="">🔍︎          </option>
              </select> <!--  JavaScript para cargar las opciones busca tu auto (lupita)  -->
-             <script>
-                 document.addEventListener('DOMContentLoaded', function () {
-                   const autoSelect = document.getElementById('autoSelect');
-               
-                   // Función para cargar la lista de automóviles desde el servidor 
-                   function cargarAutomoviles() {
-                     fetch('/autos/disponibles') // Reemplaza con la ruta correcta para obtener la lista de autos 
-                       .then((response) => response.json())
-                       .then((data) => {
-                         // Limpia las opciones existentes
-                         autoSelect.innerHTML = '<option value="">Selecciona un automóvil</option>';
-               
-                         // Agrega las opciones de automóvil desde los datos obtenidos
-                         data.forEach((auto) => {
-                           const option = document.createElement('option');
-                           option.value = auto.id; // Asigna un valor único para cada automóvil
-                           option.textContent = `${auto.marca} ${auto.modelo} - ${auto.matricula}`;
-                           autoSelect.appendChild(option);
-                         });
-                       })
-                       .catch((error) => {
-                         console.error('Error al cargar la lista de automóviles:', error);
-                       });
-                   }
-               
-                   // Llama a la función para cargar la lista de automóviles cuando la página se carga
-                   cargarAutomoviles();
-                 });
-               </script>
-               
-              
-              <!-- Galeria Carrusel -->
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
+             <script src="/public/scripts/scriptlupa.js"></script>
+                
+             <!-- Galeria Carrusel --> 
+              <div class="slider-container">
+                <div class="slider">
+                    <div class="slide">
+                        <img src="/public/images/imagen1.jpg" alt="Imagen 1">
+                    </div>
+                    <div class="slide">
+                        <img src="/public/images/imagen2.jpg" alt="Imagen 2">
+                    </div> 
+                    <div class="slide">
+                        <img src="/public/images/imagen3.jpg" alt="Imagen 3">
+                    </div>
+                </div>
+            </div>
+            <div class="slider-nav">
+                <button id="prev">Anterior</button>
+                <button id="next">Siguiente</button>
+            </div>
+            <script src="/public/scripts/script.js"></script>
+                      
                <!-- Tarjetas con autos  -->
     <section id="autos-disponibles" class="container my-5">
         <h2 class="text-center">Nuestros Autos Disponibles</h2>
