@@ -53,18 +53,6 @@ app.get('/registro', (req, res) => {
     res.render('registro');
 });
 
-// Ruta para el perfil del usuario
-app.get('/perfil', (req, res) => {
-    if (req.session.loggedin) {
-        res.render('perfil', {
-            user: req.session.name, // muestra datos del usuario en su perfil
-            name: req.session.name, // muestra datos del usuario en su perfil
-            email: req.session.email // muestra datos del usuario en su perfil
-        });
-    } else {
-        res.redirect('/login');
-    }
-});
 //Ruta para el registro ****************
 
 app.post('/registro', async (req, res) => {
@@ -210,7 +198,18 @@ app.post('/auth', async (req, res) => {
     });
 });
 
-
+// Ruta para el perfil del usuario
+app.get('/perfil', (req, res) => {
+    if (req.session.loggedin) {
+        res.render('perfil', {
+            user: req.session.name, // muestra datos del usuario en su perfil
+            name: req.session.name, // muestra datos del usuario en su perfil
+            email: req.session.email // muestra datos del usuario en su perfil
+        });
+    } else {
+        res.redirect('/login');
+    }
+});
 
 app.post('/publicar-auto', upload.single('Foto'), async (req, res) => {
     // Verificar si el usuario ha iniciado sesión
