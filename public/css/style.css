@@ -376,3 +376,31 @@ button:hover {
       opacity: 1;
   }
 }
+
+/* Estilos para el formulario Barra de búsqueda en home */
+.form-inline {
+  display: flex;
+  align-items: center;
+}
+
+
+/* Estilo para el campo de búsqueda */
+.form-control {
+  border-radius: 2px;
+}
+
+/* Estilo para el ícono de búsqueda */
+.fas.fa-search {
+  font-size: 18px;
+  margin-right: 5px;
+  color: #cf1909;
+}
+
+.btn-outline-success {
+  border-color: transparent;
+}
+
+/* Estilos para mover la barra de búsqueda a la derecha */
+.navbar-nav.ml-auto .nav-item.ml-auto {
+  margin-left: auto;
+}
