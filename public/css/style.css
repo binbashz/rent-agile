@@ -262,3 +262,31 @@ button:hover {
   color: rgb(0, 0, 0);
   font-size: 26px;
 }
+
+
+/* ya tengo cuenta click - registrarse form*/
+
+.singin-yatengocuenta{
+  margin: 23px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.singin-yatengocuenta p{
+  font-size:  13px;
+  font-weight: 470;
+  margin: 0;
+  color: #222;
+}
+
+.singin-yatengocuenta a{
+  font-size:  13px;
+  letter-spacing: .5px;
+  margin-left: 5px;
+  text-decoration: none;
+  line-height: 1;
+  font-weight: 470;
+  color: blue;
+}
