@@ -69,7 +69,6 @@ Este proyecto fue desarrollado por Mauricio Ferreira.
 
 aun en construccion
 
-
 ### Autor
 Este proyecto fue desarrollado por Mauricio Ferreira, bajo el nombre de Rent Agile.
 
