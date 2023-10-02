@@ -292,23 +292,43 @@ button:hover {
 }
 
 
-/* Estilo para el contenedor del slider */
-.slider-container {
-  width: 300px;
-  overflow: hidden;
-  position: relative;
+/* Estilo para el contenedor del slider carrusel */
+/* Estilo para las diapositivas */
+.slide {
+  flex: 0 0 100%; /* Ancho igual al ancho de la pantalla */
+  max-width: 100%;
+  height: auto; /* Altura automática para mantener la proporción original */
 }
 
-/* Estilo para las diapositivas */
+/* Estilo para el contenedor del slider */
+.slider-container {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+}
+
+.slider-container img {
+  flex: 0 0 100%;
+  width: 100%;
+  object-fit: cover;
+  scroll-snap-align: center;
+}
+
+/* Establece tamaño máximo para las imágenes */
+/* Estilo para el carrusel */
 .slider {
   display: flex;
   transition: transform 1s ease-in-out;
+  width: 100%; /* Ancho igual al ancho de la pantalla */
 }
 
 /* Estilo para cada diapositiva */
-.slide {
-  flex: 0 0 100%;
-  max-width: 100%;
+.slide img {
+  width: 100%; /* Establece un ancho del 100% para que todas las imágenes tengan el mismo ancho */
+  height: auto; /* Altura automática para mantener la proporción original */
+  object-fit: cover; /* Ajusta la imagen para cubrir todo el contenedor sin distorsión */
 }
 
 /* Estilo para los botones de navegación */
@@ -325,4 +345,34 @@ button:hover {
   padding: 8px 16px;
   margin: 0 5px;
   cursor: pointer;
+}
+
+/* Estilo para la caja de fondo negra */
+.text-container {
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo negro semi-transparente */
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px; /* Espaciado interior para el texto */
+  display: none; /* Oculta inicialmente la caja de fondo */
+}
+
+/* Estilo para el texto */
+.text-overlay {
+  opacity: 0; /* Oculta inicialmente el texto */
+  color: white; 
+  text-align: center; 
+  font-size: 24px;
+  animation: slide-up 1s ease-in-out 3s forwards; /* Efecto de deslizamiento desde abajo con retraso de 3 segundos */
+}
+
+@keyframes slide-up {
+  0% {
+      transform: translateY(100%);
+  }
+  100% {
+      transform: translateY(0);
+      opacity: 1;
+  }
 }
