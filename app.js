@@ -1,9 +1,20 @@
-// 1 invocamos a experss       //ORIGINAL
 const express = require('express');
 const app = express();
 const path = require('path');
+const { v4: uuidv4 } = require('uuid'); 
+const multer = require('multer');
 
-// 2 seteamos urlencode para capturar los datos del formulario
+// Configura el almacenamiento y las opciones de 'multer'
+const storage = multer.diskStorage({
+    destination: 'public/uploads/', // Directorio donde se guardarán los archivos
+    filename: (req, file, callback) => {
+        const uniqueFileName = `${uuidv4()}-${file.originalname}`;
+        callback(null, uniqueFileName); // Utiliza UUID para generar un nombre único para el archivo
+    }
+});
+
+const upload = multer({ storage: storage });
+
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 // Establece la carpeta 'public' para servir archivos estáticos (como imágenes)
@@ -34,13 +45,11 @@ app.use(session({
 // 8 invocamos al modulo de conexion db
 const connection = require('./database/db');
 
-// 9 estableciendo las rutas
-
-app.get('/login', (req, res) => {  // ruta para iniciar sesion
+app.get('/login', (req, res) => {
     res.render('login');
 });
 
-app.get('/registro', (req, res) => {  // ruta registrarse
+app.get('/registro', (req, res) => {
     res.render('registro');
 });
 
@@ -48,16 +57,15 @@ app.get('/registro', (req, res) => {  // ruta registrarse
 app.get('/perfil', (req, res) => {
     if (req.session.loggedin) {
         res.render('perfil', {
-            user: req.session.name // Pasa el nombre del usuario autenticado
+            user: req.session.name
         });
     } else {
-        
-        res.redirect('/login'); 
+        res.redirect('/login');
     }
 });
-// 10 registracion
+
 app.post('/registro', async (req, res) => {
-    // obtener los datos del formularios, envia a servidor
+    // Obtener los datos del formulario enviado al servidor
     const user = req.body.user;
     const name = req.body.name;
     const email = req.body.email;
@@ -70,8 +78,7 @@ app.post('/registro', async (req, res) => {
     const userBirthdate = new Date(birthdate);
     const age = currentDate.getFullYear() - userBirthdate.getFullYear();
 
-     // Validar que las contraseñas coincidan
-     if (password !== confirm_password) {
+    if (password !== confirm_password) {
         res.render('registro', {
             alert: true,
             alertTitle: "Registro",
@@ -127,7 +134,6 @@ app.post('/registro', async (req, res) => {
     });
 });
 
-// 11 Autenticación inicar sesion
 app.post('/auth', async (req, res) => {
     const user = req.body.user;
     const password = req.body.password;
@@ -137,11 +143,13 @@ app.post('/auth', async (req, res) => {
             alertTitle: "Advertencia",
             alertMessage: "Ingrese un usuario y/o contraseña",
             alertIcon: "warning",
-            showConfirmButton: true,
-            timer: 1500,
+            showConfirmButton: false,
+            showLoginButton: true,
+            showRegisterButton: true,
+            timer: false,
             ruta: 'login'
         });
-        return; // Salir de la función si no se proporcionaron datos
+        return;
     }
 
     let passwordHash = await bcryptjs.hash(password, 8);
@@ -156,48 +164,63 @@ app.post('/auth', async (req, res) => {
                     alertTitle: "Error",
                     alertMessage: "El nombre de usuario o contraseña son incorrectos",
                     alertIcon: 'error',
-                    showConfirmButton: true,
+                    showConfirmButton: false,
+                    showLoginButton: true,
+                    showRegisterButton: true,
                     timer: false,
                     ruta: 'login'
                 });
             } else {
                 req.session.loggedin = true;
                 req.session.name = results[0].name;
-                req.session.userId = results[0].id; // Establecer el ID del usuario en la sesión
+                req.session.userId = results[0].id;
                 res.render('login', {
                     alert: true,
                     alertTitle: "Conexion exitosa",
                     alertMessage: "Inicio de sesión correcto",
                     alertIcon: "success",
                     showConfirmButton: false,
+                    showLoginButton: false,
+                    showRegisterButton: false,
                     timer: 1500,
-                    ruta: ''
+                    ruta: '/'
                 });
             }
         }
     });
 });
-// 12 auth pages - ruta de inico
-app.get('/', (req, res)=>{
-    if(req.session.loggedin){
-        res.render('index',{
+
+app.get('/', (req, res) => {
+    if (req.session.loggedin) {
+        res.render('index', {
             login: true,
             name: req.session.name
         });
-    }else{
-        res.render('index',{
+    } else {
+        res.render('index', {
             login: false,
-            name:'Debe inicar sesion'
-        })
+            name: 'Debe iniciar sesión'
+        });
     }
-})
-
-// publicar auto 
-app.get('/publicar-auto', (req, res) => {
-    res.render('publicar-auto'); 
 });
-// Ruta para procesar el formulario de publicación de auto
-app.post('/publicar-auto', async (req, res) => {
+
+app.post('/publicar-auto', upload.single('Foto'), async (req, res) => {
+    if (!req.session.loggedin) {
+        res.render('publicar-auto', {
+            alert: true,
+            alertTitle: "Inicie Sesión",
+            alertMessage: "Debes iniciar sesión para publicar un auto.",
+            alertIcon: 'info',
+            showConfirmButton: false,
+            showLoginButton: true,
+            showRegisterButton: true,
+            timer: false,
+            ruta: 'login'
+        });
+        return;
+    }
+
+    // Obtener datos del formulario
     const marca = req.body.Marca;
     const modelo = req.body.Modelo;
     const matricula = req.body.Matricula;
@@ -206,12 +229,13 @@ app.post('/publicar-auto', async (req, res) => {
     const accion = req.body.Accion;
     const seguro = req.body.Seguro;
     const descripcion = req.body.Descripcion;
-    const foto = req.body.Foto;
     
-    // Insertar los datos del formulario en la tabla 'autos' de la base de datos 'baserent'
+    // Utiliza req.file.filename para obtener el nombre único de la imagen subida
+    const foto = req.file.filename;
+
     connection.query('INSERT INTO autos (marca, modelo, matricula, usuario, telefono, accion, seguro, descripcion, foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
-    [marca, modelo, matricula, usuario, telefono, accion, seguro, descripcion, foto],
-    (error, results) => {
+        [marca, modelo, matricula, usuario, telefono, accion, seguro, descripcion, foto],
+        (error, results) => {
             if (error) {
                 console.log(error);
                 res.render('publicar-auto', {
@@ -237,14 +261,12 @@ app.post('/publicar-auto', async (req, res) => {
         });
 });
 
+app.get('/publicar-auto', (req, res) => {
+    res.render('publicar-auto'); 
+});
 
-
-
-
-
-// end logout
-app.get('/logout', (req, res)=>{
-    req.session.destroy(()=>{
+app.get('/logout', (req, res) => {
+    req.session.destroy(() => {
         res.redirect('/')
     })
 })

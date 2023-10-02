@@ -1,4 +1,4 @@
-/* Estilos generales  .styles linea s-   hoja publicar auto */
+/* Estilos generales .styles línea s- hoja publicar auto */
 body {
     font-family: 'MuseoModerno', sans-serif;
     margin: 0;
@@ -26,9 +26,9 @@ body {
     background: linear-gradient(90deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.5) 100%);
     width: 100%;
     max-width: 400px;
-    margin: 0 auto;
-    margin-top: 20px;
+    margin: 20px auto; /* Aumentado el margen superior */
     animation: slideIn 1s ease-in-out; /* Animación de entrada */
+    position: relative; /* Posición relativa para los elementos hijos */
 }
 
 /* Estilo del título del formulario */
@@ -94,6 +94,57 @@ body {
 .close:hover {
     color: darkred;
 }
+
+/* Estilos para la alerta personalizada si no esta loguead@ */
+.custom-alert {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    z-index: 9999;
+}
+
+.custom-alert-content {
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo semitransparente */
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    margin-top: 100px;
+    max-width: 400px;
+    width: 80%;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* Botones dentro de la alerta personalizada */
+.custom-alert-content button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: rgb(196, 16, 16);
+    border: 0;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #ffffff;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+/* Estilo de botones al pasar el mouse */
+.custom-alert-content button:hover {
+    background-color: black;
+}
+
 
 /* Estilos para hacer el formulario responsive */
 @media (max-width: 768px) {

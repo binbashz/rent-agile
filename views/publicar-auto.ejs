@@ -1,77 +1,129 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/public/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@400;700&display=swap" rel="stylesheet">
     <title>Publicar mi Auto</title>
 </head>
 <body>
-    <!-- Texto en la imagen de fondo -->
-    <div class="background-text">
-        <p class="shiny-text"><strong>Tu auto podría ser la llave para ingresos adicionales.</strong></p>
-    </div>
-    <!-- Contenedor principal con el formulario -->
-    <div class="modal fade" id="alquilerAutos" tabindex="-1" role="dialog" aria-labelledby="alquilerAutos" aria-hidden="false">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <!-- Título del formulario -->
-                    <h1>Rent <strong>Agile</strong></h1>
-                    <div class="center-text">
-                        <h4>Publicar mi auto</h4>
-                    </div>
-                    <!-- Formulario -->
-                    <div class="alquiler-form">
-                        <form id="auto-alquiler-form" action="/publicar-auto" method="POST">
-                            <!-- Campos para el alquiler de autos -->
-                            <label for="marca">Marca del Auto</label>
-                            <input type="text" id="marca" name="Marca" placeholder="Ingrese la marca del auto" required>
-
-                            <label for="modelo">Modelo del Auto</label>
-                            <input type="text" id="modelo" name="Modelo" placeholder="Ingrese el modelo del auto" required>
-
-                            <label for="matricula">Matrícula del Auto</label>
-                            <input type="text" id="matricula" name="Matricula" placeholder="Ingrese la matrícula del auto" required>
-
-                            <label for="usuario">Nombre del Usuario</label>
-                            <input type="text" id="usuario" name="Usuario" placeholder="Ingrese su nombre y apellido" required>
-
-                            <label for="telefono">Telefono</label>
-                            <input type="tel" id="telefono" name="Telefono" placeholder="Ingrese su número de teléfono" required>
-
-                            <!-- Opción para alquilar o publicar -->
-                            <label for="accion">Acción</label>
-                            <select name="Accion" id="accion" required>
-                                <option value="alquilar">Alquilar</option>
-                                <option value="publicar">Publicar para alquiler</option>
-                            </select>
-
-                            <!-- Subir foto del auto (hasta 4 fotos) -->
-                            <label for="foto">Subir Fotos del Auto <small>(hasta 4 fotos)</small></label>
-                            <input type="file" id="foto" name="Foto" accept="image/*" multiple max="4" required>
-
-                            <!-- Información sobre el seguro del auto -->
-                            <label for="seguro">Información sobre el Seguro del Auto</label>
-                            <textarea id="seguro" name="Seguro" placeholder="Ingrese información sobre el seguro del auto"></textarea>
-
-                            <!-- Descripción del auto -->
-                            <label for="descripcion">Descripción del Auto</label>
-                            <textarea id="descripcion" name="Descripcion" placeholder="Ingrese una descripción del auto"></textarea>
-
-                            <!-- Botón de envío -->
-                            <input type="submit" class="btn btn-primary" value="Enviar">
-                        </form>
-                        <!-- Mensaje de resultado -->
-                        <div class="alquiler-msj"></div>
+   <!-- Texto en la imagen de fondo -->
+   <div class="background-text">
+    <p class="shiny-text"><strong>Tu auto podría ser la llave para ingresos adicionales.</strong></p>
+</div>
+    <!--  alerta personalizada -->
+        <div id="custom-alert" class="custom-alert" style="display: none;">
+            <div class="custom-alert-content">
+                <p>Debes iniciar sesión para publicar un auto.</p>
+                <button id="login-button">Iniciar Sesión</button>
+                <button id="register-button">Registrarse</button>
+            </div>
+        </div>
+    
+        <!-- Contenedor principal con el formulario -->
+        <div class="modal fade" id="alquilerAutos" tabindex="-1" role="dialog" aria-labelledby="alquilerAutos" aria-hidden="false">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <!-- Título del formulario -->
+                        <h1>Rent <strong>Agile</strong></h1>
+                        <div class="center-text">
+                            <h4>Publicar mi auto</h4>
+                        </div>
+                        <!-- Formulario -->
+                        <div class="alquiler-form">
+                            <form id="auto-alquiler-form" action="/publicar-auto" method="POST" enctype="multipart/form-data">
+                                
+                                <!-- Campos para el alquiler de autos -->
+                                <label for="marca">Marca del Auto</label>
+                                <input type="text" id="marca" name="Marca" placeholder="Ingrese la marca del auto" required>
+    
+                                <label for="modelo">Modelo del Auto</label>
+                                <input type="text" id="modelo" name="Modelo" placeholder="Ingrese el modelo del auto" required>
+    
+                                <label for="matricula">Matrícula del Auto</label>
+                                <input type="text" id="matricula" name="Matricula" placeholder="Ingrese la matrícula del auto" required>
+    
+                                <label for="usuario">Nombre del Usuario</label>
+                                <input type="text" id="usuario" name="Usuario" placeholder="Ingrese su nombre y apellido" required>
+    
+                                <label for="telefono">Telefono</label>
+                                <input type="tel" id="telefono" name="Telefono" placeholder="Ingrese su número de teléfono" required>
+    
+                                <!-- Opción para alquilar o publicar -->
+                                <label for="accion">Acción</label>
+                                <select name="Accion" id="accion" required>
+                                    <option value="alquilar">Alquilar</option>
+                                    <option value="publicar">Publicar para alquiler</option>
+                                </select>
+    
+                                <!-- Subir foto del auto (hasta 4 fotos) -->
+                                <label for="foto">Subir Fotos del Auto <small>(hasta 4 fotos)</small></label>
+                                <input type="file" id="foto" name="Foto" accept="image/*" multiple max="4" required>
+    
+                                <!-- Información sobre el seguro del auto -->
+                                <label for="seguro">Información sobre el Seguro del Auto</label>
+                                <textarea id="seguro" name="Seguro" placeholder="Ingrese información sobre el seguro del auto"></textarea>
+    
+                                <!-- Descripción del auto -->
+                                <label for="descripcion">Descripción del Auto</label>
+                                <textarea id="descripcion" name="Descripcion" placeholder="Ingrese una descripción del auto"></textarea>
+    
+                                <!-- Botón de envío -->
+                                <input type="submit" class="btn btn-primary" value="Enviar">
+                            </form>
+                            <!-- Mensaje de resultado -->
+                            <div class="alquiler-msj"></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    
+        <!-- Código JavaScript para mostrar y controlar la alerta -->
+        <script>
+            const form = document.getElementById('auto-alquiler-form');
+            const customAlert = document.getElementById('custom-alert');
+            const loginButton = document.getElementById('login-button');
+            const registerButton = document.getElementById('register-button');
+    
+            if (form) {
+                form.addEventListener('submit', function (event) {
+                    event.preventDefault(); // Evitar el envío del formulario
+    
+                    // Agrega aquí la lógica para verificar si el usuario está autenticado
+                    const usuarioAutenticado = false; // Cambia esto a tu lógica de autenticación
+    
+                    if (!usuarioAutenticado) {
+                        // Mostrar la alerta personalizada
+                        customAlert.style.display = 'block';
+                    } else {
+                        // Si el usuario está autenticado, puedes enviar el formulario
+                        form.submit();
+                    }
+                });
+            }
+    
+            // Agrega un controlador de eventos al botón "Iniciar Sesión" en la alerta personalizada
+            loginButton.addEventListener('click', () => {
+                // Redirige a la página de inicio de sesión
+                window.location.href = '/login'; // Cambia la ruta según tu necesidad
+            });
+    
+            // Agrega un controlador de eventos al botón "Registrarse" en la alerta personalizada
+            registerButton.addEventListener('click', () => {
+                // Redirige a la página de registro
+                window.location.href = '/registro'; // Cambia la ruta según tu necesidad
+            });
+        </script>
+    </body>
+    </html>
+    
 </body>
 </html>
