@@ -149,8 +149,17 @@ const upload = multer({ dest: 'uploads/' });
 
 La aplicación maneja los errores de manera básica y muestra una página de error personalizada en `error.html` en caso de un error interno del servidor. También se utiliza el middleware de manejo de errores de Express para registrar errores en la consola.
 
-```javascript
+```
 app.use((err, req, res
+, next) => {
+  console.error(err.stack);
+  res.status(500).sendFile(path.join(__dirname, 'public', 'error.html'));
+});
+```
+
+Estos son algunos de los aspectos más importantes de la ingeniería de esta aplicación web.
+
+
 ## Tecnologías Utilizadas
 Node.js
 Express.js
