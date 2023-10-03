@@ -157,6 +157,7 @@ app.use((err, req, res
 });
 ```
 
+
 ```
 1. **Middleware Express.js**: La aplicación hace un uso extensivo de middlewares de Express.js para gestionar solicitudes HTTP, garantizando un flujo de datos seguro y eficiente.
 
@@ -168,13 +169,9 @@ app.use((err, req, res
 
 5. **Arquitectura MVC**: La aplicación sigue una arquitectura Modelo-Vista-Controlador (MVC), dividiendo de manera organizada la lógica de la aplicación en modelos (para la lógica de datos), vistas (para la presentación) y controladores (para el flujo de control).
 
-6. **Control de Acceso**: La implementación de controles de acceso garantiza que solo los usuarios autenticados puedan acceder a áreas específicas de la aplicación, mejorando la seguridad y la privacidad.
-```
-
-Estos 6 puntos resaltan las características técnicas más sobresalientes de tu proyecto en el README. Puedes incorporarlos para dar una visión clara de la ingeniería detrás de tu aplicación web.
+6. **Control de Acceso**: La implementación de controles de acceso garantiza que solo los usuarios autenticados puedan acceder a áreas específicas de la aplicación, mejorando la seguridad.
 
 ```
-
 Estos son algunos de los aspectos más importantes de la ingeniería de esta aplicación web.
 
 
