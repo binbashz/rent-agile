@@ -1,61 +1,156 @@
-# Sistema de Registro y Autenticación con Express y MySQL
 
-Este proyecto es un sistema de registro y autenticación desarrollado en Node.js utilizando Express y MySQL. Permite a los usuarios registrarse, iniciar sesión y ver su perfil.
+# Aplicación de Publicación de Automóviles
 
-### Configuración
-Antes de ejecutar la aplicación, asegúrate de haber realizado los siguientes pasos:
+Esta es una aplicación web que permite a los usuarios iniciar sesión, completar un formulario para publicar información sobre un automóvil y ver su perfil. La aplicación está desarrollada en Node.js utilizando el framework Express.js y se comunica con una base de datos MySQL para almacenar y recuperar los datos de los automóviles y los usuarios.
 
-Clona el repositorio a tu sistema local.
+## Requisitos
 
-Crea una base de datos MySQL y configura las credenciales de acceso en el archivo db.js:
+Antes de ejecutar esta aplicación, asegúrate de tener instalados los siguientes componentes:
 
-```
+- [Node.js](https://nodejs.org/): Asegúrate de tener Node.js instalado en tu sistema.
+- [MySQL](https://www.mysql.com/): Necesitas una base de datos MySQL para almacenar los datos de los usuarios y los automóviles.
+- [Express.js](https://expressjs.com/): Este proyecto utiliza Express.js como el framework web para Node.js.
+- [Multer](https://www.npmjs.com/package/multer): Se utiliza Multer para la gestión de archivos, en este caso, para cargar imágenes de automóviles.
+- [Express-session](https://www.npmjs.com/package/express-session): Express-session se emplea para el manejo de sesiones de usuario.
 
+## Configuración
+
+1. Clona este repositorio en tu máquina local.
+
+2. Crea una base de datos MySQL y configura las credenciales de acceso en el archivo `app.js`:
+
+```javascript
 const connection = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABASE
+  host: 'tu_host',
+  user: 'tu_usuario',
+  password: 'tu_contraseña',
+  database: 'tu_base_de_datos'
 });
 ```
-Crea un archivo .env en la raíz del proyecto y agrega la información de tu base de datos:
+
+3. Instala las dependencias necesarias usando npm:
 
 ```
-DB_HOST=nombre_del_host
-DB_USER=nombre_de_usuario
-DB_PASSWORD=contraseña_de_usuario
-DB_DATABASE=nombre_de_la_base_de_datos
+npm install express express-session multer mysql
 ```
-## Ejecución
-Para iniciar la aplicación, sigue estos pasos:
 
-Abre una terminal en la carpeta del proyecto.
-
-Ejecuta el siguiente comando para instalar las dependencias:
+4. Inicia la aplicación:
 
 ```
-npm install
+node app.js
 ```
-Inicia la aplicación con el siguiente comando:
 
+La aplicación se ejecutará en `http://localhost:3000/`.
+
+## Funcionalidades
+
+### Inicio de Sesión
+
+- Los usuarios pueden iniciar sesión con sus credenciales. Si no están autenticados, serán redirigidos a la página de inicio de sesión.
+
+### Publicación de Automóviles
+
+- Los usuarios autenticados pueden completar un formulario para publicar detalles sobre un automóvil. Esto incluye la marca, el modelo y otros campos relacionados con el automóvil.
+- Los datos del formulario se validan antes de la publicación para garantizar que la información sea correcta y completa.
+- Las imágenes del automóvil se pueden cargar junto con la publicación.
+
+### Perfil del Usuario
+
+- Los usuarios autenticados pueden ver su perfil, que incluye su nombre y dirección de correo electrónico.
+- También pueden editar su información personal si lo desean.
+
+### Cierre de Sesión
+
+- Los usuarios pueden cerrar sesión en cualquier momento para salir de su cuenta.
+
+### Manejo de Errores
+
+- La aplicación maneja los errores de manera básica y muestra una página de error personalizada en `error.html` en caso de un error interno del servidor.
+
+## Notas
+
+- Este es un ejemplo básico de una aplicación web. Para su uso en producción, se recomienda mejorar la seguridad, implementar autenticación más robusta.
+
+## Servidor y Framework
+
+Esta aplicación utiliza Node.js como entorno de servidor y Express.js como framework web. Node.js es una plataforma de tiempo de ejecución de JavaScript que permite la creación de aplicaciones web del lado del servidor. Express.js, por otro lado, es un marco web minimalista para Node.js que facilita la creación de rutas, manejo de solicitudes y respuestas, y la configuración de middleware.
+
+```javascript
+const express = require('express');
+const app = express();
+const port = 3000;
+
+app.listen(port, () => {
+  console.log(`Servidor corriendo en http://localhost:${port}/`);
+});
 ```
-npm start
+
+En este código, creamos una instancia de Express y configuramos el servidor para escuchar en el puerto 3000.
+
+## Endpoints
+
+Los endpoints son rutas específicas en la aplicación a las que los clientes pueden enviar solicitudes HTTP. En este código, se definen varios endpoints utilizando el método `.get()` o `.post()` de Express. Por ejemplo:
+
+```javascript
+app.get('/perfil', (req, res) => {
+  // ...
+});
+
+app.post('/publicar-auto', (req, res) => {
+  // ...
+});
+
+app.get('/', (req, res) => {
+  // ...
+});
 ```
-La aplicación estará disponible en http://localhost:3000/.
 
-### Características
+- `/perfil`: Este endpoint se utiliza para mostrar el perfil del usuario una vez que ha iniciado sesión. Dependiendo de si el usuario está autenticado o no, se renderiza una página diferente.
 
--**Registro de Usuarios:** Los usuarios pueden registrarse proporcionando un nombre de usuario, nombre completo, correo electrónico y contraseña.
+- `/publicar-auto`: Aquí, los usuarios pueden enviar un formulario para publicar información sobre un automóvil. Se utiliza el método POST para manejar los datos enviados desde el formulario. Antes de insertar los datos en la base de datos, se realizan validaciones.
 
--**Inicio de Sesión:** Los usuarios registrados pueden iniciar sesión con su nombre de usuario y contraseña.
+- `/`: Esta es la ruta raíz de la aplicación. Dependiendo de si el usuario ha iniciado sesión, se renderiza una página diferente.
 
--**Sesión de Usuario:** La aplicación utiliza sesiones de usuario para mantener a los usuarios autenticados.
+## Base de Datos
 
--**Perfil de Usuario:** Los usuarios autenticados pueden ver su perfil, que muestra su nombre y correo electrónico.
+Esta aplicación utiliza una base de datos MySQL para almacenar datos de usuarios y automóviles. La conexión a la base de datos se configura en el archivo `app.js`, se crea en db.js y se utiliza el módulo `mysql` para interactuar con la base de datos.
 
--**Autenticación Segura:** Las contraseñas se almacenan de manera segura utilizando el algoritmo de hash bcrypt.
+```javascript
+const connection = mysql.createConnection({
+  host: 'tu_host',
+  user: 'tu_usuario',
+  password: 'tu_contraseña',
+  database: 'tu_base_de_datos'
+});
+```
 
+## Manejo de Sesiones
 
+La aplicación utiliza el middleware `express-session` para gestionar las sesiones de usuario. Esto permite mantener el estado de inicio de sesión y almacenar datos de sesión, como el nombre de usuario y el correo electrónico.
+
+```javascript
+app.use(session({
+  secret: 'tu_secreto',
+  resave: true,
+  saveUninitialized: true
+}));
+```
+
+## Middleware
+
+Express.js permite el uso de middleware para realizar tareas como el manejo de sesiones, validación de datos, y el manejo de archivos. En este código, se usa `multer` como middleware para gestionar la carga de imágenes de automóviles.
+
+```javascript
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
+```
+
+## Manejo de Errores
+
+La aplicación maneja los errores de manera básica y muestra una página de error personalizada en `error.html` en caso de un error interno del servidor. También se utiliza el middleware de manejo de errores de Express para registrar errores en la consola.
+
+```javascript
+app.use((err, req, res
 ## Tecnologías Utilizadas
 Node.js
 Express.js
