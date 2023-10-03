@@ -308,6 +308,18 @@ app.get('/logout', (req, res) => {
     })
 })
 
+// Ruta para mostrar la página de error personalizada
+app.get('/error.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'error.html'));
+});
+
+// Manejo de errores
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+
+    res.status(500).sendFile(path.join(__dirname, 'public', 'error.html'));
+});
+
 
 app.listen(3000, (req, res) => {
     console.log('server running in http://localhost:3000/');

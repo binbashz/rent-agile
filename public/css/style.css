@@ -431,6 +431,75 @@ button:hover {
 }
 
 
+/* Estilos generales para la página de error */
+body.error-page {
+  background-color: #000;
+  color: #FF0000; /* Rojo */
+  font-family: 'Museo Moderno';
+  text-align: center;
+  padding: 20px;
+}
+
+/* Estilos para  de la página de ### error #### */
+
+body.error-page {
+  background-color: #000;
+  color: #FF0000; /* Rojo */
+  font-family: 'Museo Moderno', sans-serif;
+  text-align: center;
+  padding: 20px;
+  transition: background-color 0.5s; /* Agregar una transición al color de fondo */
+}
+
+/* Estilos para el título de la página de error */
+body.error-page h1 {
+  font-size: 36px;
+}
+
+/* Estilos para el mensaje de error */
+body.error-page p {
+  font-size: 24px;
+  margin-top: 20px;
+  transition: font-size 0.5s; /* Agregar una transición al tamaño de fuente */
+}
+
+/* Estilo de texto de neón */
+.neon-text {
+  color: #fff;
+  text-shadow: 0 0 10px #00f, 0 0 20px #00f, 0 0 30px #00f;
+}
+
+.title-text {
+  font-family: 'Museo Moderno', sans-serif;
+}
+/* Animación de rotación */
+@keyframes strange-animation {
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(180deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* Aplicar la animación de rotación a un elemento con la clase .strange-text */
+.strange-text {
+  animation: strange-animation 5s infinite;
+}
+
+/* Estilo de texto distorsionado */
+.distorted-text {
+  transform: skewX(20deg);
+}
+
+/* Transiciones para animar el tamaño de fuente y el color de fondo */
+body.error-page:hover {
+  background-color: #FF0000; /* Cambiar el fondo a rojo al pasar el mouse */
+}
+
+body.error-page:hover p {
+  font-size: 30px; /* Cambiar el tamaño de fuente del mensaje al pasar el mouse */
+}
+
+
+
 
 /* Estilo para el footer */
 footer {
