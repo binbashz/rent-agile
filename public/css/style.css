@@ -553,10 +553,9 @@ nav ul li a:hover {
 
 /* Estilos generales para la pagina sobre nosotros */
 
-/* Estilos generales para toda la página */
 body {
     background-color: #f7f7f7;
-    font-family: Arial, sans-serif;
+    font-family: 'Museomoderno', sans-serif;
 }
 
 header {
@@ -578,7 +577,12 @@ header a {
 
 /* Estilos específicos para la página Acerca de Nosotros */
 #about-us {
-    padding: 50px 0;
+  text-align: center; /* Alineación del contenido en el centro */
+}
+
+#about-us img {
+  width: 100%; /* Imagen ocupa el ancho completo de la página */
+  height: auto; /* Altura automática para mantener la proporción */
 }
 
 #about-us h2 {
