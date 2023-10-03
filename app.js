@@ -53,6 +53,9 @@ app.get('/registro', (req, res) => {
     res.render('registro');
 });
 
+app.get('/about', (req, res) => {
+    res.render('about');
+});
 //Ruta para el registro ****************
 
 app.post('/registro', async (req, res) => {

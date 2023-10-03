@@ -417,7 +417,7 @@ button:hover {
   background-color: #ff0000
 }
 
-/* caja con mensaje de texto */
+/* caja con mensaje de texto en home  */
 .message-box {
   background-color: rgba(0, 0, 0, 0.8);
   color: #fff;
@@ -429,6 +429,235 @@ button:hover {
   margin: 0 auto; 
   font-size: 15px; 
 }
+
+/* Estilos para la página "Sobre Nosotros" */
+
+/* Estilos para el encabezado */
+.hero-image-about {
+  background-image: url('ruta-de-tu-imagen-de-fondo.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+}
+
+.logo img {
+  max-width: 150px; /* Tamaño máximo del logo */
+}
+
+.toggle-menu {
+  display: none; /* Ocultar el icono del menú en pantallas grandes */
+  cursor: pointer;
+}
+
+.toggle-menu ul {
+  list-style: none;
+  padding: 0;
+}
+
+.toggle-menu ul li {
+  width: 25px;
+  height: 3px;
+  background-color: #fff;
+  margin: 4px 0;
+}
+
+label[for="toggle-1"] {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+}
+
+/* Estilos para la barra de navegación */
+nav {
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 20px 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline;
+  margin-right: 20px;
+}
+
+nav ul li:last-child {
+  margin-right: 0;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 18px;
+  transition: color 0.3s;
+}
+
+nav ul li a:hover {
+  color: #12a8e1;
+}
+
+/* Estilos para el contenido principal */
+.hero-text {
+  color: #fff;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.hero-text h1 {
+  font-size: 3em;
+  margin: 0;
+}
+
+.hero-subtitle {
+  font-size: 1.5em;
+  margin: 10px 0;
+}
+
+/* Estilos para el contenido principal */
+.main {
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+  margin: 20px;
+}
+
+/* Estilos para el texto principal */
+.blue-text {
+  color: #12a8e1;
+  text-transform: uppercase;
+  font-size: 1.3em;
+  font-weight: bold;
+}
+
+#text {
+  padding-top: 1em;
+  font-size: 1.2em;
+  color: #808080;
+}
+
+
+/* Estilos generales para la pagina sobre nosotros */
+
+/* Estilos generales para toda la página */
+body {
+    background-color: #f7f7f7;
+    font-family: Arial, sans-serif;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+}
+
+header a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Estilos específicos para la página Acerca de Nosotros */
+#about-us {
+    padding: 50px 0;
+}
+
+#about-us h2 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+#about-us p {
+    font-size: 16px;
+    color: #666;
+}
+
+#about-us img {
+    max-width: 100%;
+}
+
+#company-stats {
+    padding: 50px 0;
+}
+
+#company-stats h3 {
+    font-size: 24px;
+    color: #333;
+}
+
+#company-stats p {
+    font-size: 16px;
+    color: #666;
+}
+
+#company-stats ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#company-stats li {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+#testimonials {
+    background-color: #fff;
+    padding: 50px 0;
+}
+
+#testimonials h2 {
+    font-size: 28px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.testimonial {
+    background-color: #f7f7f7;
+    border: 1px solid #ddd;
+    padding: 20px;
+    text-align: center;
+}
+
+.testimonial p {
+    font-size: 18px;
+    color: #333;
+}
+
+.client-name {
+    font-size: 16px;
+    color: #666;
+    margin-top: 10px;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
 
 
 /* Estilos generales para la página de error */
@@ -497,12 +726,9 @@ body.error-page:hover {
 body.error-page:hover p {
   font-size: 30px; /* Cambiar el tamaño de fuente del mensaje al pasar el mouse */
 }
-
-
-
-
 /* Estilo para el footer */
 footer {
+
   font-family: 'Roboto Thin', sans-serif;
   font-size: 11px;
   background: linear-gradient(to bottom, #888 50%, #000000 50%);
@@ -513,3 +739,5 @@ footer {
 footer {
   border-radius: 50% 50% 0 0 / 100% 100% 0 0;
 }
+
+

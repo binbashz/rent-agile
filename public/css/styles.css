@@ -179,13 +179,7 @@ body {
 
 
 /* Estilos para la página de perfil */
-/* Estilos para la página de perfil */
-body {
-    font-family: 'MuseoModerno', sans-serif;
-    margin: 0;
-    padding: 0;
-    background: url('/public/images/fondo-pubicar-auto.jpeg') center/cover no-repeat;
-}
+
 
 /* Estilo para el contenido */
 .content {
@@ -193,4 +187,39 @@ body {
     padding: 20px;
 }
 
-/* Resto de tus estilos específicos para el perfil */
+/* Estilo para el enlace "Autos Disponibles" */
+.custom-link {
+    color: #ff2f00; 
+}
+
+/* Estilo para el enlace "Autos Disponibles" con alta especificidad */
+.navbar .navbar-nav .nav-item .custom-link {
+    color: #fc0000; /* Cambia este valor al color deseado */
+}
+.red-bar {
+    background-color: red;
+    height: 50px; /* Ajusta la altura según tus necesidades */
+    width: 100%; /* Ancho al 100% de la pantalla */
+}
+
+/* Estilo para el enlace "Autos Disponibles" con efecto llamativo constante */
+.custom-link {
+    color: #ff2f00; /* Color normal del texto */
+    text-decoration: none; /* Quita el subrayado predeterminado */
+    animation: shine 2s infinite alternate; /* Aplica una animación llamada "shine" */
+}
+
+/* Definición de la animación "shine" */
+@keyframes shine {
+    0% {
+        text-shadow: none; /* Sin sombra al principio */
+    }
+    50% {
+        text-shadow: 0 0 5px #ff2f00; /* Agrega una sombra roja al 50% de la animación */
+    }
+    100% {
+        text-shadow: none; /* Sin sombra al final */
+    }
+}
+
+
