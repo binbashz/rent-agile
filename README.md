@@ -1,5 +1,5 @@
 
-# Aplicación de Publicación de Automóviles
+# Aplicación de Publicación de Autos
 
 Esta es una aplicación web que permite a los usuarios iniciar sesión, completar un formulario para publicar información sobre un automóvil y ver su perfil. La aplicación está desarrollada en Node.js utilizando el framework Express.js y se comunica con una base de datos MySQL para almacenar y recuperar los datos de los automóviles y los usuarios.
 
@@ -195,7 +195,7 @@ Este proyecto fue desarrollado por Mauricio Ferreira.
 
 aun en construccion
 
-### Autor
+### Autor 
 Este proyecto fue desarrollado por Mauricio Ferreira, bajo el nombre de Rent Agile.
 
 (aun en construccion 😛)
