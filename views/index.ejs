@@ -21,7 +21,7 @@
         <a href="logout" class="a-logout">Cerrar sesión</a>
     <% } %>
 
-    <!-- Navbar de Bootstrap -->
+    <!-- Navbar  -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar">
         <div class="container">
             <a class="navbar-brand" href="#"><strong>Rent Agile</strong></a>
@@ -42,7 +42,7 @@
                             <a class="nav-link" href="/publicar-auto">Publicar mi Auto</a>
                         </li>
                         </li>
-                    <!-- Agrega el barrade búsqueda -->
+                    <!-- Barrade búsqueda -->
                     <li class="nav-item ml-auto">
                         <form class="form-inline my-2 my-lg-0">
                         <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Buscar">
@@ -50,8 +50,12 @@
                          <i class="fas fa-search"></i>
                         </button>
                     </form>
-                </li>
-                     <!-- Agrega un enlace que lleve a la sección de perfil si el usuario ha iniciado sesión -->
+                </li>  <!-- Widget -->
+                <li class="nav-item ml-2">
+                    <a target="_blank" href="https://hotelmix.es/weather/montevideo-18292">
+                        <img src="https://w.bookcdn.com/weather/picture/26_18292_1_4_e74c3c_250_c0392b_ffffff_ffffff_1_2071c9_ffffff_0_6.png?scode=64951&domid=582&anc_id=87987"  alt="booked.net"/>
+                    </a>
+                </li>    <!-- Enlace que lleve a la sección de perfil si el usuario ha iniciado sesión -->
                     <% if (login) { %>
                         <li class="nav-item">
                             <a class="nav-link" href="/perfil">Mi Perfil</a>
@@ -61,7 +65,7 @@
             </div>
         </div>
     </nav>
-                        <!-- barra roja  -->
+                        <!-- Barra roja  -->
     <header class="header.bg-primary.text-white.text-center.py-5">
         <!-- Eslogan -->
         <p class="lead">Tu Auto, Tu Aventura</p>
@@ -79,7 +83,7 @@
                         </div>
                             <script src="/public/scripts/script.js"></script>
                             
-                            <!-- texto  -->
+                            <!-- texto tarjeta  -->
                             <div class="text-center my-3">
                                 <div class="message-box">
                                   <p>Tu Aventura Comienza Aquí, <hr>Ya sea que estés planeando un emocionante viaje por carretera,
@@ -89,7 +93,7 @@
                                     con Nosotros!</p>
                             </div>
                         </div>
-                              <!-- Tarjetas con autos  -->
+                              <!-- Tarjetas con autos fotos  -->
     <section id="autos-disponibles" class="container my-5">
         <h2 class="text-center">Nuestros Autos Disponibles</h2>
         <div class="row">
@@ -132,6 +136,9 @@
             <!-- Footer -->
         <footer class="bg-dark text-white text-center py-3">
             <p>&copy; 2023 Rent Agile</p>
+            <small>El auto de carrera es mi escritura, mi lápiz es el volante, mi papel es la carretera." Juan Manuel Fangio --- 
+
+                Juan Manuel Fangio es una leyenda en el mundo del automovilismo, y esta cita refleja su pasión por las carreras y la conexión profunda que sentía con los autos y las carreteras.</small>
     </footer>
         <!-- Enlaza a los archivos JavaScript de Bootstrap (requiere jQuery y Popper.js) -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
