@@ -111,10 +111,28 @@ app.post('/registro', async (req, res) => {
     connection.query('INSERT INTO users SET ?', { user: user, name: name, email: email, password: passwordHash, birthdate: birthdate, department: department }, async (error, results) => {
         if (error) {
             console.log(error);
-        } else {
+            // Manejo de errores, puedes renderizar la vista de registro con un mensaje de error si es necesario
             res.render('registro', {
                 alert: true,
-                alertTitle: "Registro",
+                alertTitle: "Error en el Registro",
+                alertMessage: "Ha ocurrido un error al registrar el usuario. Por favor, inténtalo de nuevo más tarde.",
+                alertIcon: 'error',
+                showConfirmButton: true,
+                timer: false,
+                ruta: ''
+            });
+        } else {
+            // Almacenar valores en la sesión
+            req.session.loggedin = true;
+            req.session.user= user; // Nombre de usuario
+            req.session.name = name; // Nombre completo
+            req.session.email = email; // Correo electrónico
+            res.redirect('/perfil');
+
+            // Redirigir al usuario a la vista de registro exitoso
+            res.render('registro', {
+                alert: true,
+                alertTitle: "Registro Exitoso",
                 alertMessage: "Registro con éxito",
                 alertIcon: 'success',
                 showConfirmButton: false,
@@ -124,7 +142,6 @@ app.post('/registro', async (req, res) => {
         }
     });
 });
-
 
 
 // auth ****
@@ -168,8 +185,10 @@ app.post('/auth', async (req, res) => {
                 });
             } else {
                 req.session.loggedin = true;
-                req.session.name = results[0].name;
-                req.session.userId = results[0].id;
+                req.session.name = results[0].name; // nombre de registro
+                req.session.userId = results[0].id;  // asigna ID del usuario a la variable de sesión userId
+                req.session.user = results[0].user; // Nombre de usuario
+                req.session.email = results[0].email; // Correo
 
                 // Verificar si hay datos del formulario guardados en la sesión
                 if (req.session.formData) {

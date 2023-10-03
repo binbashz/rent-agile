@@ -4,111 +4,69 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil de Usuario</title>
-    <!-- Enlaza a los archivos CSS de Bootstrap desde un CDN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <style>
-        /*  color de los enlaces de navegación  */
-        .navbar .nav-link {
-            color: #cf1909;
-        }
-
-        /*  color del fondo del botón "Perfil"  */
-        .navbar .nav-link.active {
-            background-color: #cf1909;
-            color: white; 
-        }
-
-        .navbar .nav-link:hover {
-            background-color: #cf1909;
-            color: white; 
-        }
-
-        /* Estilo para la imagen de fondo */
-        .background-image {
-            background-image: url('/public/images/perfil-fondo.jpg');
-            background-size: contain; /* Ajusta la imagen para que quepa en el contenedor */
-            background-repeat: no-repeat;
-            background-attachment: fixed; /* Fija la imagen en su lugar mientras se desplaza la página */
-            height: 300px; /* Establece la altura deseada */
-            display: flex;
-            justify-content: center; /* Alinea el contenido al centro horizontalmente */
-            align-items: center; /* Centra verticalmente el contenido */
-            color: white; /* Cambia el color del texto para que sea legible en el fondo */
-        }
-
-        /* Estilo para el contenido */
-        .content {
-            background-color: rgba(255, 255, 255, 0.8); /* Fondo semitransparente para el contenido */
-            padding: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="perfil.css">
 </head>
 <body>
     <!-- Barra de navegación -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <!-- Enlace a la página de inicio Rent Agile -->
-            <a class="navbar-brand mr-auto" href="/" style="font-family: 'MuseoModerno', sans-serif; font-size: 33px;"><strong>Rent Agile</strong></a>
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="/">Inicio</a>
-                </li>
-                <!-- Verifica si el usuario está autenticado antes de mostrar el enlace a la página de perfil -->
-                <% if (user) { %>
+            <a class="navbar-brand" href="/"><strong>Rent Agile</strong></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/perfil">Mi Perfil</a>
+                        <a class="nav-link" href="/">Home</a>
                     </li>
-                <% } %>
-            </ul>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Autos Disponibles</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Mis Autos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Cerrar Sesión</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
-    <nav class="navbar navbar-expand-lg navbar-light bg-red">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 offset-md-2">
-                <header class="text-center background-image">
-                    <!-- Muestra el nombre del usuario autenticado -->
-                    <h1>Bienvenido, <%= user %></h1>
-                </header>
-                <nav class="text-center mt-3">
-                    <!-- Menú de navegación -->
-                    <ul class="nav nav-pills">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#">Perfil</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="autos-disponibles.html">Autos Disponibles</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="mis-autos.html">Mis Autos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="logout" class="a-logout">Cerrar sesión</a>
-                        </li>
-                    </ul>
-                </nav>
-                <main>
-                    <!-- Contenido del perfil del usuario aquí -->
-                   <!-- Contenido del perfil del usuario aquí -->
-                    <div class="content card mt-4">
-                    <div class="card-body">
+
+    <!-- Contenido de la página de perfil -->
+    <div class="container mt-5">
+        <header class="text-center">
+            <!-- Lógica para mostrar el mensaje de bienvenida -->
+            <% if (user) { %>
+                <h1>Bienvenido, <%= user %></h1>
+            <% } else { %>
+                <h1>Bienvenido, Usuario</h1>
+            <% } %>
+        </header>
+        <main>
+            <div class="content card mt-4">
+                <div class="card-body">
                     <h2 class="card-title">Mi Perfil</h2>
-                    <!-- Muestra el nombre del usuario autenticado -->
-                <p class="card-text">Nombre de Usuario: <%= user %></p>
-                <p class="card-text">Nombre Completo: <%= name %></p>
-                <p class="card-text">Correo Electrónico: <%= email %></p> <!-- Muestra el correo electrónico -->
-                <!-- Agrega más detalles adicionales del perfil si es necesario -->
+                    <!-- Lógica para mostrar los datos del usuario -->
+                    <% if (user) { %>
+                        <p class="card-text">Nombre Completo: <%= name %></p>
+                        <p class="card-text">Correo Electrónico: <%= email %></p>
+                    <% } else { %>
+                        <p class="card-text">Nombre Completo: Nombre del Usuario</p>
+                        <p class="card-text">Correo Electrónico: usuario@example.com</p>
+                    <% } %>
+                </div>
             </div>
-            </div>
-             </div>
-                </main>
-                <footer class="text-center mt-3">
-                    <p>&copy; 2023 Alquiler de Autos</p>
-                </footer>
-            </div>
-        </div>
+        </main>
+        <footer class="text-center mt-3">
+            <p>&copy; 2023 Alquiler de Autos</p>
+        </footer>
     </div>
+
+    <!-- Scripts de Bootstrap (asegúrate de incluir las referencias a los archivos JS de Bootstrap) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
