@@ -159,31 +159,38 @@ app.use((err, req, res
 
 
 ```
-1. **Middleware Express.js**: La aplicación hace un uso extensivo de middlewares de Express.js para gestionar solicitudes HTTP, garantizando un flujo de datos seguro y eficiente.
+1. Middleware Express.js**: La aplicación hace un uso extensivo de middlewares de Express.js para gestionar solicitudes HTTP, garantizando un flujo de datos seguro y eficiente.
 
-2. **Conexión a Base de Datos Segura**: La configuración de la conexión a la base de datos MySQL se ha implementado de manera segura, utilizando parámetros externos para proteger contra posibles ataques de inyección SQL.
+2. Conexión a Base de Datos Segura: La configuración de la conexión a la base de datos MySQL se ha implementado de manera segura, utilizando parámetros externos para proteger contra posibles ataques de inyección SQL.
 
-3. **Validación de Datos del Formulario**: Se realizan comprobaciones exhaustivas de validación antes de insertar datos en la base de datos, asegurando que la información ingresada sea precisa y segura.
+3. Validación de Datos del Formulario: Se realizan comprobaciones exhaustivas de validación antes de insertar datos en la base de datos, asegurando que la información ingresada sea precisa y segura.
 
-4. **Seguridad de Sesiones**: La gestión de sesiones de usuario se lleva a cabo de forma segura, utilizando un secreto único y técnicas de almacenamiento seguro para proteger la integridad de las sesiones.
+4. Seguridad de Sesiones**: La gestión de sesiones de usuario se lleva a cabo de forma segura, utilizando un secreto único y técnicas de almacenamiento seguro para proteger la integridad de las sesiones.
 
-5. **Arquitectura MVC**: La aplicación sigue una arquitectura Modelo-Vista-Controlador (MVC), dividiendo de manera organizada la lógica de la aplicación en modelos (para la lógica de datos), vistas (para la presentación) y controladores (para el flujo de control).
+5. Arquitectura MVC: La aplicación sigue una arquitectura Modelo-Vista-Controlador (MVC), dividiendo de manera organizada la lógica de la aplicación en modelos (para la lógica de datos), vistas (para la presentación) y controladores (para el flujo de control).
 
-6. **Control de Acceso**: La implementación de controles de acceso garantiza que solo los usuarios autenticados puedan acceder a áreas específicas de la aplicación, mejorando la seguridad.
+6. Control de Acceso: La implementación de controles de acceso garantiza que solo los usuarios autenticados puedan acceder a áreas específicas de la aplicación, mejorando la seguridad.
 
 ```
 Estos son algunos de los aspectos más importantes de la ingeniería de esta aplicación web.
 
 
 ## Tecnologías Utilizadas
-Node.js
-Express.js
-MySQL
-EJS (Motor de Plantillas)
-Bcrypt.js (Para Hashing de Contraseñas)
-dotenv (Para la Gestión de Variables de Entorno)
-SweetAlert2 (Para las Alertas en el Frontend)
-Autor
+-Node.js
+
+-Express.js
+
+-MySQL
+
+-EJS (Motor de Plantillas)
+
+-Bcrypt.js (Para Hashing de Contraseñas)
+
+-dotenv (Para la Gestión de Variables de Entorno)
+
+-SweetAlert2 (Para las Alertas en el Frontend)
+
+-Autor
 Este proyecto fue desarrollado por Mauricio Ferreira.
 
 aun en construccion
