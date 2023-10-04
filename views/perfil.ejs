@@ -105,28 +105,18 @@
             </h2>
         </div>
         <p>Aquí puedes gestionar tus autos.</p>
-        <!-- Ejemplo -->
-        <form id="gestionAutosForm" method="post" action="/guardar-nota">
-            <div class="form-group">
-                <label for="modelo">Modelo del Auto:</label>
-                <input type="text" id="modelo" name="modelo" class="form-control" required>
-            </div>
-
-            <div class="form-group">
-                <label for="marca">Marca del Auto:</label>
-                <input type="text" id="marca" name="marca" class="form-control" required>
-            </div>
-
+        <!-- Formulario simplificado para guardar una nota -->
+        <form method="post" action="/guardar-nota">
             <div class="form-group nota-box">
                 <label for="nota">Nota:</label>
-                <textarea id="nota" name="nota" rows="4" cols="50" class="form-control" placeholder="Escribe tus notas aquí"></textarea>
+                <textarea id="nota" name="nota" rows="4" cols="50" class="form-control" placeholder="Sugerencia de Nota de Gestión: Puedes registrar aquí cualquier evento relevante relacionado con tu vehículo, como mantenimientos, reparaciones, cambios de aceite, inspecciones técnicas, modificaciones realizadas, fechas de vencimiento de seguros, etc. Utiliza esta sección para mantener un historial completo y organizado de todas las acciones y eventos relacionados con tu automóvil. ¡Tu seguridad y el buen estado de tu vehículo son nuestra prioridad!""></textarea>
             </div>
-
-            <button type="submit" id="guardarNotaBtn" class="btn btn-primary">Guardar Nota</button>
+            <button type="submit" class="btn btn-primary">Guardar Nota</button>
         </form>
     </div>
     </div>
     <script>
+        // JavaScript para guardar la nota usando AJAX
         function guardarNota() {
             const nota = document.getElementById('nota').value; // Obtener el contenido de la nota desde el campo de texto
 
@@ -154,6 +144,4 @@
     <footer class="text-center mt-3">
         <p>&copy; 2023 Alquiler de Autos</p>
     </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js
