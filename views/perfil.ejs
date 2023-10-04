@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil de Usuario</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/public/css/styles.css">
 </head>
 <body class="page-profile-body">
-    
+
     <!-- Barra de navegación -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
@@ -47,7 +48,7 @@
 
     <!-- Contenido de la página de perfil -->
     <div class="red-bar">
-                                 <!-- Contenido de la barra roja -->
+        <!-- Contenido de la barra roja -->
     </div>
 
     <div class="container mt-5">
@@ -79,7 +80,7 @@
         <div id="bannerCarousel" class="carousel slide" data-ride="carousel" data-interval="4000"  style="max-height: 200px; overflow: hidden;">
             <ol class="carousel-indicators">
                 <li data-target="#bannerCarousel" data-slide-to="0" class="active"></li>
-                <li data-target="#bannerCarousel" data-slide-to="1"></li>
+                <li data-target="#bannerCarousel" data-slide-to="1" class="active"></li>
                 <li data-target="#bannerCarousel" data-slide-to="2"></li>
                 <!-- Agrega más indicadores si tienes más imágenes -->
             </ol>
@@ -87,7 +88,7 @@
                 <div class="carousel-item active">
                     <img src="/public/images/b1.jpg" class="d-block w-100" alt="banner-1">
                 </div>
-                <div class="carousel-item">
+                <div class="carousel-item active">
                     <img src="/public/images/b2.jpg" class="d-block w-100" alt="banner-2"> 
                 </div>
             </div>
@@ -103,60 +104,56 @@
                 <img src="https://img.icons8.com/color/48/full-tank.png" width="48" height="48" alt="full-tank" style="float: right;">
             </h2>
         </div>
-                <p>Aquí puedes gestionar tus autos.</p>
-                <!-- Ejemplo -->
-                <form id="gestionAutosForm">
-                    <div class="form-group">
-                        <label for="modelo">Modelo del Auto:</label>
-                        <input type="text" id="modelo" name="modelo" class="form-control" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="marca">Marca del Auto:</label>
-                        <input type="text" id="marca" name="marca" class="form-control" required>
-                    </div>
-
-                    <div class="form-group nota-box">
-                        <label for="nota">Nota:</label>
-                        <textarea id="nota" rows="4" cols="50" class="form-control" placeholder="Escribe tus notas aquí"></textarea>
-                    </div>
-
-                    <button type="button" onclick="guardarNota()" class="btn btn-primary">Guardar Nota</button>
-                </form>
+        <p>Aquí puedes gestionar tus autos.</p>
+        <!-- Ejemplo -->
+        <form id="gestionAutosForm" method="post" action="/guardar-nota">
+            <div class="form-group">
+                <label for="modelo">Modelo del Auto:</label>
+                <input type="text" id="modelo" name="modelo" class="form-control" required>
             </div>
-        </div>
-        <script>
-            function guardarNota() {
-                const nota = document.getElementById('nota').value; // Obtener el contenido de la nota desde el campo de texto
-        
-                // Enviar la nota al servidor usando AJAX (jQuery)
-                $.ajax({
-                    type: 'POST',
-                    url: '/guardar-nota', // La URL donde se manejará la solicitud en el servidor
-                    data: { nota: nota }, // Los datos que se enviarán al servidor
-                    success: function (response) {
-                        if (response.success) {
-                            alert('Nota guardada con éxito');
-                            // Puedes realizar otras acciones después de guardar la nota, como actualizar la interfaz de usuario.
-                        } else {
-                            alert('Error al guardar la nota');
-                        }
-                    },
-                    error: function (error) {
-                        console.error('Error al enviar la nota al servidor: ' + error.message);
+
+            <div class="form-group">
+                <label for="marca">Marca del Auto:</label>
+                <input type="text" id="marca" name="marca" class="form-control" required>
+            </div>
+
+            <div class="form-group nota-box">
+                <label for="nota">Nota:</label>
+                <textarea id="nota" name="nota" rows="4" cols="50" class="form-control" placeholder="Escribe tus notas aquí"></textarea>
+            </div>
+
+            <button type="submit" id="guardarNotaBtn" class="btn btn-primary">Guardar Nota</button>
+        </form>
+    </div>
+    </div>
+    <script>
+        function guardarNota() {
+            const nota = document.getElementById('nota').value; // Obtener el contenido de la nota desde el campo de texto
+
+            // Enviar la nota al servidor usando AJAX (jQuery)
+            $.ajax({
+                type: 'POST',
+                url: '/guardar-nota', // La URL donde se manejará la solicitud en el servidor
+                data: { nota: nota }, // Los datos que se enviarán al servidor
+                success: function (response) {
+                    if (response.success) {
+                        alert('Nota guardada con éxito');
+                        // Puedes realizar otras acciones después de guardar la nota, como actualizar la interfaz de usuario.
+                    } else {
                         alert('Error al guardar la nota');
                     }
-                });
-            }
-        </script>
+                },
+                error: function (error) {
+                    console.error('Error al enviar la nota al servidor: ' + error.message);
+                    alert('Error al guardar la nota');
+                }
+            });
+        }
+    </script>
 
-        <footer class="text-center mt-3">
-            <p>&copy; 2023 Alquiler de Autos</p>
-        </footer>
-    </div>
-                
-    <!-- Scripts de Bootstrap (asegúrate de incluir las referencias a los archivos JS de Bootstrap) -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <footer class="text-center mt-3">
+        <p>&copy; 2023 Alquiler de Autos</p>
+    </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

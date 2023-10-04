@@ -322,43 +322,22 @@ app.get('/publicar-auto', (req, res) => {
 });
 
 
-
-
 // Ruta para guardar una nota
 app.post('/guardar-nota', (req, res) => {
-    const { usuario_id, nota } = req.body;
+    const usuario_id = req.session.userId; // Usamos el ID del usuario almacenado en la sesión
+    const nota = req.body.nota; // Obtener la nota del cuerpo de la solicitud
 
-
-app.post('/guardar-nota', (req, res) => {
-        // Obtener los datos del formulario enviado
-        const usuario_id = req.session.userId; // Usamos el ID del usuario almacenado en la sesión
-        const nota = req.body.nota; // Obtener la nota del cuerpo de la solicitud
-    
-        // Insertar la nota en la base de datos
-        connection.query('INSERT INTO notas (usuario_id, nota) VALUES (?, ?)',
-            [usuario_id, nota],
-            (error, results) => {
-                if (error) {
-                    console.log(error);
-                    res.json({ success: false, message: 'Error al guardar la nota' });
-                } else {
-                    console.log('Nota guardada en la base de datos');
-                    res.json({ success: true, message: 'Nota guardada con éxito' });
-                }
-            });
+    // Insertar la nota en la base de datos
+    const sql = 'INSERT INTO notas (usuario_id, nota) VALUES (?, ?)';
+    connection.query(sql, [usuario_id, nota], (error, results) => {
+        if (error) {
+            console.log(error);
+            res.json({ success: false, message: 'Error al guardar la nota' });
+        } else {
+            console.log('Nota guardada en la base de datos');
+            res.json({ success: true, message: 'Nota guardada con éxito' });
+        }
     });
-    
-// Inserta la nota en la base de datos
-const sql = 'INSERT INTO notas (usuario_id, nota) VALUES (?, ?)';
-db.query(sql, [usuario_id, nota], (err, result) => {
-    if (err) {
-        console.error('Error al guardar la nota en la base de datos: ' + err.message);
-        res.json({ success: false, message: 'Error al guardar la nota' });
-    } else {
-        console.log('Nota guardada en la base de datos');
-        res.json({ success: true, message: 'Nota guardada con éxito' });
-    }
-});
 });
 
 // ruta  cerrar sesion
