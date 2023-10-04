@@ -51,3 +51,26 @@ setInterval(nextSlide, 2000); // Cambiar cada 2 segundos
 
 // Mostrar el primer slide al cargar la página
 showSlide(slideIndex);
+
+// ###### evento boton gestion autos- pagina /perfil ##########
+
+// Evento de botón de menú desplegable
+document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.querySelector('#menuToggle');
+    const dropdownMenu = document.querySelector('.custom-dropdown-menu');
+
+    menuToggle.addEventListener('click', function() {
+        if (dropdownMenu.style.display === 'block') {
+            dropdownMenu.style.display = 'none';
+        } else {
+            dropdownMenu.style.display = 'block';
+        }
+    });
+
+    // Cierra el menú desplegable si se hace clic fuera de él
+    document.addEventListener('click', function(event) {
+        if (!dropdownMenu.contains(event.target) && event.target !== menuToggle) {
+            dropdownMenu.style.display = 'none';
+        }
+    });
+});

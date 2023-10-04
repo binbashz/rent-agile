@@ -215,7 +215,7 @@ body {
         text-shadow: none; /* Sin sombra al principio */
     }
     50% {
-        text-shadow: 0 0 5px #ff2f00; /* Agrega una sombra roja al 50% de la animación */
+        text-shadow: 0 0 5px #dd2a01; /* Agrega una sombra roja al 50% de la animación */
     }
     100% {
         text-shadow: none; /* Sin sombra al final */
@@ -223,3 +223,58 @@ body {
 }
 
 
+/* Estilos para el menú desplegable personalizado página de perfil */
+.custom-dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+}
+
+.page-profile-body {
+    
+    background-image: url('/public/images/fondoperfil.jpg'); 
+    background-size: cover; 
+    background-repeat: no-repeat;
+}
+
+.custom-dropdown-menu a {
+    display: block;
+    padding: 10px 20px;
+    color: #333;
+    text-decoration: none;
+}
+
+.custom-dropdown-menu a:hover {
+    background-color: #f2f2f2;
+}
+.custom-link {
+    margin-top: 5px;
+}
+
+
+/* Estilo para el contenedor del carrusel */
+#bannerCarouselContainer {
+    max-height: 300px;  
+    margin: 0 auto; 
+}
+
+/* Estilo para las imágenes del carrusel */
+#bannerCarousel img {
+    max-width: 100%; 
+    height: auto; 
+}
+.titulo-caja {
+    background-color: black;
+    color: white;
+    padding: 10px;
+}
+
+.nota-box {
+    border-radius: 15px; 
+    box-shadow: 1px 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 10px; 
+    background-color: #f0f0f0; 
+}
