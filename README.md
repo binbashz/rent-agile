@@ -1,7 +1,32 @@
 
 # Aplicación de Publicación de Autos
 
+
+
+
 Esta es una aplicación web que permite a los usuarios iniciar sesión, completar un formulario para publicar información sobre un automóvil y ver su perfil. La aplicación está desarrollada en Node.js utilizando el framework Express.js y se comunica con una base de datos MySQL para almacenar y recuperar los datos de los automóviles y los usuarios.
+
+
+  - node_modules/ (carpeta generada automáticamente por npm)
+  - public/ (archivos y recursos estáticos)
+    - css/
+    - images/
+    - scripts/
+    - error.html
+  - views/ (plantillas EJS para las vistas)
+    - about.ejs
+    - index.ejs
+    - login.ejs
+    - perfil.ejs
+    - publicar-auto.ejs
+    - registro.ejs
+  - .gitignore (archivo de configuración para ignorar archivos y carpetas en el control de versiones)
+  - README.md (documentación de tu proyecto)
+  - app.js (archivo principal de la aplicación)
+  - db.js (archivo de configuración de la base de datos)
+  - env (archivo de variables de entorno)
+  - package-lock.json (archivo de bloqueo de dependencias generado automáticamente por npm)
+  - package.json (archivo de configuración de dependencias y scripts)
 
 ## Requisitos
 
