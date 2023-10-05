@@ -165,7 +165,7 @@ body {
     }
 }
 
-/* Definir una animación llamada 'slideIn' */
+/* Definir una animación entrada texto izq 'slideIn' */
 @keyframes slideIn {
     0% {
         opacity: 0;
@@ -187,26 +187,26 @@ body {
     padding: 20px;
 }
 
-/* Estilo para el enlace "Autos Disponibles" */
+/* Estilo  enlace "Autos Disponibles" */
 .custom-link {
     color: #ff2f00; 
 }
 
-/* Estilo para el enlace "Autos Disponibles" con alta especificidad */
+/* Estilo para el enlace "Autos Disponibles" mandatory */
 .navbar .navbar-nav .nav-item .custom-link {
-    color: #fc0000; /* Cambia este valor al color deseado */
+    color: #fc0000; 
 }
 .red-bar {
     background-color: red;
-    height: 50px; /* Ajusta la altura según tus necesidades */
-    width: 100%; /* Ancho al 100% de la pantalla */
+    height: 50px; 
+    width: 100%; /* Ancho */
 }
 
-/* Estilo para el enlace "Autos Disponibles" con efecto llamativo constante */
+/* Estilo para el enlace "Autos Disponibles" con efecto  */
 .custom-link {
     color: #ff2f00; /* Color normal del texto */
-    text-decoration: none; /* Quita el subrayado predeterminado */
-    animation: shine 2s infinite alternate; /* Aplica una animación llamada "shine" */
+    text-decoration: none; 
+    animation: shine 2s infinite alternate; /*  animación "shine" */
 }
 
 /* Definición de la animación "shine" */
@@ -272,6 +272,7 @@ body {
     padding: 10px;
 }
 
+/* Nota box */
 .nota-box {
     border-radius: 15px; 
     box-shadow: 1px 4px 8px rgba(0, 0, 0, 0.2);

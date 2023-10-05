@@ -17,61 +17,74 @@
 </head>
 <body>
 <!-- Muestra el mensaje de bienvenida y el enlace de cierre de sesión si el usuario ha iniciado sesión -->
-    <% if (login) {%>
-        <h4>Bienvenido: <%= name %></h4>
-        <a href="logout" class="a-logout">Cerrar sesión</a>
-    <% } %>
-
-    <!-- Navbar  -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar">
-        <div class="container">
-            <a class="navbar-brand" href="#"><strong>Rent Agile</strong></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/registro">Unete ahora</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/login">Iniciar Sesión</a>
-                    </li>
-                    <!-- Agrega un enlace que lleve a la página para Publicar Auto" -->
-                    <li class="nav-item">
-                        <li class="nav-item nav-item-publish-auto">
-                            <a class="nav-link" href="/publicar-auto">Publicar mi Auto</a>
+   
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar">
+            <div class="container">
+                <a class="navbar-brand" href="#"><strong>Rent Agile</strong></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <!-- Verificación condicional para mostrar "Unete ahora" solo si no está logueado -->
+                        <% if (!login) { %>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/registro">Unete ahora</a>
+                            </li>
+                        <% } %>
+                        <!-- Verificación condicional para mostrar "Iniciar Sesión" solo si no está logueado -->
+                        <% if (!login) { %>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/login">Iniciar Sesión</a>
+                            </li>
+                        <% } %>
+                        <!-- Verificación condicional para mostrar el botón "Publicar mi Auto" solo si no está logueado -->
+                        <% if (!login) { %>
+                            <li class="nav-item nav-item-publish-auto">
+                                <a class="nav-link" href="/registro">Publicar mi Auto</a>
+                            </li>
+                        <% } %>
+                        <!-- ... (otros elementos del navbar) ... -->
+                        <!-- Verificación condicional para mostrar el botón "Publicar mi Auto" si está logueado -->
+                        <% if (login) { %>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/publicar-auto">Publicar mi Auto</a>
+                            </li>
+                        <% } %>
+                        <!-- Barrade búsqueda -->
+                        <li class="nav-item ml-auto">
+                            <form class="form-inline my-2 my-lg-0">
+                                <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Buscar">
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </form>
                         </li>
+                        <!-- Widget -->
+                        <li class="nav-item ml-2">
+                            <a target="_blank" href="https://hotelmix.es/weather/montevideo-18292">
+                                <img src="https://w.bookcdn.com/weather/picture/26_18292_1_4_e74c3c_250_c0392b_ffffff_ffffff_1_2071c9_ffffff_0_6.png?scode=64951&domid=582&anc_id=87987"  alt="booked.net"/>
+                            </a>
                         </li>
-                    <!-- Barrade búsqueda -->
-                    <li class="nav-item ml-auto">
-                        <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Buscar">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-                         <i class="fas fa-search"></i>
-                        </button>
-                    </form>
-                </li>  <!-- Widget -->
-                <li class="nav-item ml-2">
-                    <a target="_blank" href="https://hotelmix.es/weather/montevideo-18292">
-                        <img src="https://w.bookcdn.com/weather/picture/26_18292_1_4_e74c3c_250_c0392b_ffffff_ffffff_1_2071c9_ffffff_0_6.png?scode=64951&domid=582&anc_id=87987"  alt="booked.net"/>
-                    </a>
-                </li>    <!-- Enlace que lleve a la sección de perfil si el usuario ha iniciado sesión -->
-                    <% if (login) { %>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/perfil">Mi Perfil</a>
-                        </li>
-                    <% } %>
-                </ul>
+                        <!-- Enlace que lleve a la sección de perfil si el usuario ha iniciado sesión -->
+                        <% if (login) { %>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/perfil">Mi Perfil</a>
+                            </li>
+                        <% } %>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
-                        <!-- Barra roja  -->
-    <header class="header.bg-primary.text-white.text-center.py-5">
-        <!-- Eslogan -->
-        <p class="lead">Tu Auto, Tu Aventura</p>
-    </header>
-                            <!-- Galeria Carrusel -->
+        </nav>
+                        <!-- Barra roja   slogan - if the user is logged-in mensaje de bienvenida -->
+                        <header class="header bg-primary text-white text-center py-3">
+                            <% if (login) {%>
+                                <small id="welcome-message">Bienvenido: <%= name %></small>
+                            <% } %>
+                            <!-- Eslogan -->
+                            <p class="lead">Tu Auto, Tu Aventura</p>
+                        </header>             <!-- Galeria Carrusel -->
                          <div class="slider-container">
                          <img class="slider-item" src="/public/images/imagen1.jpg" />
                         <img class="slider-item" src="/public/images/imagen2.jpg" />

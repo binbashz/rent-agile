@@ -233,14 +233,20 @@ app.get('/perfil', (req, res) => {
     }
 });
 
+// Ruta para publicar auto - POST
 app.post('/publicar-auto', upload.single('Foto'), async (req, res) => {
-    // Verificar si el usuario ha iniciado sesión
+    // Verificar si el usuario ha iniciado sesión 
     if (!req.session.loggedin) {
         // Guardar los datos del formulario en la sesión para recuperar después del inicio de sesión
         req.session.formData = {
             Marca: req.body.Marca,
             Modelo: req.body.Modelo,
-            // Otros campos del formulario
+            Matricula: req.body.Matricula,
+            Usuario: req.body.Usuario,
+            Telefono: req.body.Telefono,
+            Accion: req.body.Accion,
+            Seguro: req.body.Seguro,
+            Descripcion: req.body.Descripcion,
         };
         // Redirigir al usuario a la página de inicio de sesión
         res.redirect('/login');
