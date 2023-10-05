@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
 const path = require('path');
 const { v4: uuidv4 } = require('uuid'); 
 const multer = require('multer');
@@ -14,6 +15,9 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
+
+// Configura CORS para permitir solicitudes desde todos los orígenes
+app.use(cors());
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -56,6 +60,7 @@ app.get('/registro', (req, res) => {
 app.get('/about', (req, res) => {
     res.render('about');
 });
+
 //Ruta para el registro ****************
 
 app.post('/registro', async (req, res) => {
@@ -147,7 +152,7 @@ app.post('/registro', async (req, res) => {
 });
 
 
-// auth ****
+// auth - maneja la autenticación de los usuarios y crea una sesión cuando un usuario inicia sesión con éxito
 
 app.post('/auth', async (req, res) => {
     const user = req.body.user;
@@ -224,14 +229,20 @@ app.post('/auth', async (req, res) => {
 app.get('/perfil', (req, res) => {
     if (req.session.loggedin) {
         res.render('perfil', {
-            user: req.session.name, // muestra datos del usuario en su perfil
-            name: req.session.name, // muestra datos del usuario en su perfil
-            email: req.session.email // muestra datos del usuario en su perfil
+            user: req.session.user, // muestra nombre usuario en su perfil
+            name: req.session.name, // muestra nombre de pila en su perfil
+            email: req.session.email 
         });
     } else {
         res.redirect('/login');
     }
 });
+
+// Ruta publicar auto
+app.get('/publicar-auto', (req, res) => {
+    res.render('publicar-auto', { /* datos para la vista */ });
+});
+
 
 // Ruta para publicar auto - POST
 app.post('/publicar-auto', upload.single('Foto'), async (req, res) => {
@@ -242,7 +253,8 @@ app.post('/publicar-auto', upload.single('Foto'), async (req, res) => {
             Marca: req.body.Marca,
             Modelo: req.body.Modelo,
             Matricula: req.body.Matricula,
-            Usuario: req.body.Usuario,
+            PrecioPorDia: req.body.PrecioPorDia,
+            Usuario: req.body.Usuario, 
             Telefono: req.body.Telefono,
             Accion: req.body.Accion,
             Seguro: req.body.Seguro,
@@ -254,38 +266,45 @@ app.post('/publicar-auto', upload.single('Foto'), async (req, res) => {
     }
 
     // Obtener los datos del formulario del cuerpo de la solicitud
-    const marca = req.body.Marca;
-    const modelo = req.body.Modelo;
-    // Otros campos del formulario...
+    const usuarioId = req.session.userId; // Obtener el ID del usuario desde la sesión
+    const marca = req.body.marca;
+    const modelo = req.body.modelo;
+    const matricula = req.body.matricula;
+    const precioPorDia = req.body.precioPorDia;
+    const telefono = req.body.telefono;
+    const accion = req.body.accion;
+    const seguro = req.body.seguro;
+    const descripcion = req.body.descripcion;
+    const foto = req.file.filename; // Obtener el nombre del archivo cargado
 
-    // Insertar los datos en la base de datos
-    connection.query('INSERT INTO autos (marca, modelo, ...) VALUES (?, ?, ...)',
-        [marca, modelo, /* Otros valores... */],
+    // Insertar los datos en la tabla 'auto'
+    connection.query(
+        'INSERT INTO autos (usuario_id, marca, modelo, matricula, pecioPorDia, telefono, accion, seguro, descripcion, foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+        [usuarioId, marca, modelo, matricula, precioPorDia, telefono, accion, seguro, descripcion, foto],
         (error, results) => {
             if (error) {
-                console.log(error);
+                console.log('Error al insertar datos en la base de datos:', error);
                 res.render('publicar-auto', {
                     alert: true,
                     alertTitle: "Error en la Publicación",
                     alertMessage: "Ha ocurrido un error al publicar el auto. Por favor, inténtalo de nuevo más tarde.",
                     alertIcon: 'error',
                     showConfirmButton: true,
-                    timer: false,
                     ruta: ''
                 });
             } else {
-                // Redirigir al usuario a alguna página de confirmación o a donde desees
+                // Redirigir al usuario u ofrecer un mensaje de éxito
                 res.render('publicar-auto', {
                     alert: true,
                     alertTitle: "Publicación Exitosa",
-                    alertMessage: "El auto se ha publicado correctamente",
+                    alertMessage: "El auto se publicó con éxito.",
                     alertIcon: 'success',
-                    showConfirmButton: false,
-                    timer: 1500,
+                    showConfirmButton: true,
                     ruta: ''
                 });
             }
-        });
+        }
+    );
 });
 
 app.get('/', (req, res) => {
@@ -300,31 +319,6 @@ app.get('/', (req, res) => {
             name: 'Debe iniciar sesión'
         });
     }
-});
-
-// Ruta para el formulario de publicación de automóviles************
-app.get('/publicar-auto', (req, res) => {
-    // Verificar si el usuario ha iniciado sesión
-    if (!req.session.loggedin) {
-        // Guardar los datos del formulario en la sesión para recuperar después del inicio de sesión
-        req.session.formData = req.body; // guarda datos de sesion del form
-        // Redirigir al usuario a la página de inicio de sesión
-        res.redirect('/login');
-        return;
-    }
-
-    // Comprobar si hay datos del formulario guardados en la sesión
-    const formData = req.session.formData;
-
-    // Renderizar el formulario de publicación de automóviles con los datos del formulario
-    res.render('publicar-auto', {
-        formData: formData,
-        user: req.session.name, // Mostrar el nombre de usuario
-        login: true
-    });
-
-    // Luego, elimina los datos del formulario de la sesión
-    delete req.session.formData;
 });
 
 

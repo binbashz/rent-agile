@@ -14,15 +14,6 @@
    <div class="background-text">
     <p class="shiny-text"><strong>Tu auto podría ser la llave para ingresos adicionales.</strong></p>
 </div>
-    <!-- Código HTML para la alerta personalizada -->
-        <div id="custom-alert" class="custom-alert" style="display: none;">
-            <div class="custom-alert-content">
-                <p>Debes iniciar sesión para publicar un auto.</p>
-                <button id="login-button">Iniciar Sesión</button>
-                <button id="register-button">Registrarse</button>
-            </div>
-        </div>
-    
         <!-- Contenedor principal con el formulario -->
         <div class="modal fade" id="alquilerAutos" tabindex="-1" role="dialog" aria-labelledby="alquilerAutos" aria-hidden="false">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -50,12 +41,15 @@
                                 </div>
                             </div>
                         </div>
-                        
-                        <!-- Formulario -->
-                        <div class="alquiler-form">
-                            <form id="auto-alquiler-form" action="/publicar-auto" method="POST" enctype="multipart/form-data">
+                                                        <!-- Formulario -->
+                                <div class="alquiler-form">
+                                <form id="auto-alquiler-form" action="/publicar-auto" method="POST" enctype="multipart/form-data">
                                 
                                 <!-- Campos para el alquiler de autos -->
+
+                                <label for="nombre">Nombre y Apellido </label>
+                                <input type="text" id="nombre" name="nombre" placeholder="Ingrese su nombre y apellido" required>
+                                
                                 <label for="marca">Marca del Auto</label>
                                 <input type="text" id="marca" name="Marca" placeholder="Ingrese la marca del auto" required>
     
@@ -64,9 +58,9 @@
     
                                 <label for="matricula">Matrícula del Auto</label>
                                 <input type="text" id="matricula" name="Matricula" placeholder="Ingrese la matrícula del auto" required>
-    
-                                <label for="usuario">Nombre del Usuario</label>
-                                <input type="text" id="usuario" name="Usuario" placeholder="Ingrese su nombre y apellido" required>
+                                
+                                <label for="precioPorDia">Precio por día:</label>
+                                <input type="text" id="precioPorDia" name="precioPorDia" placeholder="Ingrese el precio por dia " required>
     
                                 <label for="telefono">Telefono</label>
                                 <input type="tel" id="telefono" name="Telefono" placeholder="Ingrese su número de teléfono" required>
@@ -101,42 +95,7 @@
             </div>
         </div>
     
-        <!-- Código JavaScript para mostrar y controlar la alerta -->
-        <script>
-            const form = document.getElementById('auto-alquiler-form');
-            const customAlert = document.getElementById('custom-alert');
-            const loginButton = document.getElementById('login-button');
-            const registerButton = document.getElementById('register-button');
-    
-            if (form) {
-                form.addEventListener('submit', function (event) {
-                    event.preventDefault(); // Evitar el envío del formulario
-    
-                    // Agrega aquí la lógica para verificar si el usuario está autenticado
-                    const usuarioAutenticado = false; // Cambia esto a tu lógica de autenticación
-    
-                    if (!usuarioAutenticado) {
-                        // Mostrar la alerta personalizada
-                        customAlert.style.display = 'block';
-                    } else {
-                        // Si el usuario está autenticado, puedes enviar el formulario
-                        form.submit();
-                    }
-                });
-            }
-    
-            // Agrega un controlador de eventos al botón "Iniciar Sesión" en la alerta personalizada
-            loginButton.addEventListener('click', () => {
-                // Redirige a la página de inicio de sesión
-                window.location.href = '/login'; // Cambia la ruta según tu necesidad
-            });
-    
-            // Agrega un controlador de eventos al botón "Registrarse" en la alerta personalizada
-            registerButton.addEventListener('click', () => {
-                // Redirige a la página de registro
-                window.location.href = '/registro'; // Cambia la ruta según tu necesidad
-            });
-        </script>
+       
     </body>
     </html>
     
