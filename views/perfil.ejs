@@ -56,8 +56,8 @@
     <div class="container mt-5">
         <header class="text-center">
             <!-- Lógica para mostrar el mensaje de bienvenida -->
-            <% if (user) { %>
-                <h1>Bienvenido, <%= user %></h1>
+            <% if (documento) { %>
+                <h1>Bienvenido, <%= name %></h1>
             <% } else { %>
                 <h1>Bienvenido, Usuario</h1>
             <% } %>
@@ -67,7 +67,7 @@
                 <div class="card-body">
                     <h2 class="card-title">Mi Perfil</h2>
                     <!-- Lógica para mostrar los datos del usuario -->
-                    <% if (user) { %>
+                    <% if (documento) { %>
                         <p class="card-text">Nombre Completo: <%= name %></p>
                         <p class="card-text">Correo Electrónico: <%= email %></p>
                     <% } else { %>

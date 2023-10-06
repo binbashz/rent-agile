@@ -14,7 +14,7 @@ const storage = multer.diskStorage({
     }
 });
 
-const upload = multer({ storage: storage });
+const upload = multer({ storage: storage }); 
 
 // Configura CORS para permitir solicitudes desde todos los orígenes
 app.use(cors());
@@ -65,7 +65,7 @@ app.get('/about', (req, res) => {
 
 app.post('/registro', async (req, res) => {
     // Obtener los datos del formulario enviado al servidor
-    const user = req.body.user;
+    const documento = req.body.documento;
     const name = req.body.name;
     const email = req.body.email;
     const password = req.body.password;
@@ -116,7 +116,7 @@ app.post('/registro', async (req, res) => {
     }
 
     let passwordHash = await bcryptjs.hash(password, 8);
-    connection.query('INSERT INTO users SET ?', { user: user, name: name, email: email, password: passwordHash, birthdate: birthdate, department: department }, async (error, results) => {
+    connection.query('INSERT INTO users SET ?', { documento: documento, name: name, email: email, password: passwordHash, birthdate: birthdate, department: department }, async (error, results) => {
         if (error) {
             console.log(error);
             // Manejo de errores, puedes renderizar la vista de registro con un mensaje de error si es necesario
@@ -132,13 +132,13 @@ app.post('/registro', async (req, res) => {
         } else {
             // Almacenar valores en la sesión
             req.session.loggedin = true;
-            req.session.user= user; // Nombre de usuario
+            req.session.documento= documento; // Nombre numero del  usuario
             req.session.name = name; // Nombre completo
             req.session.email = email; // Correo electrónico
             res.redirect('/perfil');
 
             // Redirigir al usuario a la vista de registro exitoso
-            res.render('registro', {
+            res.render('perfil', {
                 alert: true,
                 alertTitle: "Registro Exitoso",
                 alertMessage: "Registro con éxito",
@@ -155,10 +155,10 @@ app.post('/registro', async (req, res) => {
 // auth - maneja la autenticación de los usuarios y crea una sesión cuando un usuario inicia sesión con éxito
 
 app.post('/auth', async (req, res) => {
-    const user = req.body.user;
+    const documento = req.body.documento;
     const password = req.body.password;
 
-    if (!user || !password) {
+    if (!documento || !password) {
         res.render('login', {
             alert: true,
             alertTitle: "Advertencia",
@@ -175,7 +175,7 @@ app.post('/auth', async (req, res) => {
 
     let passwordHash = await bcryptjs.hash(password, 8);
 
-    connection.query('SELECT * FROM users WHERE user = ?', [user], async (error, results) => {
+    connection.query('SELECT * FROM users WHERE documento = ?', [documento], async (error, results) => {
         if (error) {
             console.log(error);
         } else {
@@ -193,9 +193,9 @@ app.post('/auth', async (req, res) => {
                 });
             } else {
                 req.session.loggedin = true;
-                req.session.name = results[0].name; // nombre de registro
+                req.session.documento = results[0].documento; // nombre de registro
                 req.session.userId = results[0].id;  // asigna ID del usuario a la variable de sesión userId
-                req.session.user = results[0].user; // Nombre de usuario
+                req.session.name = results[0].name; // Nombre de usuario
                 req.session.email = results[0].email; // Correo
 
                 // Verificar si hay datos del formulario guardados en la sesión
@@ -229,7 +229,7 @@ app.post('/auth', async (req, res) => {
 app.get('/perfil', (req, res) => {
     if (req.session.loggedin) {
         res.render('perfil', {
-            user: req.session.user, // muestra nombre usuario en su perfil
+            documento: req.session.documento, // muestra el numero de usuario en el perfil
             name: req.session.name, // muestra nombre de pila en su perfil
             email: req.session.email 
         });
@@ -240,25 +240,32 @@ app.get('/perfil', (req, res) => {
 
 // Ruta publicar auto
 app.get('/publicar-auto', (req, res) => {
-    res.render('publicar-auto', { /* datos para la vista */ });
+    res.render('publicar-auto', {  loggedin: req.session.loggedin, name: req.session.name });
+
+
+
 });
 
 
-// Ruta para publicar auto - POST
-app.post('/publicar-auto', upload.single('Foto'), async (req, res) => {
+// Ruta para publicar auto - POST  // tabla autos
+
+app.post('/publicar-auto', upload.array('foto', 4), async (req, res) => {
+
     // Verificar si el usuario ha iniciado sesión 
     if (!req.session.loggedin) {
         // Guardar los datos del formulario en la sesión para recuperar después del inicio de sesión
         req.session.formData = {
+            NombreCompleto: req.body.NombreCompleto,
+            Documento: req.body.Documento,
             Marca: req.body.Marca,
             Modelo: req.body.Modelo,
             Matricula: req.body.Matricula,
             PrecioPorDia: req.body.PrecioPorDia,
-            Usuario: req.body.Usuario, 
             Telefono: req.body.Telefono,
             Accion: req.body.Accion,
             Seguro: req.body.Seguro,
             Descripcion: req.body.Descripcion,
+            Foto: req.body.Foto,
         };
         // Redirigir al usuario a la página de inicio de sesión
         res.redirect('/login');
@@ -267,6 +274,8 @@ app.post('/publicar-auto', upload.single('Foto'), async (req, res) => {
 
     // Obtener los datos del formulario del cuerpo de la solicitud
     const usuarioId = req.session.userId; // Obtener el ID del usuario desde la sesión
+    const nombreCompleto = req.session.nombreCompleto;
+    const documento = req.body.documento;
     const marca = req.body.marca;
     const modelo = req.body.modelo;
     const matricula = req.body.matricula;
@@ -279,8 +288,8 @@ app.post('/publicar-auto', upload.single('Foto'), async (req, res) => {
 
     // Insertar los datos en la tabla 'auto'
     connection.query(
-        'INSERT INTO autos (usuario_id, marca, modelo, matricula, pecioPorDia, telefono, accion, seguro, descripcion, foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-        [usuarioId, marca, modelo, matricula, precioPorDia, telefono, accion, seguro, descripcion, foto],
+        'INSERT INTO autos (usuario_id, nombreCompleto ,documento , marca, modelo, matricula, precioPorDia, telefono, accion, seguro, descripcion, foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+        [usuarioId, nombreCompleto, documento, marca, modelo, matricula, precioPorDia, telefono, accion, seguro, descripcion, foto],
         (error, results) => {
             if (error) {
                 console.log('Error al insertar datos en la base de datos:', error);

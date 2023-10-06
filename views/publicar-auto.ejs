@@ -23,7 +23,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                         <!-- Hacer clic en "Rent Agile" te llevará al index -->
-                     <a href="/" class="rent-agile-link">
+                     <a href="/" class="rent-agile-link" style="text-decoration: none;">
                      <div class="modal fade" id="alquilerAutos" tabindex="-1" role="dialog" aria-labelledby="alquilerAutos" aria-hidden="false">
                      <!-- Título del formulario -->
                         <div class="modal fade" id="alquilerAutos" tabindex="-1" role="dialog" aria-labelledby="alquilerAutos" aria-hidden="false">
@@ -32,6 +32,10 @@
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
+                                        <% if (loggedin) { %>
+                                            <h1><span class="small-text">Bienvenido,</span> <span class="user-name"><%= name %></span></h1>
+                                        <% } %>
+                                        
                                             <h1>Rent <strong>Agile</strong></h1>
                                         </a>
                                         <div class="center-text">
@@ -42,60 +46,60 @@
                             </div>
                         </div>
                                                         <!-- Formulario -->
-                                <div class="alquiler-form">
-                                <form id="auto-alquiler-form" action="/publicar-auto" method="POST" enctype="multipart/form-data">
-                                
-                                <!-- Campos para el alquiler de autos -->
+                     <div class="alquiler-form">
+    <form id="auto-alquiler-form" action="/publicar-auto" method="POST" enctype="multipart/form-data">
+        <!-- Campos para el alquiler de autos -->
 
-                                <label for="nombre">Nombre y Apellido </label>
-                                <input type="text" id="nombre" name="nombre" placeholder="Ingrese su nombre y apellido" required>
-                                
-                                <label for="marca">Marca del Auto</label>
-                                <input type="text" id="marca" name="Marca" placeholder="Ingrese la marca del auto" required>
+        <label for="nombreCompleto">Nombre y Apellido</label>
+        <input type="text" id="nombreCompleto" name="nombreCompleto" placeholder="Ingrese su nombre y apellido" required>
+
+        <label for="tipoDocumento"> Documento</label>
+        <select id="tipoDocumento" name="tipoDocumento" required>
+            <option value="CI">Cédula de Identidad</option>
+            <option value="Pasaporte">Pasaporte</option>
+        </select>
+        
+        <label for="numeroDocumento">Número de Documento</label>
+        <input type="text" id="documento" name="documento" placeholder="Sin puntos ni guiones" required>
+        
+
+        <label for="marca">Marca del Auto</label>
+        <input type="text" id="marca" name="marca" placeholder="Ingrese la marca del auto" required>
+
+        <label for="modelo">Modelo del Auto</label>
+        <input type="text" id="modelo" name="modelo" placeholder="Ingrese el modelo del auto" required>
+
+        <label for="matricula">Matrícula del Auto</label>
+        <input type="text" id="matricula" name="matricula" placeholder="Ingrese la matrícula del auto" required>
+
+        <label for="precioPorDia">Precio por día:</label>
+        <input type="text" id="precioPorDia" name="precioPorDia" placeholder="Ingrese el precio por día" required>
+
+        <label for="telefono">Teléfono</label>
+        <input type="tel" id="telefono" name="telefono" placeholder="Ingrese su número de teléfono" required>
+
+        <label for="accion">Acción</label>
+        <select name="accion" id="accion" required>
+            <option value="Alquilar">Alquilar</option>
+            <option value="Publicar para alquiler">Publicar para alquiler</option>
+        </select>
+
+        <label for="seguro">Información sobre el Seguro del Auto</label>
+        <textarea id="seguro" name="seguro" placeholder="Ingrese información sobre el seguro del auto"></textarea>
+
+        <label for="descripcion">Descripción del Auto</label>
+        <textarea id="descripcion" name="descripcion" placeholder="Ingrese una descripción del auto"></textarea>
+
+        <label for="foto">Subir Fotos del Auto <small>(hasta 4 fotos)</small></label>
+        <input type="file" id="foto" name="foto[]" accept="image/*" multiple max="4" required>
+
+        <!-- Botón de envío -->
+        <input type="submit" class="btn btn-primary" value="Enviar">
+    </form>
+    <!-- Mensaje de resultado -->
+    <div class="alquiler-msj"></div>
+</div>
     
-                                <label for="modelo">Modelo del Auto</label>
-                                <input type="text" id="modelo" name="Modelo" placeholder="Ingrese el modelo del auto" required>
-    
-                                <label for="matricula">Matrícula del Auto</label>
-                                <input type="text" id="matricula" name="Matricula" placeholder="Ingrese la matrícula del auto" required>
-                                
-                                <label for="precioPorDia">Precio por día:</label>
-                                <input type="text" id="precioPorDia" name="precioPorDia" placeholder="Ingrese el precio por dia " required>
-    
-                                <label for="telefono">Telefono</label>
-                                <input type="tel" id="telefono" name="Telefono" placeholder="Ingrese su número de teléfono" required>
-    
-                                <!-- Opción para alquilar o publicar -->
-                                <label for="accion">Acción</label>
-                                <select name="Accion" id="accion" required>
-                                    <option value="alquilar">Alquilar</option>
-                                    <option value="publicar">Publicar para alquiler</option>
-                                </select>
-    
-                                <!-- Subir foto del auto (hasta 4 fotos) -->
-                                <label for="foto">Subir Fotos del Auto <small>(hasta 4 fotos)</small></label>
-                                <input type="file" id="foto" name="Foto" accept="image/*" multiple max="4" required>
-    
-                                <!-- Información sobre el seguro del auto -->
-                                <label for="seguro">Información sobre el Seguro del Auto</label>
-                                <textarea id="seguro" name="Seguro" placeholder="Ingrese información sobre el seguro del auto"></textarea>
-                                
-                                <!-- Descripción del auto -->
-                                <label for="descripcion">Descripción del Auto</label>
-                                <textarea id="descripcion" name="Descripcion" placeholder="Ingrese una descripción del auto"></textarea>
-                           
-                                <!-- Botón de envío -->
-                                <input type="submit" class="btn btn-primary" value="Enviar">
-                            </form>
-                            <!-- Mensaje de resultado -->
-                            <div class="alquiler-msj"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    
-       
     </body>
     </html>
     

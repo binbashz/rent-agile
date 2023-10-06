@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicar sesion</title>
+</head>
+<body>
+    
+    vu<div class="modal fade show" id="modalNoCuenta" tabindex="-1" role="dialog" aria-labelledby="modalNoCuenta" aria-modal="true" style="display: block; padding-right: 10px;">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+                  <div class="modal-body">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">×</span>
+                  </button>
+                  <h4>Consultá tu número de cuenta</h4>
+                      <div class="nro-cuenta-form">
+                              <form id="nc-form" action="">
+                                  <label for="cuentaPrimerosDigitos">Tipo de tarjeta*</label>
+                                  <div class="select-wrap">
+                                      <select name="Tarjetaprimeroseis" id="Tarjetaprimeroseis" placeholder="Seleccionar">
+                                          <option value="536670">Midinero Local</option>
+                                          <option value="536671">Midinero Internacional</option>
+                                      </select>
+                                  </div>	
+                                  <label for="tipoDocumento">País</label>
+                                  <div class="select-wrap">
+                                      <select name="pais" id="pais" placeholder="Seleccionar">
+                                          <!-- <option value="" disabled selected>Seleccionar</option> -->
+                                          <option value="858">Uruguay</option>
+                                          <option value="32">Argentina</option>
+                                          <option value="76">Brasil</option>
+                                          <option value="600">Paraguay</option>
+                                      </select>
+                                  </div>
+                                  <label for="tipoDocumento">Tipo de documento</label>
+                                  <div class="select-wrap">
+                                      <select name="Tipodocumento" id="tipoDocumento" placeholder="Seleccionar">
+                                          
+                                          <option value="1">Cédula de Identidad</option>
+                                          <option value="6">DNI</option>
+                                          <option value="10">Cartera de identidad</option>
+                                          <option value="7">Cédula de identidad civil</option>
+                                          <option value="2">Pasaporte</option>
+                                      </select>
+                                  </div>
+                                  <label for="documento">Número de documento*</label>
+                                  <input type="text" id="documento" name="Documento" placeholder="Todo junto sin puntos ni guiones" required="">
+                                  <div id="RecaptchaField1" style="margin-bottom:10px"></div>
+                                  <div class="submit">
+                                      <input type="submit" class="btn btn-primary" value="Enviar">
+                                  </div>
+                                  <div class="loading" style="display: none;">Cargando... <span class="loader"></span></div>
+                          </form>
+                          <div class="nro-cuenta-msj" style="display: none;"></div>
+                      </div>
+                      <div class="nro-cuenta-result">
+                          <div class="tarjeta">
+                               <div class="row align-items-center">
+                                   <div class="col-6">
+                                       <img class="tarjeta-img" src="" alt="">
+                                   </div>
+                                   <div class="col-6 info-tarjeta">
+                                       <p><span class="tipo-tarjeta"></span><br>Número de cuenta</p>
+                                       <h3 class="nro-cuenta">
+                                           554 6658
+                                       </h3>
+                                   </div>
+                               </div>
+                                       <div class="actions">
+                                           <a href="" class="wpp" target="_blank">
+                                              <i class="fab fa-whatsapp"></i> Compartir
+                                          </a>
+                                           <a href="#" class="ok">
+                                              Ok
+                                          </a>
+                                       </div>
+                          </div>
+                      </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</body>
+</html>

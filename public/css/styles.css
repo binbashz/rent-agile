@@ -279,3 +279,16 @@ body {
     padding: 10px; 
     background-color: #f0f0f0; 
 }
+
+/* Estilo para formulario publicar auto */
+
+.small-text {
+    font-size: 14px; 
+    color: black; 
+    text-decoration: none;
+}
+.user-name {
+    font-size: 14px;
+    color:  #dd2a01;
+    text-decoration: none;
+}

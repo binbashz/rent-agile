@@ -17,7 +17,7 @@
                 <small>Estamos felices de que estes aqui</small>
             </div>
             <!-- Campo de Usuario con prellenado si formData está disponible -->
-            <input type="text" name="user" id="user" placeholder="Usuario" value="<%= typeof formData !== 'undefined' ? formData.user : '' %>" required>
+            <input type="text" name="documento" id="documento" placeholder="#Documento, sin puntos ni guiones" value="<%= typeof formData !== 'undefined' ? formData.user : '' %>" required>
             <!-- Campo de Contraseña -->
             <input type="password" name="password" id="password" placeholder="Contraseña" required>
             <input type="submit" class="btn-login" value="Iniciar sesión">

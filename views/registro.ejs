@@ -14,13 +14,18 @@
         <form action="/registro" method="POST">
             <div class="top-header">
             <h4>Bienvenido </h4>
-                <small>Comienza tu aventura registrándote ahora</small>
+                <small>Comienza tu aventura <strong>registrandote ahora</strong></small>
                 <div class="singin-yatengocuenta">
                     <p>Ya tengo una cuenta</p>
                     <a href="/login">entrar</a>
                 </div>
             </div>
-            <input type="text" name="user" id="user" placeholder="Usuario" required>
+            <label for="tipoDocumento">Documento</label>
+            <select id="tipoDocumento" name="tipoDocumento" required>
+                <option value="CI">Cédula de Identidad</option>
+                <option value="Pasaporte">Pasaporte</option>
+            </select>
+            <input type="text" name="documento" id="documento" placeholder="Sin puntos ni guiones" required>
             <input type="text" name="name" id="name" placeholder="Nombre completo" required>
             <input type="email" name="email" id="email" placeholder="Correo Electrónico" required>
             <input type="password" name="password" id="password" placeholder="Contraseña" required>
