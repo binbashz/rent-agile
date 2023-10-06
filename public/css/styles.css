@@ -293,17 +293,26 @@ body {
     text-decoration: none;
 }
   
-  /* Estilo base para el enlace "Rent Agile" */
+
+
+/* Estilo base para el enlace "Rent Agile" */
 .rent-agile-link {
     font-size: 24px;
     transition: color 0.3s ease;
     text-decoration: none;
     position: relative;
     display: inline-block;
-    padding-right: 30px; /* Espacio para la imagen */
+    padding-right: 30px; 
     background-image: url('/public/images/homeicon.png'); 
     background-size: 24px 24px; 
     background-repeat: no-repeat;
+    color: black; 
+    text-align: center; 
+    line-height: 40px; 
+}
+
+.rent-agile-link img {
+    vertical-align: middle; 
 }
 
 /* Estilo para el enlace "Rent Agile" al pasar el mouse sobre él */
@@ -312,8 +321,3 @@ body {
     background-position: 100% center; 
     transition: background-position 0.3s ease; 
 }
-
-
-
-
-

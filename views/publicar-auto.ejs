@@ -29,11 +29,9 @@
                                 <div class="modal fade" id="alquilerAutos" tabindex="-1" role="dialog" aria-labelledby="alquilerAutos" aria-hidden="false">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-body">
-                                          
-                                            <% if (loggedin) { %>
+                                          <% if (loggedin) { %>
                                                 <h1><span class="small-text">Bienvenido,</span> <span class="user-name"><%= name %></span></h1>
                                             <% } %>
-                        
                                             <h1>Rent <strong>Agile</strong></h1>
                                         </div>
                                         <div class="center-text">
@@ -42,8 +40,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </a>
-                                                        <!-- Formulario -->
+                        </a>                             <!-- Formulario -->
                      <div class="alquiler-form">
     <form id="auto-alquiler-form" action="/publicar-auto" method="POST" enctype="multipart/form-data">
         <!-- Campos para el alquiler de autos -->
