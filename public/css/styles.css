@@ -280,7 +280,7 @@ body {
     background-color: #f0f0f0; 
 }
 
-/* Estilo para formulario publicar auto */
+/* Estilo para formulario publicar auto  variable de sesion */
 
 .small-text {
     font-size: 14px; 
@@ -292,3 +292,28 @@ body {
     color:  #dd2a01;
     text-decoration: none;
 }
+  
+  /* Estilo base para el enlace "Rent Agile" */
+.rent-agile-link {
+    font-size: 24px;
+    transition: color 0.3s ease;
+    text-decoration: none;
+    position: relative;
+    display: inline-block;
+    padding-right: 30px; /* Espacio para la imagen */
+    background-image: url('/public/images/homeicon.png'); 
+    background-size: 24px 24px; 
+    background-repeat: no-repeat;
+}
+
+/* Estilo para el enlace "Rent Agile" al pasar el mouse sobre él */
+.rent-agile-link:hover {
+    color: transparent; 
+    background-position: 100% center; 
+    transition: background-position 0.3s ease; 
+}
+
+
+
+
+

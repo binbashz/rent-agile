@@ -23,28 +23,26 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                         <!-- Hacer clic en "Rent Agile" te llevará al index -->
-                     <a href="/" class="rent-agile-link" style="text-decoration: none;">
-                     <div class="modal fade" id="alquilerAutos" tabindex="-1" role="dialog" aria-labelledby="alquilerAutos" aria-hidden="false">
-                     <!-- Título del formulario -->
-                        <div class="modal fade" id="alquilerAutos" tabindex="-1" role="dialog" aria-labelledby="alquilerAutos" aria-hidden="false">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-body">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                        <% if (loggedin) { %>
-                                            <h1><span class="small-text">Bienvenido,</span> <span class="user-name"><%= name %></span></h1>
-                                        <% } %>
-                                        
+                        <a href="/" class="rent-agile-link" style="text-decoration: none;">
+                            <div class="modal fade" id="alquilerAutos" tabindex="-1" role="dialog" aria-labelledby="alquilerAutos" aria-hidden="false">
+                                <!-- Título del formulario -->
+                                <div class="modal fade" id="alquilerAutos" tabindex="-1" role="dialog" aria-labelledby="alquilerAutos" aria-hidden="false">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-body">
+                                          
+                                            <% if (loggedin) { %>
+                                                <h1><span class="small-text">Bienvenido,</span> <span class="user-name"><%= name %></span></h1>
+                                            <% } %>
+                        
                                             <h1>Rent <strong>Agile</strong></h1>
-                                        </a>
+                                        </div>
                                         <div class="center-text">
                                             <h3>Publicar mi auto</h3>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                                                         <!-- Formulario -->
                      <div class="alquiler-form">
     <form id="auto-alquiler-form" action="/publicar-auto" method="POST" enctype="multipart/form-data">
