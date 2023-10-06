@@ -213,7 +213,6 @@ Estos son algunos de los aspectos más importantes de la ingeniería de esta apl
 
 -dotenv (Para la Gestión de Variables de Entorno)
 
--SweetAlert2 (Para las Alertas en el Frontend)
 
 -Autor
 Este proyecto fue desarrollado por Mauricio Ferreira.
