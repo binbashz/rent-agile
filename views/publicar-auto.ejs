@@ -87,5 +87,47 @@
            </div>
        </div>
    </div>
+            <!-- Código HTML para la alerta personalizada -->
+
+<% if (alert) { %>
+    <div id="custom-alert" class="custom-alert">
+        <div class="custom-alert-content">
+            <p><%= alertMessage %></p>
+            <a href="<%= perfil %>" id="go-perfil" class="btn btn-primary">Ir a perfil</a>
+        </div>
+    </div>
+<% } %>
+  
+    <!-- Código JavaScript para mostrar y controlar la alerta -->
+<script>
+    const form = document.getElementById('auto-alquiler-form');
+    const customAlert = document.getElementById('custom-alert');
+    const goPerfilButton = document.getElementById('go-perfil');
+   
+    if (form) {
+        form.addEventListener('submit', function (event) {
+            event.preventDefault(); // Evitar el envío del formulario
+
+            // Agrega aquí la lógica para verificar si el usuario está autenticado
+            const  loggedin = true; // Cambia esto a tu lógica de autenticación
+
+            if (!loggedin) {
+                // Mostrar la alerta personalizada
+                customAlert.style.display = 'block';
+            } else {
+                // Si el usuario está autenticado, puedes enviar el formulario
+                form.submit();
+            }
+        });
+    }
+
+    // Agrega un controlador de eventos al botón "ir perfil" en la alerta personalizada
+    goPerfilButton.addEventListener('click', () => {
+        // Redirige a la página de perfil
+        window.location.href = '/perfil'; // Cambia la ruta según tu necesidad
+    });
+</script>
+
+
 </body>
 </html>

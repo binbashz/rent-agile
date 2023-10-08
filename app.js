@@ -266,12 +266,22 @@ app.get('/perfil', (req, res) => {
 
 // Ruta para renderizar la vista publicar-auto.ejs
 app.get('/publicar-auto', (req, res) => {
-    // Supongamos que tienes la información del usuario y si está logueado en tu aplicación.
-    const loggedin = req.session.loggedin || false; 
-    const name = 'Nombre del usuario'; // Cambia esto al nombre del usuario real si está logueado
-  
-    // Renderiza la vista y pasa las variables requeridas
-    res.render('publicar-auto', { loggedin, name });
+    if (req.session.loggedin) {
+        const name = req.session.name || 'Nombre del usuario'; // Utiliza el nombre del usuario si está disponible en la sesión
+        const alert = {
+            alert: true,
+            alertTitle: "Publicación exitosa",
+            alertMessage: "El auto se ha publicado con éxito, puede administrarlo en su perfil.",
+            showConfirmButton: false,
+            ruta: '/perfil'
+        };
+        
+        // Renderiza la vista y pasa las variables requeridas
+        res.render('publicar-auto', { loggedin: true, name, alert, alertMessage: alert.alertMessage, perfil: alert.ruta });
+    } else {
+        // Si el usuario no está logueado, redirige a la página de inicio de sesión
+        res.redirect('/login');
+    }
 });
 
 
@@ -316,7 +326,6 @@ app.post('/publicar-auto', upload.single('foto'), async (req, res) => {
     const descripcion = req.body.Descripcion || 'Descripción Predeterminada';
     const foto = req.file ? `/uploads/${req.file.filename}` : null; // Obtener nombres de archivos
     
-
     // Insertar los datos en la tabla 'auto'
     connection.query(
         'INSERT INTO autos (usuario_id, nombre ,documento , marca, modelo, matricula, precioPorDia, telefono, accion, seguro, descripcion, foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
@@ -332,15 +341,16 @@ app.post('/publicar-auto', upload.single('foto'), async (req, res) => {
                     showConfirmButton: true,
                     ruta: ''
                 });
+
             } else {
-                // Redirigir al usuario u ofrecer un mensaje de éxito
+                // Antes de redirigir al perfil, mostrar la alerta de éxito
                 res.render('publicar-auto', {
                     alert: true,
-                    alertTitle: "Publicación Exitosa",
-                    alertMessage: "El auto se publicó con éxito.",
+                    alertTitle: "Publicación exitosa",
+                    alertMessage: "El auto se ha publicado con éxito, puede administrarlo en su perfil.",
                     alertIcon: 'success',
-                    showConfirmButton: true,
-                    ruta: ''
+                    showConfirmButton: false, // No mostramos un botón de confirmación aquí
+                    ruta: '/perfil' // La ruta para redirigir al perfil
                 });
             }
         }
