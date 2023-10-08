@@ -131,7 +131,14 @@ app.post('/registro', async (req, res) => {
     }
 
     let passwordHash = await bcryptjs.hash(password, 8);
-    connection.query('INSERT INTO users SET ?', { documento: documento, name: name, email: email, password: passwordHash, birthdate: birthdate, department: department }, async (error, results) => {
+    connection.query('INSERT INTO users SET ?', {  // Insertamos los datos 
+         documento: documento, 
+         name: name, 
+         email: email,
+          password: passwordHash, 
+          birthdate: birthdate, 
+          department: department 
+        }, async (error, results) => {
         if (error) {
             console.log(error);
             // Manejo de errores, puedes renderizar la vista de registro con un mensaje de error si es necesario
@@ -146,10 +153,13 @@ app.post('/registro', async (req, res) => {
             });
         } else {
             // Almacenar valores en la sesión
+            const usuario_id = results.insertId; // Obtiene el ID del usuario registrado
             req.session.loggedin = true;
+            req.session.usuario_id = usuario_id;
             req.session.documento= documento; // Nombre numero del  usuario
             req.session.name = name; // Nombre completo
             req.session.email = email; // Correo electrónico
+            
             res.redirect('/perfil');
 
             // Redirigir al usuario a la vista de registro exitoso
@@ -253,21 +263,19 @@ app.get('/perfil', (req, res) => {
     }
 });
 
-// Ruta publicar auto - GET
+
+// Ruta para renderizar la vista publicar-auto.ejs
 app.get('/publicar-auto', (req, res) => {
-    if (req.session.loggedin) {
-        res.render('publicar-auto', {
-            loggedin: req.session.loggedin,
-            documento: req.session.documento,
-            name: req.session.name // Agrega name a los datos que se pasan a la vista
-        });
-    } else {
-        res.redirect('/login');
-    }
+    // Supongamos que tienes la información del usuario y si está logueado en tu aplicación.
+    const loggedin = req.session.loggedin || false; 
+    const name = 'Nombre del usuario'; // Cambia esto al nombre del usuario real si está logueado
+  
+    // Renderiza la vista y pasa las variables requeridas
+    res.render('publicar-auto', { loggedin, name });
 });
 
-// Ruta para publicar auto - POST  // tabla autos
 
+// Ruta para publicar auto - POST  // tabla autos
 app.post('/publicar-auto', upload.single('foto'), async (req, res) => {
         
     console.log(req.body); // Ver los datos del formulario
@@ -278,7 +286,7 @@ app.post('/publicar-auto', upload.single('foto'), async (req, res) => {
         // Guardar los datos del formulario en la sesión para recuperar después del inicio de sesión
         req.session.formData = {
             usuarioId: req.session.userId,
-            NombreCompleto: req.body.NombreCompleto,
+            Nombre: req.body.Nombre,
             Documento: req.body.Documento,
             Marca: req.body.Marca,
             Modelo: req.body.Modelo,
@@ -288,7 +296,7 @@ app.post('/publicar-auto', upload.single('foto'), async (req, res) => {
             Accion: req.body.Accion,
             Seguro: req.body.Seguro,
             Descripcion: req.body.Descripcion,
-            Foto: req.file.map((file) => file.filename),
+            Foto: req.file ? `/uploads/${req.file.filename}` : null,
         };
         // Redirigir al usuario a la página de inicio de sesión
         return res.redirect('/login');
@@ -296,22 +304,23 @@ app.post('/publicar-auto', upload.single('foto'), async (req, res) => {
 
     // Obtener los datos del formulario del cuerpo de la solicitud
     const usuarioId = req.session.userId; // Obtener el ID del usuario desde la sesión
-    const nombreCompleto = req.session.nombreCompleto;
-    const documento = req.body.Documento;
-    const marca = req.body.Marca;
-    const modelo = req.body.Modelo;
-    const matricula = req.body.Matricula;
-    const precioPorDia = req.body.PrecioPorDia;
-    const telefono = req.body.Telefono;
-    const accion = req.body.Accion;
-    const seguro = req.body.Seguro;
-    const descripcion = req.body.Descripcion;
-    const foto = req.file.map((file) => file.filename); // Obtener nombres de archivos
+    const nombre = req.body.Nombre || 'Valor Predeterminado';
+    const documento = req.body.Documento || 'Otro Valor Predeterminado';
+    const marca = req.body.Marca || 'Marca Predeterminada';
+    const modelo = req.body.Modelo || 'Modelo Predeterminado';
+    const matricula = req.body.Matricula || 'Matricula Predeterminada';
+    const precioPorDia = req.body.PrecioPorDia || 0; // Valor predeterminado numérico
+    const telefono = req.body.Telefono || 'Teléfono Predeterminado';
+    const accion = req.body.Accion || 'Acción Predeterminada';
+    const seguro = req.body.Seguro || 'Seguro Predeterminado';
+    const descripcion = req.body.Descripcion || 'Descripción Predeterminada';
+    const foto = req.file ? `/uploads/${req.file.filename}` : null; // Obtener nombres de archivos
+    
 
     // Insertar los datos en la tabla 'auto'
     connection.query(
-        'INSERT INTO autos (usuario_id, nombreCompleto ,documento , marca, modelo, matricula, precioPorDia, telefono, accion, seguro, descripcion, foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-        [usuarioId, nombreCompleto, documento, marca, modelo, matricula, precioPorDia, telefono, accion, seguro, descripcion, foto ],
+        'INSERT INTO autos (usuario_id, nombre ,documento , marca, modelo, matricula, precioPorDia, telefono, accion, seguro, descripcion, foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+        [usuarioId, nombre, documento, marca, modelo, matricula, precioPorDia, telefono, accion, seguro, descripcion, foto ],
         (error, results) => {
             if (error) {
                 console.log('Error al insertar datos en la base de datos:', error);
@@ -338,6 +347,9 @@ app.post('/publicar-auto', upload.single('foto'), async (req, res) => {
     );
 });
 
+// Ruta para la página de inicio
+// Si el usuario ha iniciado sesión ,muestra la página de inicio con su nombre
+// != iniciado sesión, muestra la página de inicio con un mensaje 
 
 app.get('/', (req, res) => {
     if (req.session.loggedin) {

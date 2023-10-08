@@ -13,90 +13,79 @@
    <!-- Texto en la imagen de fondo -->
    <div class="background-text">
     <p class="shiny-text"><strong>Tu auto podría ser la llave para ingresos adicionales.</strong></p>
-</div>
-        <!-- Contenedor principal con el formulario -->
-        <div class="modal fade" id="alquilerAutos" tabindex="-1" role="dialog" aria-labelledby="alquilerAutos" aria-hidden="false">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <!-- Hacer clic en "Rent Agile" te llevará al index -->
-                        <a href="/" class="rent-agile-link" style="text-decoration: none;">
-                            <div class="modal fade" id="alquilerAutos" tabindex="-1" role="dialog" aria-labelledby="alquilerAutos" aria-hidden="false">
-                                <!-- Título del formulario -->
-                                <div class="modal fade" id="alquilerAutos" tabindex="-1" role="dialog" aria-labelledby="alquilerAutos" aria-hidden="false">
-                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                        <div class="modal-body">
-                                          <% if (loggedin) { %>
-                                                <h1><span class="small-text">Bienvenido,</span> <span class="user-name"><%= name %></span></h1>
-                                            <% } %>
-                                            <h1>Rent <strong>Agile</strong></h1>
-                                        </div>
-                                        <div class="center-text">
-                                            <h3>Publicar mi auto</h3>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>                             <!-- Formulario -->
-                     <div class="alquiler-form">
-        <!-- Campos para el alquiler de autos -->
-
-        <label for="nombreCompleto">Nombre y Apellido</label>
-        <input type="text" id="nombreCompleto" name="nombreCompleto" placeholder="Ingrese su nombre y apellido" required>
-
-        <label for="tipoDocumento"> Documento</label>
-        <select id="tipoDocumento" name="tipoDocumento" required>
-            <option value="CI">Cédula de Identidad</option>
-            <option value="Pasaporte">Pasaporte</option>
-        </select>
-        
-        <label for="numeroDocumento">Número de Documento</label>
-        <input type="text" id="documento" name="documento" placeholder="Sin puntos ni guiones" required>
-        
-
-        <label for="marca">Marca del Auto</label>
-        <input type="text" id="marca" name="marca" placeholder="Ingrese la marca del auto" required>
-
-        <label for="modelo">Modelo del Auto</label>
-        <input type="text" id="modelo" name="modelo" placeholder="Ingrese el modelo del auto" required>
-
-        <label for="matricula">Matrícula del Auto</label>
-        <input type="text" id="matricula" name="matricula" placeholder="Ingrese la matrícula del auto" required>
-
-        <label for="precioPorDia">Precio por día:</label>
-        <input type="text" id="precioPorDia" name="precioPorDia" placeholder="Ingrese el precio por día" required>
-
-        <label for="telefono">Teléfono</label>
-        <input type="tel" id="telefono" name="telefono" placeholder="Ingrese su número de teléfono" required>
-
-        <label for="accion">Acción</label>
-        <select name="accion" id="accion" required>
-            <option value="Alquilar">Alquilar</option>
-            <option value="Publicar para alquiler">Publicar para alquiler</option>
-        </select>
-
-        <label for="seguro">Información sobre el Seguro del Auto</label>
-        <textarea id="seguro" name="seguro" placeholder="Ingrese información sobre el seguro del auto"></textarea>
-
-        <label for="descripcion">Descripción del Auto</label>
-        <textarea id="descripcion" name="descripcion" placeholder="Ingrese una descripción del auto"></textarea>
-
-       
-        <form id="auto-alquiler-form" action="/publicar-auto" method="POST" enctype="multipart/form-data">
-            <label for="foto">Subir Fotos del Auto </label>
-            <input type="file"  name="foto"  required> 
-             <!-- Botón de envío -->
-            <input type="submit" class="btn btn-primary" value="Enviar">  
-    </form>
-    <!-- Mensaje de resultado -->
-    <div class="alquiler-msj"></div>
-</div>
-    
-    </body>
-    </html>
-
+   </div>
+   <!-- Contenedor principal con el formulario -->
+   <div class="modal fade" id="alquilerAutos" tabindex="-1" role="dialog" aria-labelledby="alquilerAutos" aria-hidden="false">
+       <div class="modal-dialog modal-dialog-centered" role="document">
+           <div class="modal-content">
+               <div class="modal-body">
+                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                       <span aria-hidden="true">&times;</span>
+                   </button>
+                   <!-- Hacer clic en "Rent Agile" te llevará al index -->
+                   <a href="/" class="rent-agile-link" style="text-decoration: none;">
+                       <!-- Título del formulario -->
+                       <% if (loggedin) { %>
+                           <h1><span class="small-text">Bienvenido,</span> <span class="user-name"><%= name %></span></h1>
+                       <% } %>
+                       <h1>Rent <strong>Agile</strong></h1>
+                       <div class="center-text">
+                           <h3>Publicar mi auto</h3>
+                       </div>
+                   </a>
+                   <!-- Formulario -->
+                   <div class="alquiler-form">
+                       <!-- Campos para el alquiler de autos -->
+                       <form id="auto-alquiler-form" action="/publicar-auto" method="POST" enctype="multipart/form-data">
+                           <label for="foto">Subir Foto del Auto</label>
+                           <input type="file" name="foto" required>
+   
+                           <label for="nombre">Nombre</label>
+                           <input type="text" id="nombre" name="nombre" placeholder="Ingrese su nombre y apellido" required>
+   
+                           <label for="tipoDocumento">Documento</label>
+                           <select id="tipoDocumento" name="tipoDocumento" required>
+                               <option value="CI">Cédula de Identidad</option>
+                               <option value="Pasaporte">Pasaporte</option>
+                           </select>
+   
+                           <label for="numeroDocumento">Número de Documento</label>
+                           <input type="text" id="documento" name="documento" placeholder="Sin puntos ni guiones" required>
+   
+                           <label for="marca">Marca del Auto</label>
+                           <input type="text" id="marca" name="marca" placeholder="Ingrese la marca del auto" required>
+   
+                           <label for="modelo">Modelo del Auto</label>
+                           <input type="text" id="modelo" name="modelo" placeholder="Ingrese el modelo del auto" required>
+   
+                           <label for="matricula">Matrícula del Auto</label>
+                           <input type="text" id="matricula" name="matricula" placeholder="Ingrese la matrícula del auto" required>
+   
+                           <label for="precioPorDia">Precio por día:</label>
+                           <input type="text" id="precioPorDia" name="precioPorDia" placeholder="Ingrese el precio por día" required>
+   
+                           <label for="telefono">Teléfono</label>
+                           <input type="tel" id="telefono" name="telefono" placeholder="Ingrese su número de teléfono" required>
+   
+                           <label for="accion">Acción</label>
+                           <select name="accion" id="accion" required>
+                               <option value="Alquilar">Alquilar</option>
+                               <option value="Publicar para alquiler">Publicar para alquiler</option>
+                           </select>
+   
+                           <label for="seguro">Información sobre el Seguro del Auto</label>
+                           <textarea id="seguro" name="seguro" placeholder="Ingrese información sobre el seguro del auto"></textarea>
+   
+                           <label for="descripcion">Descripción del Auto</label>
+                           <textarea id="descripcion" name="descripcion" placeholder="Ingrese una descripción del auto"></textarea>
+   
+                           <!-- Botón de envío -->
+                           <input type="submit" class="btn btn-primary" value="Enviar">
+                       </form>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
 </body>
 </html>
