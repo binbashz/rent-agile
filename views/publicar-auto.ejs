@@ -42,7 +42,6 @@
                             </div>
                         </a>                             <!-- Formulario -->
                      <div class="alquiler-form">
-    <form id="auto-alquiler-form" action="/publicar-auto" method="POST" enctype="multipart/form-data">
         <!-- Campos para el alquiler de autos -->
 
         <label for="nombreCompleto">Nombre y Apellido</label>
@@ -85,11 +84,12 @@
         <label for="descripcion">Descripción del Auto</label>
         <textarea id="descripcion" name="descripcion" placeholder="Ingrese una descripción del auto"></textarea>
 
-        <label for="foto">Subir Fotos del Auto <small>(hasta 4 fotos)</small></label>
-        <input type="file" id="foto" name="foto[]" accept="image/*" multiple max="4" required>
-
-        <!-- Botón de envío -->
-        <input type="submit" class="btn btn-primary" value="Enviar">
+       
+        <form id="auto-alquiler-form" action="/publicar-auto" method="POST" enctype="multipart/form-data">
+            <label for="foto">Subir Fotos del Auto </label>
+            <input type="file"  name="foto"  required> 
+             <!-- Botón de envío -->
+            <input type="submit" class="btn btn-primary" value="Enviar">  
     </form>
     <!-- Mensaje de resultado -->
     <div class="alquiler-msj"></div>
@@ -97,6 +97,6 @@
     
     </body>
     </html>
-    
+
 </body>
 </html>

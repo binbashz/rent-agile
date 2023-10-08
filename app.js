@@ -4,20 +4,35 @@ const cors = require('cors');
 const path = require('path');
 const { v4: uuidv4 } = require('uuid'); 
 const multer = require('multer');
+var fs = require('fs');
 
 // Configura el almacenamiento y las opciones de 'multer'
 const storage = multer.diskStorage({
-    destination: 'public/uploads/', // Directorio donde se guardarán los archivos
+    destination: './public/uploads', // Directorio donde se guardarán los archivos
     filename: (req, file, callback) => {
         const uniqueFileName = `${uuidv4()}-${file.originalname}`;
         callback(null, uniqueFileName); // Utiliza UUID para generar un nombre único para el archivo
     }
 });
 
-const upload = multer({ storage: storage }); 
+const upload = multer({ 
+    storage: storage,
+    fileFilter: (req, file, callback) => {
+        if (file.fieldname === "foto") {
+            callback(null, true);
+        } else {
+            callback(new Error("Unexpected field")); // Campo inesperado
+        }
+    }
+});
 
-// Configura CORS para permitir solicitudes desde todos los orígenes
-app.use(cors());
+
+// Configurar CORS para permitir solicitudes desde cualquier origen local
+app.use(cors({
+    origin: 'http://localhost:3000', // Puedes cambiar el puerto si es diferente
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true, // Si necesitas admitir cookies en las solicitudes
+  }));
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -238,23 +253,31 @@ app.get('/perfil', (req, res) => {
     }
 });
 
-// Ruta publicar auto
+// Ruta publicar auto - GET
 app.get('/publicar-auto', (req, res) => {
-    res.render('publicar-auto', {  loggedin: req.session.loggedin, name: req.session.name });
-
-
-
+    if (req.session.loggedin) {
+        res.render('publicar-auto', {
+            loggedin: req.session.loggedin,
+            documento: req.session.documento,
+            name: req.session.name // Agrega name a los datos que se pasan a la vista
+        });
+    } else {
+        res.redirect('/login');
+    }
 });
-
 
 // Ruta para publicar auto - POST  // tabla autos
 
-app.post('/publicar-auto', upload.array('foto', 4), async (req, res) => {
+app.post('/publicar-auto', upload.single('foto'), async (req, res) => {
+        
+    console.log(req.body); // Ver los datos del formulario
+    console.log(req.file); // Ver los archivos cargados
 
     // Verificar si el usuario ha iniciado sesión 
     if (!req.session.loggedin) {
         // Guardar los datos del formulario en la sesión para recuperar después del inicio de sesión
         req.session.formData = {
+            usuarioId: req.session.userId,
             NombreCompleto: req.body.NombreCompleto,
             Documento: req.body.Documento,
             Marca: req.body.Marca,
@@ -265,31 +288,30 @@ app.post('/publicar-auto', upload.array('foto', 4), async (req, res) => {
             Accion: req.body.Accion,
             Seguro: req.body.Seguro,
             Descripcion: req.body.Descripcion,
-            Foto: req.body.Foto,
+            Foto: req.file.map((file) => file.filename),
         };
         // Redirigir al usuario a la página de inicio de sesión
-        res.redirect('/login');
-        return;
-    }
+        return res.redirect('/login');
+        }
 
     // Obtener los datos del formulario del cuerpo de la solicitud
     const usuarioId = req.session.userId; // Obtener el ID del usuario desde la sesión
     const nombreCompleto = req.session.nombreCompleto;
-    const documento = req.body.documento;
-    const marca = req.body.marca;
-    const modelo = req.body.modelo;
-    const matricula = req.body.matricula;
-    const precioPorDia = req.body.precioPorDia;
-    const telefono = req.body.telefono;
-    const accion = req.body.accion;
-    const seguro = req.body.seguro;
-    const descripcion = req.body.descripcion;
-    const foto = req.file.filename; // Obtener el nombre del archivo cargado
+    const documento = req.body.Documento;
+    const marca = req.body.Marca;
+    const modelo = req.body.Modelo;
+    const matricula = req.body.Matricula;
+    const precioPorDia = req.body.PrecioPorDia;
+    const telefono = req.body.Telefono;
+    const accion = req.body.Accion;
+    const seguro = req.body.Seguro;
+    const descripcion = req.body.Descripcion;
+    const foto = req.file.map((file) => file.filename); // Obtener nombres de archivos
 
     // Insertar los datos en la tabla 'auto'
     connection.query(
         'INSERT INTO autos (usuario_id, nombreCompleto ,documento , marca, modelo, matricula, precioPorDia, telefono, accion, seguro, descripcion, foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-        [usuarioId, nombreCompleto, documento, marca, modelo, matricula, precioPorDia, telefono, accion, seguro, descripcion, foto],
+        [usuarioId, nombreCompleto, documento, marca, modelo, matricula, precioPorDia, telefono, accion, seguro, descripcion, foto ],
         (error, results) => {
             if (error) {
                 console.log('Error al insertar datos en la base de datos:', error);
@@ -315,6 +337,7 @@ app.post('/publicar-auto', upload.array('foto', 4), async (req, res) => {
         }
     );
 });
+
 
 app.get('/', (req, res) => {
     if (req.session.loggedin) {
