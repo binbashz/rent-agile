@@ -117,6 +117,28 @@
                 <img src="https://img.icons8.com/color/48/full-tank.png" width="48" height="48" alt="full-tank" style="float: right;">
             </h2>
         </div>
+
+
+
+<!-- Cajas para mostrar los autos -->
+<!-- Cajas para mostrar los autos -->
+<% if (autos.length > 0) { %>
+    <div class="autos-container">
+        <% autos.forEach(function(auto) { %>
+            <div class="auto-box">
+                <img src="<%= auto.foto %>" alt="Foto del Auto">
+                <h3><%= auto.matricula %></h3>
+                <p><strong>Marca:</strong> <%= auto.marca %></p>
+                <p><strong>Modelo:</strong> <%= auto.modelo %></p>
+                <p><strong>Precio por Día:</strong> $<%= auto.precioPorDia %></p>
+                <p><strong>Acción:</strong> <%= auto.accion %></p>
+                <p><strong>Seguro:</strong> <%= auto.seguro %></p>
+                <p><strong>Descripción:</strong> <%= auto.descripcion %></p>
+            </div>
+        <% }); %>
+    </div>
+<% } %>
+
         <p>Aquí puedes gestionar tus autos.</p>
         <!-- Formulario simplificado para guardar una nota -->
         <form method="post" action="/guardar-nota">

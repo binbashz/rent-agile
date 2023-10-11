@@ -256,16 +256,33 @@ app.post('/auth', async (req, res) => {
 });
 
 // Ruta para el perfil del usuario
+
 app.get('/perfil', (req, res) => {
     const alertInfo = req.query.alertInfo; // Obtén el parámetro de alerta de la URL
 
     if (req.session.loggedin) {
-        res.render('perfil', {
-            documento: req.session.documento, // muestra el número de usuario en el perfil
-            name: req.session.name, // muestra el nombre de pila en su perfil
-            email: req.session.email,
-            alertInfo // Pasa la información de la alerta a la vista
-        });
+        const usuario_id = req.session.usuario_id; // Obtén el ID del usuario desde la sesión
+
+        // Recupera los autos publicados por el usuario desde la base de datos
+        connection.query(
+            'SELECT nombre, marca, modelo, precioPorDia, telefono, accion, seguro, descripcion, foto FROM autos WHERE usuario_id = ?',
+            [usuario_id],
+            (error, results) => {
+                if (error) {
+                    console.log('Error al recuperar datos de la base de datos:', error);
+                    // Trata el error adecuadamente, por ejemplo, redirige a una página de error.
+                } else {
+                    // Renderiza la vista de perfil y pasa los autos recuperados a la vista.
+                    res.render('perfil', {
+                        alertInfo,
+                        autos: results, // Pasa los autos recuperados a la vista.
+                        documento: req.session.documento,
+                        name: req.session.name,
+                        email: req.session.email
+                    });
+                }
+            }
+        );
     } else {
         res.redirect('/login');
     }
@@ -350,10 +367,9 @@ app.post('/publicar-auto', upload.single('foto'), async (req, res) => {
         }
     );
 });
+
 // Ruta para la página de inicio
 // Si el usuario ha iniciado sesión ,muestra la página de inicio con su nombre
-// != iniciado sesión, muestra la página de inicio con un mensaje 
-
 app.get('/', (req, res) => {
     if (req.session.loggedin) {
         res.render('index', {
