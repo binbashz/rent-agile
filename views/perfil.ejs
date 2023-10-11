@@ -52,6 +52,17 @@
     <div class="red-bar">
         <!-- Contenido de la barra roja -->
     </div>
+                <!-- si el usario publico un auto y es redirigo a el perfil muestra alerta de exito -->
+                <% if (typeof alert !== 'undefined' && alert === 'error') { %>
+                    <div class="alert alert-danger" role="alert">
+                      Se produjo un error al publicar el auto. Por favor, inténtelo de nuevo más tarde.
+                    </div>
+                  <% } else if (typeof alertInfo !== 'undefined' && alertInfo === 'publicacionExitosa') { %>
+                    <div class="alert alert-success" role="alert">
+                      Publicación exitosa: El auto se ha publicado con éxito.
+                    </div>
+                  <% } %>
+                  
 
     <div class="container mt-5">
         <header class="text-center">

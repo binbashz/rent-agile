@@ -326,6 +326,7 @@ body {
 
 /*  ** Estilos para la alerta personalizada si no está logueado -mensaje de exito - ir perfil **  */
 .custom-alert {
+    display: none;
     position: fixed;
     top: 0;
     left: 0;

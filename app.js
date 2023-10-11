@@ -4,6 +4,7 @@ const cors = require('cors');
 const path = require('path');
 const { v4: uuidv4 } = require('uuid'); 
 const multer = require('multer');
+const bodyParser = require('body-parser');
 var fs = require('fs');
 
 // Configura el almacenamiento y las opciones de 'multer'
@@ -38,6 +39,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 // Establece la carpeta 'public' para servir archivos estáticos (como imágenes)
 app.use('/public', express.static(path.join(__dirname, 'public')));
+
+// Middleware para analizar los datos del formulario
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 // 3 invocamos a dotenv
 const dotenv = require('dotenv');
@@ -219,7 +224,7 @@ app.post('/auth', async (req, res) => {
             } else {
                 req.session.loggedin = true;
                 req.session.documento = results[0].documento; // nombre de registro
-                req.session.userId = results[0].id;  // asigna ID del usuario a la variable de sesión userId
+                req.session.usuario_id = results[0].id;  // asigna ID del usuario a la variable de sesión userId
                 req.session.name = results[0].name; // Nombre de usuario
                 req.session.email = results[0].email; // Correo
 
@@ -252,11 +257,14 @@ app.post('/auth', async (req, res) => {
 
 // Ruta para el perfil del usuario
 app.get('/perfil', (req, res) => {
+    const alertInfo = req.query.alertInfo; // Obtén el parámetro de alerta de la URL
+
     if (req.session.loggedin) {
         res.render('perfil', {
-            documento: req.session.documento, // muestra el numero de usuario en el perfil
-            name: req.session.name, // muestra nombre de pila en su perfil
-            email: req.session.email 
+            documento: req.session.documento, // muestra el número de usuario en el perfil
+            name: req.session.name, // muestra el nombre de pila en su perfil
+            email: req.session.email,
+            alertInfo // Pasa la información de la alerta a la vista
         });
     } else {
         res.redirect('/login');
@@ -266,18 +274,12 @@ app.get('/perfil', (req, res) => {
 
 // Ruta para renderizar la vista publicar-auto.ejs
 app.get('/publicar-auto', (req, res) => {
+    console.log('Valor de loggedin:', req.session.loggedin);
     if (req.session.loggedin) {
         const name = req.session.name || 'Nombre del usuario'; // Utiliza el nombre del usuario si está disponible en la sesión
-        const alert = {
-            alert: true,
-            alertTitle: "Publicación exitosa",
-            alertMessage: "El auto se ha publicado con éxito, puede administrarlo en su perfil.",
-            showConfirmButton: false,
-            ruta: '/perfil'
-        };
-        
+
         // Renderiza la vista y pasa las variables requeridas
-        res.render('publicar-auto', { loggedin: true, name, alert, alertMessage: alert.alertMessage, perfil: alert.ruta });
+        res.render('publicar-auto', { loggedin: true, name });
     } else {
         // Si el usuario no está logueado, redirige a la página de inicio de sesión
         res.redirect('/login');
@@ -287,76 +289,67 @@ app.get('/publicar-auto', (req, res) => {
 
 // Ruta para publicar auto - POST  // tabla autos
 app.post('/publicar-auto', upload.single('foto'), async (req, res) => {
-        
     console.log(req.body); // Ver los datos del formulario
     console.log(req.file); // Ver los archivos cargados
 
+    // Definir la variable loggedin en el controlador
+    const loggedin = req.session.loggedin || false;
+
     // Verificar si el usuario ha iniciado sesión 
-    if (!req.session.loggedin) {
+    if (!loggedin) {
         // Guardar los datos del formulario en la sesión para recuperar después del inicio de sesión
         req.session.formData = {
-            usuarioId: req.session.userId,
-            Nombre: req.body.Nombre,
-            Documento: req.body.Documento,
-            Marca: req.body.Marca,
-            Modelo: req.body.Modelo,
-            Matricula: req.body.Matricula,
-            PrecioPorDia: req.body.PrecioPorDia,
-            Telefono: req.body.Telefono,
-            Accion: req.body.Accion,
-            Seguro: req.body.Seguro,
-            Descripcion: req.body.Descripcion,
-            Foto: req.file ? `/uploads/${req.file.filename}` : null,
+            usuario_id: req.session.usuario_id,
+            nombre: req.body.nombre,
+            documento: req.body.documento,
+            marca: req.body.marca,
+            modelo: req.body.modelo,
+            matricula: req.body.matricula,
+            precioPorDia: req.body.precioPorDia,
+            telefono: req.body.telefono,
+            accion: req.body.accion,
+            seguro: req.body.seguro,
+            descripcion: req.body.descripcion,
+            foto: req.file ? `/uploads/${req.file.filename}` : null,
         };
         // Redirigir al usuario a la página de inicio de sesión
         return res.redirect('/login');
-        }
+    }
 
-    // Obtener los datos del formulario del cuerpo de la solicitud
-    const usuarioId = req.session.userId; // Obtener el ID del usuario desde la sesión
-    const nombre = req.body.Nombre || 'Valor Predeterminado';
-    const documento = req.body.Documento || 'Otro Valor Predeterminado';
-    const marca = req.body.Marca || 'Marca Predeterminada';
-    const modelo = req.body.Modelo || 'Modelo Predeterminado';
-    const matricula = req.body.Matricula || 'Matricula Predeterminada';
-    const precioPorDia = req.body.PrecioPorDia || 0; // Valor predeterminado numérico
-    const telefono = req.body.Telefono || 'Teléfono Predeterminado';
-    const accion = req.body.Accion || 'Acción Predeterminada';
-    const seguro = req.body.Seguro || 'Seguro Predeterminado';
-    const descripcion = req.body.Descripcion || 'Descripción Predeterminada';
+    // Establecer las variables de sesión correctamente después de verificar el inicio de sesión
+    req.session.loggedin = true;
+    req.session.name = 'Nombre del usuario';
+
+    // Obtener los datos del formulario enviado al servidor
+    const usuario_id = req.session.usuario_id; // Obtener el ID del usuario desde la sesión
+    const nombre = req.body.nombre; 
+    const documento = req.body.documento;
+    const marca = req.body.marca; 
+    const modelo = req.body.modelo; 
+    const matricula = req.body.matricula; 
+    const precioPorDia = req.body.precioPorDia; 
+    const telefono = req.body.telefono;
+    const accion = req.body.accion; 
+    const seguro = req.body.seguro;
+    const descripcion = req.body.descripcion;
     const foto = req.file ? `/uploads/${req.file.filename}` : null; // Obtener nombres de archivos
-    
+
     // Insertar los datos en la tabla 'auto'
     connection.query(
         'INSERT INTO autos (usuario_id, nombre ,documento , marca, modelo, matricula, precioPorDia, telefono, accion, seguro, descripcion, foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-        [usuarioId, nombre, documento, marca, modelo, matricula, precioPorDia, telefono, accion, seguro, descripcion, foto ],
+        [usuario_id, nombre, documento, marca, modelo, matricula, precioPorDia, telefono, accion, seguro, descripcion, foto ],
         (error, results) => {
             if (error) {
                 console.log('Error al insertar datos en la base de datos:', error);
-                res.render('publicar-auto', {
-                    alert: true,
-                    alertTitle: "Error en la Publicación",
-                    alertMessage: "Ha ocurrido un error al publicar el auto. Por favor, inténtalo de nuevo más tarde.",
-                    alertIcon: 'error',
-                    showConfirmButton: true,
-                    ruta: ''
-                });
-
+                // Redirigir al perfil con la alerta de error
+                res.redirect('/perfil?alert=error');
             } else {
-                // Antes de redirigir al perfil, mostrar la alerta de éxito
-                res.render('publicar-auto', {
-                    alert: true,
-                    alertTitle: "Publicación exitosa",
-                    alertMessage: "El auto se ha publicado con éxito, puede administrarlo en su perfil.",
-                    alertIcon: 'success',
-                    showConfirmButton: false, // No mostramos un botón de confirmación aquí
-                    ruta: '/perfil' // La ruta para redirigir al perfil
-                });
+                // Redirigir al perfil con la alerta de éxito
+                res.redirect('/perfil?alertInfo=publicacionExitosa');
             }
         }
     );
 });
-
 // Ruta para la página de inicio
 // Si el usuario ha iniciado sesión ,muestra la página de inicio con su nombre
 // != iniciado sesión, muestra la página de inicio con un mensaje 
