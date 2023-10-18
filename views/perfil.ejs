@@ -127,8 +127,7 @@
         <% autos.forEach(function(auto) { %>
             <div class="auto-box">
                 <h3> Mis autos publicados</h3>
-                <img src="<%= auto.foto %>" alt="Foto del Auto">
-                <p><strong>Marca:</strong> <%= auto.marca %></p>
+                <img src="<%= auto.foto %>" alt="Foto del Auto" style="max-width: 400px; max-height: 300px; border-radius: 10px;">
                 <p><strong>Modelo:</strong> <%= auto.modelo %></p>
                 <p><strong>Precio por Día:</strong> $<%= auto.precioPorDia %></p>
                 <p><strong>Acción:</strong> <%= auto.accion %></p>
