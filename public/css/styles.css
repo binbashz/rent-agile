@@ -367,3 +367,36 @@ body {
 .custom-alert-content button:hover {
     background-color: rgb(150, 10, 10);
 }
+
+
+/* Estilos para la caja que contiene la información del auto en el perfil */
+.auto-box {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .auto-box img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .auto-box h3 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #cf1909; /* Cambiar el color a rojo */
+  }
+  
+  .auto-box p {
+    color: #333; /* Color de texto principal */
+    font-size: 16px;
+    margin: 8px 0;
+  }
+  
+  .auto-box p strong {
+    font-weight: bold;
+  }
+  

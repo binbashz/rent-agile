@@ -120,14 +120,14 @@
 
 
 
-<!-- Cajas para mostrar los autos -->
+
 <!-- Cajas para mostrar los autos -->
 <% if (autos.length > 0) { %>
     <div class="autos-container">
         <% autos.forEach(function(auto) { %>
             <div class="auto-box">
+                <h3> Mis autos publicados</h3>
                 <img src="<%= auto.foto %>" alt="Foto del Auto">
-                <h3><%= auto.matricula %></h3>
                 <p><strong>Marca:</strong> <%= auto.marca %></p>
                 <p><strong>Modelo:</strong> <%= auto.modelo %></p>
                 <p><strong>Precio por Día:</strong> $<%= auto.precioPorDia %></p>

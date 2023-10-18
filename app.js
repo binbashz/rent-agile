@@ -81,6 +81,11 @@ app.get('/about', (req, res) => {
     res.render('about');
 });
 
+app.get('/perfilmagnament', (req, res) => {
+    res.render('perfilmagnament');
+});
+
+
 //Ruta para el registro ****************
 
 app.post('/registro', async (req, res) => {
@@ -327,7 +332,7 @@ app.post('/publicar-auto', upload.single('foto'), async (req, res) => {
             accion: req.body.accion,
             seguro: req.body.seguro,
             descripcion: req.body.descripcion,
-            foto: req.file ? `/uploads/${req.file.filename}` : null,
+            foto: req.file ? `/uploads/${req.file.filename}` : null, 
         };
         // Redirigir al usuario a la página de inicio de sesión
         return res.redirect('/login');
@@ -349,8 +354,7 @@ app.post('/publicar-auto', upload.single('foto'), async (req, res) => {
     const accion = req.body.accion; 
     const seguro = req.body.seguro;
     const descripcion = req.body.descripcion;
-    const foto = req.file ? `/uploads/${req.file.filename}` : null; // Obtener nombres de archivos
-
+    const foto = req.file ? `/public/uploads/${req.file.filename}` : null;
     // Insertar los datos en la tabla 'auto'
     connection.query(
         'INSERT INTO autos (usuario_id, nombre ,documento , marca, modelo, matricula, precioPorDia, telefono, accion, seguro, descripcion, foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
