@@ -21,7 +21,6 @@ Esta es una aplicación web que permite a los usuarios iniciar sesión, completa
     - publicar-auto.ejs
     - registro.ejs
   - .gitignore (archivo de configuración para ignorar archivos y carpetas en el control de versiones)
-  - README.md (documentación de tu proyecto)
   - app.js (archivo principal de la aplicación)
   - db.js (archivo de configuración de la base de datos)
   - env (archivo de variables de entorno)
